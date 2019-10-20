@@ -13,7 +13,9 @@
 ;; @@
 (ns juicy-winds
   (:require [pinkgorilla.ui.vega :refer [vega!]]
-            [pinkgorilla.ui.hickup :refer [html!]]))
+            [pinkgorilla.ui.highcharts :refer [highchart!]]
+            [pinkgorilla.ui.hiccup :refer [html!]]))
+            
             
             
 ;; @@
@@ -24,6 +26,9 @@
 ;; @@
 (vega! {:bongo 1})
 ;; @@
+;; ->
+;;; 
+;; <-
 ;; =>
 ;;; ["^ ","~:type","html","~:content",["span",["^ ","~:class","clj-unkown"],"#object[pinkgorilla.ui.vega$vega_BANG_$reify__102290 0x1fa3ed03 \"pinkgorilla.ui.vega$vega_BANG_$reify__102290@1fa3ed03\"]"],"~:value","#object[pinkgorilla.ui.vega$vega_BANG_$reify__102290 0x1fa3ed03 \"pinkgorilla.ui.vega$vega_BANG_$reify__102290@1fa3ed03\"]"]
 ;; <=
@@ -31,6 +36,9 @@
 ;; @@
 (html! [:h1 "hi"])
 ;; @@
+;; ->
+;;; 
+;; <-
 ;; =>
 ;;; ["^ ","~:type","html","~:content","<h1>hi</h1>"]
 ;; <=
@@ -38,3 +46,6 @@
 ;; @@
 
 ;; @@
+;; ->
+;;; 
+;; <-
