@@ -11,7 +11,8 @@
 ;; @@
 (ns fuckup-pprint
   (:require 
-     [clojure.pprint]))
+     [clojure.pprint]
+     [pinkgorilla.hacks :refer [print-table]]))
 ;; @@
 ;; ->
 ;;; 
@@ -58,7 +59,7 @@
 ;;; |           christian |  replikativ |
 ;; <-
 ;; =>
-;;; ["^ ","~:type","html","~:content",["span",["^ ","~:class","clj-nil"],"nil"],"~:value","nil"]
+;;; ["^ ","~:type","html","~:content",["span",["^ ","~:class","clj-string"],"\"\\n|               :name | :speciality |\\n|---------------------+-------------|\\n| william shakespeare |      novels |\\n|         rich hickie |     clojure |\\n|           christian |  replikativ |\\n\""],"~:value","\"\\n|               :name | :speciality |\\n|---------------------+-------------|\\n| william shakespeare |      novels |\\n|         rich hickie |     clojure |\\n|           christian |  replikativ |\\n\""]
 ;; <=
 
 ;; @@
@@ -86,6 +87,35 @@
 ;;; | william shakespeare |      novels |
 ;;; |         rich hickie |     clojure |
 ;;; |           christian |  replikativ |
+;; <-
+;; =>
+;;; ["^ ","~:type","html","~:content",["span",["^ ","~:class","clj-nil"],"nil"],"~:value","nil"]
+;; <=
+
+;; @@
+; hack in pinkgorilla.hacks
+(print-table data)
+;; @@
+;; =>
+;;; ["^ ","~:type","html","~:content","<div gorilla-ui=\"text\"><div><span></span><br /></div><div><span>|               :name | :speciality |</span><br /></div><div><span>|---------------------+-------------|</span><br /></div><div><span>| william shakespeare |      novels |</span><br /></div><div><span>|         rich hickie |     clojure |</span><br /></div><div><span>|           christian |  replikativ |</span><br /></div></div>"]
+;; <=
+
+;; @@
+; hack in pinkgorilla.hacks
+(print-table [:name] data)
+;; @@
+;; =>
+;;; ["^ ","~:type","html","~:content","<div gorilla-ui=\"text\"><div><span></span><br /></div><div><span>|               :name |</span><br /></div><div><span>|---------------------|</span><br /></div><div><span>| william shakespeare |</span><br /></div><div><span>|         rich hickie |</span><br /></div><div><span>|           christian |</span><br /></div></div>"]
+;; <=
+
+;; @@
+; Note that the doc function currently also does not render correct, as it skips the header
+(clojure.repl/doc clojure.pprint/print-table)
+;; @@
+;; ->
+;;;   Prints a collection of maps in a textual table. Prints table headings
+;;;    ks, and then a line of output for each row, corresponding to the keys
+;;;    in ks. If ks are not specified, use the keys of the first item in rows.
 ;; <-
 ;; =>
 ;;; ["^ ","~:type","html","~:content",["span",["^ ","~:class","clj-nil"],"nil"],"~:value","nil"]
