@@ -1,7 +1,9 @@
 ;; gorilla-repl.fileformat = 2
 
 ;; **
-;;; # Newsspeed Server Testing
+;;; # ZMQ testing 
+;;; 
+;;; https://github.com/daveyarwood/ezzmq
 ;; **
 
 ;; @@
@@ -17,50 +19,84 @@
 ;; <=
 
 ;; @@
-(ns newsspeedserver-testing
+(ns zeromq-playground
   (:require 
     [pinkgorilla.ui.hiccup :refer [html!]] 
     [pinkgorilla.ui.vega :refer [vega!]] 
     [pinkgorilla.ui.gorilla-plot.core :refer [list-plot bar-chart compose histogram plot]] 
     [ezzmq.core :as zmq]))
-
-  ; <add key="connectionStringCommands" value="@tcp://*:5556" />    <!-- "@tcp://localhost:5556"   -->
-  ; <add key="connectionStringPublisher" value="@tcp://*:5557" />)
 ;; @@
 ;; =>
 ;;; ["^ ","~:type","html","~:content",["span",["^ ","~:class","clj-nil"],"nil"],"~:value","nil"]
 ;; <=
 
 ;; @@
-;:subscribe "foo"
+(html! 
+  [:div [:h1 "0MQ is great"]
+        [:img {:src "https://raw.githubusercontent.com/booksbyus/zguide/master/images/fig1.png"}]
+        [:p [:a {:href "https://github.com/daveyarwood/ezzmq"} "ezzmq is an amazing library"]]
+        [:p [:a {:href "https://zeromq.org/get-started/"} "zero mq get started is cool"]]])      
+;; @@
+;; =>
+;;; ["^ ","~:type","html","~:content","<div><h1>0MQ is great</h1><img src=\"https://raw.githubusercontent.com/booksbyus/zguide/master/images/fig1.png\" /><p><a href=\"https://github.com/daveyarwood/ezzmq\">ezzmq is an amazing library</a></p><p><a href=\"https://zeromq.org/get-started/\">zero mq get started is cool</a></p></div>"]
+;; <=
 
-;:subscribe "foo"
-
-(future 
-  (zmq/with-new-context)
-  (let [socket (zmq/socket :sub {:connect   "tcp://127.0.0.1:5575"})]
-    (while true
-      (let [msg (zmq/receive-msg socket)]
-        (println "RCVD: " msg)))))  
-
+;; @@
+(html! [:div 
+        [:h1 "Let's create a ping server"]
+        [:ul 
+         [:li "Create a ping server that binds to localhost:4321"]
+         [:li "Since the Repl may not forget about the server, we need to define a symbol \"ping-server\" (otherwise the repl will just shutdown the server as soon as eval is finished)"]
+         [:li "The future is necessary, as otherwise the repl would just be blocking (and notebook stops working)"]]]) 
 
 ;; @@
 ;; =>
-;;; ["^ ","~:type","html","~:content",["span",["^ ","~:class","clj-unkown"],"#future[{:status :pending, :val nil} 0x379bfb3c]"],"~:value","#future[{:status :pending, :val nil} 0x379bfb3c]"]
+;;; ["^ ","~:type","html","~:content","<div><h1>Let's create a ping server</h1><ul><li>Create a ping server that binds to localhost:4321</li><li>Since the Repl may not forget about the server, we need to define a symbol \"ping-server\" (otherwise the repl will just shutdown the server as soon as eval is finished)</li><li>The future is necessary, as otherwise the repl would just be blocking (and notebook stops working)</li></ul></div>"]
 ;; <=
+
+;; @@
+(def ping-server
+  (future 
+    (zmq/with-new-context
+      (let [socket (zmq/socket :rep {:bind "tcp://127.0.0.1:4321"})]
+        (while true 
+          (let [msg (zmq/receive-msg socket)]
+            (println "RCVD ping.")
+            (zmq/send-msg socket "pong")))))))
+
+;; @@
+;; =>
+;;; ["^ ","~:type","html","~:content",["span",["^ ","~:class","clj-var"],"#'zeromq-playground/ping-server"],"~:value","#'zeromq-playground/ping-server"]
+;; <=
+
+;; **
+;;; # Lets Ping the server
+;; **
 
 ;; @@
 (zmq/with-new-context
-  (let [socket (zmq/socket :req {:connect   "tcp://127.0.0.1:5556"})]
-      (zmq/send-msg socket "asdf")))
-      ;(let [rmsg (zmq/receive-msg socket)]
-       ; (println "RCVD: " rmsg))
-
+  (let [socket (zmq/socket :req {:connect "tcp://127.0.0.1:4321"})]
+      (zmq/send-msg socket "ping")
+      (let [rmsg (zmq/receive-msg socket {:stringify true})]
+        (println "RCVD: " rmsg))))
 ;; @@
+;; ->
+;;; RCVD:  [pong]
+;; <-
 ;; =>
-;;; ["^ ","~:type","html","~:content",["span",["^ ","~:class","clj-unkown"],"true"],"~:value","true"]
+;;; ["^ ","~:type","html","~:content",["span",["^ ","~:class","clj-nil"],"nil"],"~:value","nil"]
 ;; <=
 
-;; @@
+;; **
+;;; # Lets Fuck up the Repl
+;;; - Since we are dysclectic we confused 4321 with 1234.
+;;; - Therefore there is no listening server, and we will block forever
+;; **
 
+;; @@
+(zmq/with-new-context
+  (let [socket (zmq/socket :req {:connect "tcp://127.0.0.1:1234"})]
+      (zmq/send-msg socket "ping")
+      (let [rmsg (zmq/receive-msg socket {:stringify true})]
+        (println "RCVD: " rmsg))))
 ;; @@
