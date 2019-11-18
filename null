@@ -1,6 +1,0 @@
-;; gorilla-repl.fileformat = 2
-
-;; @@ [meta]
-{:test 456}
-
-;; @@
