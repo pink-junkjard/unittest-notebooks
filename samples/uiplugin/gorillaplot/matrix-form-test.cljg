@@ -1,4 +1,9 @@
-;; gorilla-repl.fileformat = 1
+;; gorilla-repl.fileformat = 2
+
+;; @@ [meta]
+{:tags "ui,core.matrix,legacy", :name "core.matrix visualization", :tagline "from jonny epsilon"}
+
+;; @@
 
 ;; **
 ;;; # Thinking about core.matrix rendering
@@ -14,30 +19,30 @@
 ;;; We'll start with the implementation - skip below to see how it looks from the user perspective.
 ;; **
 
-;; @@
+;; @@ [clj]
 (use 'clojure.core.matrix)
 (use 'gorilla-renderable.core)
 ;; @@
 ;; =>
-;;; {"type":"html","content":"<span class='clj-nil'>nil</span>","value":"nil"}
+;;; ["^ ","type","html","content","<span class='clj-nil'>nil</span>","value","nil"]
 ;; <=
 
 ;; **
 ;;; This type is just a marker for the front end, to know to render its contents as a matrix.
 ;; **
 
-;; @@
+;; @@ [clj]
 (defrecord MatrixView [contents])
 ;; @@
 ;; =>
-;;; {"type":"html","content":"<span class='clj-unkown'>user.MatrixView</span>","value":"user.MatrixView"}
+;;; ["^ ","type","html","content","<span class='clj-unkown'>user.MatrixView</span>","value","user.MatrixView"]
 ;; <=
 
 ;; **
 ;;; A helper function, and an `extend-type` call (which at the minute are straight stolen from the table renderer, so you'll have to use your imagination on the formatting) tell Gorilla how to render things tagged as `MatrixView`. These rendering functions would work using protocol methods, meaning it would work for any implementation.
 ;; **
 
-;; @@
+;; @@ [clj]
 (defn list-like
   [data value open close separator]
   {:type :list-like
@@ -48,10 +53,10 @@
    :value value})
 ;; @@
 ;; =>
-;;; {"type":"html","content":"<span class='clj-var'>#&#x27;user/list-like</span>","value":"#'user/list-like"}
+;;; ["^ ","type","html","content","<span class='clj-var'>#&#x27;user/list-like</span>","value","#'user/list-like"]
 ;; <=
 
-;; @@
+;; @@ [clj]
 (extend-type MatrixView
   Renderable
   (render [self]
@@ -63,18 +68,18 @@
       body)))
 ;; @@
 ;; =>
-;;; {"type":"html","content":"<span class='clj-nil'>nil</span>","value":"nil"}
+;;; ["^ ","type","html","content","<span class='clj-nil'>nil</span>","value","nil"]
 ;; <=
 
 ;; **
 ;;; And then, finally the user-facing function, which from their perspective, shows the given object as a matrix.
 ;; **
 
-;; @@
+;; @@ [clj]
 (defn matrix-view [i] (MatrixView. i))
 ;; @@
 ;; =>
-;;; {"type":"html","content":"<span class='clj-var'>#&#x27;user/matrix-view</span>","value":"#'user/matrix-view"}
+;;; ["^ ","type","html","content","<span class='clj-var'>#&#x27;user/matrix-view</span>","value","#'user/matrix-view"]
 ;; <=
 
 ;; **
@@ -83,35 +88,35 @@
 ;;; The user can define a matrix:
 ;; **
 
-;; @@
+;; @@ [clj]
 (def i (matrix [[1 2 5] [3 4 5] [1 2 1]]))
 ;; @@
 ;; =>
-;;; {"type":"html","content":"<span class='clj-var'>#&#x27;user/i</span>","value":"#'user/i"}
+;;; ["^ ","type","html","content","<span class='clj-var'>#&#x27;user/i</span>","value","#'user/i"]
 ;; <=
 
 ;; **
 ;;; And if they look at it, it will be faithfully rendered according to the underlying implementation. This is kind of nice in a way, as you can really see what's going on.
 ;; **
 
-;; @@
+;; @@ [clj]
 i
 ;; @@
 ;; =>
-;;; {"type":"html","content":"<span class='clj-unkown'>#&lt;Matrix33 [[1.0,2.0,5.0],[3.0,4.0,5.0],[1.0,2.0,1.0]]&gt;</span>","value":"#<Matrix33 [[1.0,2.0,5.0],[3.0,4.0,5.0],[1.0,2.0,1.0]]>"}
+;;; ["^ ","type","html","content","<span class='clj-unkown'>#&lt;Matrix33 [[1.0,2.0,5.0],[3.0,4.0,5.0],[1.0,2.0,1.0]]&gt;</span>","value","#<Matrix33 [[1.0,2.0,5.0],[3.0,4.0,5.0],[1.0,2.0,1.0]]>"]
 ;; <=
 
 ;; **
 ;;; But, if you want to look at it as a matrix, then you can put it in to `matrix-view`.
 ;; **
 
-;; @@
+;; @@ [clj]
 (matrix-view i)
 ;; @@
 ;; =>
-;;; {"type":"list-like","open":"<center><table>","close":"</table></center>","separator":"\n","items":[{"type":"list-like","open":"<tr><td>","close":"</td></tr>","separator":"</td><td>","items":[{"type":"html","content":"<span class='clj-double'>1.0</span>","value":"1.0"},{"type":"html","content":"<span class='clj-double'>2.0</span>","value":"2.0"},{"type":"html","content":"<span class='clj-double'>5.0</span>","value":"5.0"}],"value":"#<MatrixRowView [1.0,2.0,5.0]>"},{"type":"list-like","open":"<tr><td>","close":"</td></tr>","separator":"</td><td>","items":[{"type":"html","content":"<span class='clj-double'>3.0</span>","value":"3.0"},{"type":"html","content":"<span class='clj-double'>4.0</span>","value":"4.0"},{"type":"html","content":"<span class='clj-double'>5.0</span>","value":"5.0"}],"value":"#<MatrixRowView [3.0,4.0,5.0]>"},{"type":"list-like","open":"<tr><td>","close":"</td></tr>","separator":"</td><td>","items":[{"type":"html","content":"<span class='clj-double'>1.0</span>","value":"1.0"},{"type":"html","content":"<span class='clj-double'>2.0</span>","value":"2.0"},{"type":"html","content":"<span class='clj-double'>1.0</span>","value":"1.0"}],"value":"#<MatrixRowView [1.0,2.0,1.0]>"}],"value":"#user.MatrixView{:contents #<Matrix33 [[1.0,2.0,5.0],[3.0,4.0,5.0],[1.0,2.0,1.0]]>}"}
+;;; ["^ ","type","list-like","open","<center><table>","close","</table></center>","separator","\n","items",[["^ ","^0","list-like","^1","<tr><td>","^2","</td></tr>","^3","</td><td>","^4",[["^ ","^0","html","content","<span class='clj-double'>1.0</span>","value","1.0"],["^ ","^0","html","^5","<span class='clj-double'>2.0</span>","^6","2.0"],["^ ","^0","html","^5","<span class='clj-double'>5.0</span>","^6","5.0"]],"^6","#<MatrixRowView [1.0,2.0,5.0]>"],["^ ","^0","list-like","^1","<tr><td>","^2","</td></tr>","^3","</td><td>","^4",[["^ ","^0","html","^5","<span class='clj-double'>3.0</span>","^6","3.0"],["^ ","^0","html","^5","<span class='clj-double'>4.0</span>","^6","4.0"],["^ ","^0","html","^5","<span class='clj-double'>5.0</span>","^6","5.0"]],"^6","#<MatrixRowView [3.0,4.0,5.0]>"],["^ ","^0","list-like","^1","<tr><td>","^2","</td></tr>","^3","</td><td>","^4",[["^ ","^0","html","^5","<span class='clj-double'>1.0</span>","^6","1.0"],["^ ","^0","html","^5","<span class='clj-double'>2.0</span>","^6","2.0"],["^ ","^0","html","^5","<span class='clj-double'>1.0</span>","^6","1.0"]],"^6","#<MatrixRowView [1.0,2.0,1.0]>"]],"^6","#user.MatrixView{:contents #<Matrix33 [[1.0,2.0,5.0],[3.0,4.0,5.0],[1.0,2.0,1.0]]>}"]
 ;; <=
 
-;; @@
+;; @@ [clj]
 
 ;; @@
