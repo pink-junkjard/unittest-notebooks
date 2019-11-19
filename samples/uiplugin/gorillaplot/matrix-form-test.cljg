@@ -8,6 +8,8 @@
 ;; **
 ;;; # Thinking about core.matrix rendering
 ;;; 
+;;; This sample was adapted from LegacyGorilla to Pinkgorilla.
+;;; 
 ;;; Gorilla's renderer at the moment works by dispatching the render call on type. How might this work with core.matrix, and other things that are defined by _protocol_?
 ;;; 
 ;;; One idea, sketched out in this worksheet is to use a view-function, much like is done in Mathematica. Internally it will work by wrapping the matrix in a marker type, but this should be viewed as an implementation detail.
