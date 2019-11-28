@@ -317,6 +317,22 @@ s/color-names
 ;;; {}
 ;; <=
 
+;; @@ [cljs]
+nil
+;; @@
+;; ->
+;;;  type: data: nil
+;; <-
+;; =>
+;;; ["^ ","~:type","~:html","~:content",["~:span",["^ ","~:class","clj-nil"],"nil"],"~:value","nil"]
+;; <=
+
 ;; @@ [clj]
 
 ;; @@
+;; ->
+;;; 
+;; <-
+;; =>
+;;; ["^ ","~:type","html","~:value",["~:span"]]
+;; <=
