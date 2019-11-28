@@ -158,6 +158,12 @@ s/color-names
  (s/position 45 10 (s/colorize "magenta" (s/triangle 24)))
  (s/position 40 55 (s/colorize "white" (s/circle 10))))
 ;; @@
+;; ->
+;;;  type: data: #awb99.shapes.core.Shape{:kind :svg, :x 0, :y 0, :height 80, :width 80, :stroke nil, :stroke-width nil, :fill nil, :rotate nil, :opacity nil, :bbox #object[awb99.shapes.core.BBox], :children (#awb99.shapes.core.Shape{:kind :circle, :x nil, :y nil, :height nil, :width nil, :stroke "none", :stroke-width 0, :fill "aqua", :rotate nil, :opacity nil, :bbox nil, :children nil, :cx 40, :cy 40, :r 40, :rx nil, :ry nil, :points nil, :font-size nil, :font-weight nil, :font-family nil, :text nil, :href nil} #awb99.shapes.core.Shape{:kind :polygon, :x 10, :y 10, :height 0, :width 0, :stroke "none", :stroke-width 0, :fill "magenta", :rotate nil, :opacity nil, :bbox nil, :children nil, :cx nil, :cy nil, :r nil, :rx nil, :ry nil, :points [10 34 22 13.215378399999999 34 34], :font-size nil, :font-weight nil, :font-family nil, :text nil, :href nil} #awb99.shapes.core.Shape{:kind :polygon, :x 45, :y 10, :height 0, :width 0, :stroke "none", :stroke-width 0, :fill "magenta", :rotate nil, :opacity nil, :bbox nil, :children nil, :cx nil, :cy nil, :r nil, :rx nil, :ry nil, :points [45 34 57 13.215378399999999 69 34], :font-size nil, :font-weight nil, :font-family nil, :text nil, :href nil} #awb99.shapes.core.Shape{:kind :circle, :x nil, :y nil, :height nil, :width nil, :stroke "none", :stroke-width 0, :fill "white", :rotate nil, :opacity nil, :bbox nil, :children nil, :cx 40, :cy 55, :r 10, :rx nil, :ry nil, :points nil, :font-size nil, :font-weight nil, :font-family nil, :text nil, :href nil}), :cx nil, :cy nil, :r nil, :rx nil, :ry nil, :points nil, :font-size nil, :font-weight nil, :font-family nil, :text nil, :href nil}
+;; <-
+;; =>
+;;; {}
+;; <=
 
 ;; @@ [cljs]
 (map s/square [2 4 8 16 32 64 128])
@@ -213,24 +219,54 @@ s/color-names
 (def rainbow
   ["red" "orange" "yellow" "green" "blue" "indigo" "violet"])
 ;; @@
+;; ->
+;;;  type: data: #'bongistan.bongo/rainbow
+;; <-
+;; =>
+;;; ["^ ","~:type","~:html","~:content",["~:span",["^ ","~:class","clj-unknown"],"#'bongistan.bongo/rainbow"],"~:value","#'bongistan.bongo/rainbow"]
+;; <=
 
 ;; @@ [cljs]
 (map (fn [c] (s/colorize c (s/circle 25))) rainbow)
 ;; @@
+;; ->
+;;;  type: data: (#awb99.shapes.core.Shape{:kind :circle, :x nil, :y nil, :height nil, :width nil, :stroke "none", :stroke-width 0, :fill "red", :rotate nil, :opacity nil, :bbox nil, :children nil, :cx 25, :cy 25, :r 25, :rx nil, :ry nil, :points nil, :font-size nil, :font-weight nil, :font-family nil, :text nil, :href nil} #awb99.shapes.core.Shape{:kind :circle, :x nil, :y nil, :height nil, :width nil, :stroke "none", :stroke-width 0, :fill "orange", :rotate nil, :opacity nil, :bbox nil, :children nil, :cx 25, :cy 25, :r 25, :rx nil, :ry nil, :points nil, :font-size nil, :font-weight nil, :font-family nil, :text nil, :href nil} #awb99.shapes.core.Shape{:kind :circle, :x nil, :y nil, :height nil, :width nil, :stroke "none", :stroke-width 0, :fill "yellow", :rotate nil, :opacity nil, :bbox nil, :children nil, :cx 25, :cy 25, :r 25, :rx nil, :ry nil, :points nil, :font-size nil, :font-weight nil, :font-family nil, :text nil, :href nil} #awb99.shapes.core.Shape{:kind :circle, :x nil, :y nil, :height nil, :width nil, :stroke "none", :stroke-width 0, :fill "green", :rotate nil, :opacity nil, :bbox nil, :children nil, :cx 25, :cy 25, :r 25, :rx nil, :ry nil, :points nil, :font-size nil, :font-weight nil, :font-family nil, :text nil, :href nil} #awb99.shapes.core.Shape{:kind :circle, :x nil, :y nil, :height nil, :width nil, :stroke "none", :stroke-width 0, :fill "blue", :rotate nil, :opacity nil, :bbox nil, :children nil, :cx 25, :cy 25, :r 25, :rx nil, :ry nil, :points nil, :font-size nil, :font-weight nil, :font-family nil, :text nil, :href nil} #awb99.shapes.core.Shape{:kind :circle, :x nil, :y nil, :height nil, :width nil, :stroke "none", :stroke-width 0, :fill "indigo", :rotate nil, :opacity nil, :bbox nil, :children nil, :cx 25, :cy 25, :r 25, :rx nil, :ry nil, :points nil, :font-size nil, :font-weight nil, :font-family nil, :text nil, :href nil} #awb99.shapes.core.Shape{:kind :circle, :x nil, :y nil, :height nil, :width nil, :stroke "none", :stroke-width 0, :fill "violet", :rotate nil, :opacity nil, :bbox nil, :children nil, :cx 25, :cy 25, :r 25, :rx nil, :ry nil, :points nil, :font-size nil, :font-weight nil, :font-family nil, :text nil, :href nil})
+;; <-
+;; =>
+;;; ["^ ","~:type","~:list-like","~:open",["~:span",["^ ","~:class","clj-lazy-seq"],"("],"~:close",["^3",["^ ","^4","clj-lazy-seq"],")"],"~:separator",["^3"," "],"~:items",["~#list",[["^ ","^0","~:html","~:content",["~:svg",["^ ","~:x",0,"~:y",0,"~:width",50,"~:height",50],["~:circle",["^ ","~:stroke","none","~:stroke-width",0,"~:fill","red","~:cx",25,"~:cy",25,"~:r",25],null]]],["^ ","^0","^9","^:",["^;",["^ ","~:x",0,"~:y",0,"^<",50,"^=",50],["^>",["^ ","^?","none","^@",0,"^A","orange","^B",25,"^C",25,"~:r",25],null]]],["^ ","^0","^9","^:",["^;",["^ ","~:x",0,"~:y",0,"^<",50,"^=",50],["^>",["^ ","^?","none","^@",0,"^A","yellow","^B",25,"^C",25,"~:r",25],null]]],["^ ","^0","^9","^:",["^;",["^ ","~:x",0,"~:y",0,"^<",50,"^=",50],["^>",["^ ","^?","none","^@",0,"^A","green","^B",25,"^C",25,"~:r",25],null]]],["^ ","^0","^9","^:",["^;",["^ ","~:x",0,"~:y",0,"^<",50,"^=",50],["^>",["^ ","^?","none","^@",0,"^A","blue","^B",25,"^C",25,"~:r",25],null]]],["^ ","^0","^9","^:",["^;",["^ ","~:x",0,"~:y",0,"^<",50,"^=",50],["^>",["^ ","^?","none","^@",0,"^A","indigo","^B",25,"^C",25,"~:r",25],null]]],["^ ","^0","^9","^:",["^;",["^ ","~:x",0,"~:y",0,"^<",50,"^=",50],["^>",["^ ","^?","none","^@",0,"^A","violet","^B",25,"^C",25,"~:r",25],null]]]]],"~:value","(#awb99.shapes.core.Shape{:kind :circle, :x nil, :y nil, :height nil, :width nil, :stroke \"none\", :stroke-width 0, :fill \"red\", :rotate nil, :opacity nil, :bbox nil, :children nil, :cx 25, :cy 25, :r 25, :rx nil, :ry nil, :points nil, :font-size nil, :font-weight nil, :font-family nil, :text nil, :href nil} #awb99.shapes.core.Shape{:kind :circle, :x nil, :y nil, :height nil, :width nil, :stroke \"none\", :stroke-width 0, :fill \"orange\", :rotate nil, :opacity nil, :bbox nil, :children nil, :cx 25, :cy 25, :r 25, :rx nil, :ry nil, :points nil, :font-size nil, :font-weight nil, :font-family nil, :text nil, :href nil} #awb99.shapes.core.Shape{:kind :circle, :x nil, :y nil, :height nil, :width nil, :stroke \"none\", :stroke-width 0, :fill \"yellow\", :rotate nil, :opacity nil, :bbox nil, :children nil, :cx 25, :cy 25, :r 25, :rx nil, :ry nil, :points nil, :font-size nil, :font-weight nil, :font-family nil, :text nil, :href nil} #awb99.shapes.core.Shape{:kind :circle, :x nil, :y nil, :height nil, :width nil, :stroke \"none\", :stroke-width 0, :fill \"green\", :rotate nil, :opacity nil, :bbox nil, :children nil, :cx 25, :cy 25, :r 25, :rx nil, :ry nil, :points nil, :font-size nil, :font-weight nil, :font-family nil, :text nil, :href nil} #awb99.shapes.core.Shape{:kind :circle, :x nil, :y nil, :height nil, :width nil, :stroke \"none\", :stroke-width 0, :fill \"blue\", :rotate nil, :opacity nil, :bbox nil, :children nil, :cx 25, :cy 25, :r 25, :rx nil, :ry nil, :points nil, :font-size nil, :font-weight nil, :font-family nil, :text nil, :href nil} #awb99.shapes.core.Shape{:kind :circle, :x nil, :y nil, :height nil, :width nil, :stroke \"none\", :stroke-width 0, :fill \"indigo\", :rotate nil, :opacity nil, :bbox nil, :children nil, :cx 25, :cy 25, :r 25, :rx nil, :ry nil, :points nil, :font-size nil, :font-weight nil, :font-family nil, :text nil, :href nil} #awb99.shapes.core.Shape{:kind :circle, :x nil, :y nil, :height nil, :width nil, :stroke \"none\", :stroke-width 0, :fill \"violet\", :rotate nil, :opacity nil, :bbox nil, :children nil, :cx 25, :cy 25, :r 25, :rx nil, :ry nil, :points nil, :font-size nil, :font-weight nil, :font-family nil, :text nil, :href nil})"]
+;; <=
 
 ;; @@ [cljs]
 (def colorized-circle
   (fn [c] (s/colorize c (s/circle 25))))
 ;; @@
+;; ->
+;;;  type: data: #'bongistan.bongo/colorized-circle
+;; <-
+;; =>
+;;; ["^ ","~:type","~:html","~:content",["~:span",["^ ","~:class","clj-unknown"],"#'bongistan.bongo/colorized-circle"],"~:value","#'bongistan.bongo/colorized-circle"]
+;; <=
 
 ;; @@ [cljs]
 (colorized-circle "slategray")
 ;; @@
+;; ->
+;;;  type: data: #awb99.shapes.core.Shape{:kind :circle, :x nil, :y nil, :height nil, :width nil, :stroke "none", :stroke-width 0, :fill "slategray", :rotate nil, :opacity nil, :bbox nil, :children nil, :cx 25, :cy 25, :r 25, :rx nil, :ry nil, :points nil, :font-size nil, :font-weight nil, :font-family nil, :text nil, :href nil}
+;; <-
+;; =>
+;;; ["^ ","~:type","~:html","~:content",["~:svg",["^ ","~:x",0,"~:y",0,"~:width",50,"~:height",50],["~:circle",["^ ","~:stroke","none","~:stroke-width",0,"~:fill","slategray","~:cx",25,"~:cy",25,"~:r",25],null]]]
+;; <=
 
 ;; @@ [cljs]
 (map (fn [c] (s/colorize c (s/rectangle 300 20))) 
      rainbow)
 ;; @@
+;; ->
+;;;  type: data: (#awb99.shapes.core.Shape{:kind :rect, :x 0, :y 0, :height 20, :width 300, :stroke "none", :stroke-width 0, :fill "red", :rotate nil, :opacity nil, :bbox nil, :children nil, :cx nil, :cy nil, :r nil, :rx nil, :ry nil, :points nil, :font-size nil, :font-weight nil, :font-family nil, :text nil, :href nil} #awb99.shapes.core.Shape{:kind :rect, :x 0, :y 0, :height 20, :width 300, :stroke "none", :stroke-width 0, :fill "orange", :rotate nil, :opacity nil, :bbox nil, :children nil, :cx nil, :cy nil, :r nil, :rx nil, :ry nil, :points nil, :font-size nil, :font-weight nil, :font-family nil, :text nil, :href nil} #awb99.shapes.core.Shape{:kind :rect, :x 0, :y 0, :height 20, :width 300, :stroke "none", :stroke-width 0, :fill "yellow", :rotate nil, :opacity nil, :bbox nil, :children nil, :cx nil, :cy nil, :r nil, :rx nil, :ry nil, :points nil, :font-size nil, :font-weight nil, :font-family nil, :text nil, :href nil} #awb99.shapes.core.Shape{:kind :rect, :x 0, :y 0, :height 20, :width 300, :stroke "none", :stroke-width 0, :fill "green", :rotate nil, :opacity nil, :bbox nil, :children nil, :cx nil, :cy nil, :r nil, :rx nil, :ry nil, :points nil, :font-size nil, :font-weight nil, :font-family nil, :text nil, :href nil} #awb99.shapes.core.Shape{:kind :rect, :x 0, :y 0, :height 20, :width 300, :stroke "none", :stroke-width 0, :fill "blue", :rotate nil, :opacity nil, :bbox nil, :children nil, :cx nil, :cy nil, :r nil, :rx nil, :ry nil, :points nil, :font-size nil, :font-weight nil, :font-family nil, :text nil, :href nil} #awb99.shapes.core.Shape{:kind :rect, :x 0, :y 0, :height 20, :width 300, :stroke "none", :stroke-width 0, :fill "indigo", :rotate nil, :opacity nil, :bbox nil, :children nil, :cx nil, :cy nil, :r nil, :rx nil, :ry nil, :points nil, :font-size nil, :font-weight nil, :font-family nil, :text nil, :href nil} #awb99.shapes.core.Shape{:kind :rect, :x 0, :y 0, :height 20, :width 300, :stroke "none", :stroke-width 0, :fill "violet", :rotate nil, :opacity nil, :bbox nil, :children nil, :cx nil, :cy nil, :r nil, :rx nil, :ry nil, :points nil, :font-size nil, :font-weight nil, :font-family nil, :text nil, :href nil})
+;; <-
+;; =>
+;;; ["^ ","~:type","~:list-like","~:open",["~:span",["^ ","~:class","clj-lazy-seq"],"("],"~:close",["^3",["^ ","^4","clj-lazy-seq"],")"],"~:separator",["^3"," "],"~:items",["~#list",[["^ ","^0","~:html","~:content",["~:svg",["^ ","~:x",0,"~:y",0,"~:width",300,"~:height",20],["~:rect",["^ ","~:x",0,"~:y",0,"^=",20,"^<",300,"~:stroke","none","~:stroke-width",0,"~:fill","red"],null]]],["^ ","^0","^9","^:",["^;",["^ ","~:x",0,"~:y",0,"^<",300,"^=",20],["^>",["^ ","~:x",0,"~:y",0,"^=",20,"^<",300,"^?","none","^@",0,"^A","orange"],null]]],["^ ","^0","^9","^:",["^;",["^ ","~:x",0,"~:y",0,"^<",300,"^=",20],["^>",["^ ","~:x",0,"~:y",0,"^=",20,"^<",300,"^?","none","^@",0,"^A","yellow"],null]]],["^ ","^0","^9","^:",["^;",["^ ","~:x",0,"~:y",0,"^<",300,"^=",20],["^>",["^ ","~:x",0,"~:y",0,"^=",20,"^<",300,"^?","none","^@",0,"^A","green"],null]]],["^ ","^0","^9","^:",["^;",["^ ","~:x",0,"~:y",0,"^<",300,"^=",20],["^>",["^ ","~:x",0,"~:y",0,"^=",20,"^<",300,"^?","none","^@",0,"^A","blue"],null]]],["^ ","^0","^9","^:",["^;",["^ ","~:x",0,"~:y",0,"^<",300,"^=",20],["^>",["^ ","~:x",0,"~:y",0,"^=",20,"^<",300,"^?","none","^@",0,"^A","indigo"],null]]],["^ ","^0","^9","^:",["^;",["^ ","~:x",0,"~:y",0,"^<",300,"^=",20],["^>",["^ ","~:x",0,"~:y",0,"^=",20,"^<",300,"^?","none","^@",0,"^A","violet"],null]]]]],"~:value","(#awb99.shapes.core.Shape{:kind :rect, :x 0, :y 0, :height 20, :width 300, :stroke \"none\", :stroke-width 0, :fill \"red\", :rotate nil, :opacity nil, :bbox nil, :children nil, :cx nil, :cy nil, :r nil, :rx nil, :ry nil, :points nil, :font-size nil, :font-weight nil, :font-family nil, :text nil, :href nil} #awb99.shapes.core.Shape{:kind :rect, :x 0, :y 0, :height 20, :width 300, :stroke \"none\", :stroke-width 0, :fill \"orange\", :rotate nil, :opacity nil, :bbox nil, :children nil, :cx nil, :cy nil, :r nil, :rx nil, :ry nil, :points nil, :font-size nil, :font-weight nil, :font-family nil, :text nil, :href nil} #awb99.shapes.core.Shape{:kind :rect, :x 0, :y 0, :height 20, :width 300, :stroke \"none\", :stroke-width 0, :fill \"yellow\", :rotate nil, :opacity nil, :bbox nil, :children nil, :cx nil, :cy nil, :r nil, :rx nil, :ry nil, :points nil, :font-size nil, :font-weight nil, :font-family nil, :text nil, :href nil} #awb99.shapes.core.Shape{:kind :rect, :x 0, :y 0, :height 20, :width 300, :stroke \"none\", :stroke-width 0, :fill \"green\", :rotate nil, :opacity nil, :bbox nil, :children nil, :cx nil, :cy nil, :r nil, :rx nil, :ry nil, :points nil, :font-size nil, :font-weight nil, :font-family nil, :text nil, :href nil} #awb99.shapes.core.Shape{:kind :rect, :x 0, :y 0, :height 20, :width 300, :stroke \"none\", :stroke-width 0, :fill \"blue\", :rotate nil, :opacity nil, :bbox nil, :children nil, :cx nil, :cy nil, :r nil, :rx nil, :ry nil, :points nil, :font-size nil, :font-weight nil, :font-family nil, :text nil, :href nil} #awb99.shapes.core.Shape{:kind :rect, :x 0, :y 0, :height 20, :width 300, :stroke \"none\", :stroke-width 0, :fill \"indigo\", :rotate nil, :opacity nil, :bbox nil, :children nil, :cx nil, :cy nil, :r nil, :rx nil, :ry nil, :points nil, :font-size nil, :font-weight nil, :font-family nil, :text nil, :href nil} #awb99.shapes.core.Shape{:kind :rect, :x 0, :y 0, :height 20, :width 300, :stroke \"none\", :stroke-width 0, :fill \"violet\", :rotate nil, :opacity nil, :bbox nil, :children nil, :cx nil, :cy nil, :r nil, :rx nil, :ry nil, :points nil, :font-size nil, :font-weight nil, :font-family nil, :text nil, :href nil})"]
+;; <=
 
 ;; @@ [cljs]
 (defn vertical-flag [colors] 
@@ -239,16 +275,34 @@ s/color-names
                 (s/colorize c (s/rectangle 300 (/ 200 (count colors))))) 
               colors)))
 ;; @@
+;; ->
+;;;  type: data: #'bongistan.bongo/vertical-flag
+;; <-
+;; =>
+;;; ["^ ","~:type","~:html","~:content",["~:span",["^ ","~:class","clj-unknown"],"#'bongistan.bongo/vertical-flag"],"~:value","#'bongistan.bongo/vertical-flag"]
+;; <=
 
 ;; @@ [cljs]
 ; germany
 (vertical-flag ["black" "red" "gold"])
 ;; @@
+;; ->
+;;;  type: data: #awb99.shapes.core.Shape{:kind :svg, :x 0, :y 0, :height 200, :width 300, :stroke nil, :stroke-width nil, :fill nil, :rotate nil, :opacity nil, :bbox #object[awb99.shapes.core.BBox], :children (#awb99.shapes.core.Shape{:kind :rect, :x 0, :y 0, :height 66.66666666666667, :width 300, :stroke "none", :stroke-width 0, :fill "black", :rotate nil, :opacity nil, :bbox nil, :children nil, :cx nil, :cy nil, :r nil, :rx nil, :ry nil, :points nil, :font-size nil, :font-weight nil, :font-family nil, :text nil, :href nil} #awb99.shapes.core.Shape{:kind :rect, :x 0, :y 66.66666666666667, :height 66.66666666666667, :width 300, :stroke "none", :stroke-width 0, :fill "red", :rotate nil, :opacity nil, :bbox nil, :children nil, :cx nil, :cy nil, :r nil, :rx nil, :ry nil, :points nil, :font-size nil, :font-weight nil, :font-family nil, :text nil, :href nil} #awb99.shapes.core.Shape{:kind :rect, :x 0, :y 133.33333333333334, :height 66.66666666666667, :width 300, :stroke "none", :stroke-width 0, :fill "gold", :rotate nil, :opacity nil, :bbox nil, :children nil, :cx nil, :cy nil, :r nil, :rx nil, :ry nil, :points nil, :font-size nil, :font-weight nil, :font-family nil, :text nil, :href nil}), :cx nil, :cy nil, :r nil, :rx nil, :ry nil, :points nil, :font-size nil, :font-weight nil, :font-family nil, :text nil, :href nil}
+;; <-
+;; =>
+;;; {}
+;; <=
 
 ;; @@ [cljs]
 ; indonesia
 (vertical-flag ["red" "white"])
 ;; @@
+;; ->
+;;;  type: data: #awb99.shapes.core.Shape{:kind :svg, :x 0, :y 0, :height 200, :width 300, :stroke nil, :stroke-width nil, :fill nil, :rotate nil, :opacity nil, :bbox #object[awb99.shapes.core.BBox], :children (#awb99.shapes.core.Shape{:kind :rect, :x 0, :y 0, :height 100, :width 300, :stroke "none", :stroke-width 0, :fill "red", :rotate nil, :opacity nil, :bbox nil, :children nil, :cx nil, :cy nil, :r nil, :rx nil, :ry nil, :points nil, :font-size nil, :font-weight nil, :font-family nil, :text nil, :href nil} #awb99.shapes.core.Shape{:kind :rect, :x 0, :y 100, :height 100, :width 300, :stroke "none", :stroke-width 0, :fill "white", :rotate nil, :opacity nil, :bbox nil, :children nil, :cx nil, :cy nil, :r nil, :rx nil, :ry nil, :points nil, :font-size nil, :font-weight nil, :font-family nil, :text nil, :href nil}), :cx nil, :cy nil, :r nil, :rx nil, :ry nil, :points nil, :font-size nil, :font-weight nil, :font-family nil, :text nil, :href nil}
+;; <-
+;; =>
+;;; {}
+;; <=
 
 ;; @@ [cljs]
 
@@ -256,6 +310,12 @@ s/color-names
 (vertical-flag ["gold" "red" "gold" "red" "gold" "red" "gold" "red" "gold"])
 
 ;; @@
+;; ->
+;;;  type: data: #awb99.shapes.core.Shape{:kind :svg, :x 0, :y 0, :height 201, :width 300, :stroke nil, :stroke-width nil, :fill nil, :rotate nil, :opacity nil, :bbox #object[awb99.shapes.core.BBox], :children (#awb99.shapes.core.Shape{:kind :rect, :x 0, :y 0, :height 22.22222222222222, :width 300, :stroke "none", :stroke-width 0, :fill "gold", :rotate nil, :opacity nil, :bbox nil, :children nil, :cx nil, :cy nil, :r nil, :rx nil, :ry nil, :points nil, :font-size nil, :font-weight nil, :font-family nil, :text nil, :href nil} #awb99.shapes.core.Shape{:kind :rect, :x 0, :y 22.22222222222222, :height 22.22222222222222, :width 300, :stroke "none", :stroke-width 0, :fill "red", :rotate nil, :opacity nil, :bbox nil, :children nil, :cx nil, :cy nil, :r nil, :rx nil, :ry nil, :points nil, :font-size nil, :font-weight nil, :font-family nil, :text nil, :href nil} #awb99.shapes.core.Shape{:kind :rect, :x 0, :y 44.44444444444444, :height 22.22222222222222, :width 300, :stroke "none", :stroke-width 0, :fill "gold", :rotate nil, :opacity nil, :bbox nil, :children nil, :cx nil, :cy nil, :r nil, :rx nil, :ry nil, :points nil, :font-size nil, :font-weight nil, :font-family nil, :text nil, :href nil} #awb99.shapes.core.Shape{:kind :rect, :x 0, :y 66.66666666666666, :height 22.22222222222222, :width 300, :stroke "none", :stroke-width 0, :fill "red", :rotate nil, :opacity nil, :bbox nil, :children nil, :cx nil, :cy nil, :r nil, :rx nil, :ry nil, :points nil, :font-size nil, :font-weight nil, :font-family nil, :text nil, :href nil} #awb99.shapes.core.Shape{:kind :rect, :x 0, :y 88.88888888888889, :height 22.22222222222222, :width 300, :stroke "none", :stroke-width 0, :fill "gold", :rotate nil, :opacity nil, :bbox nil, :children nil, :cx nil, :cy nil, :r nil, :rx nil, :ry nil, :points nil, :font-size nil, :font-weight nil, :font-family nil, :text nil, :href nil} #awb99.shapes.core.Shape{:kind :rect, :x 0, :y 111.11111111111111, :height 22.22222222222222, :width 300, :stroke "none", :stroke-width 0, :fill "red", :rotate nil, :opacity nil, :bbox nil, :children nil, :cx nil, :cy nil, :r nil, :rx nil, :ry nil, :points nil, :font-size nil, :font-weight nil, :font-family nil, :text nil, :href nil} #awb99.shapes.core.Shape{:kind :rect, :x 0, :y 133.33333333333334, :height 22.22222222222222, :width 300, :stroke "none", :stroke-width 0, :fill "gold", :rotate nil, :opacity nil, :bbox nil, :children nil, :cx nil, :cy nil, :r nil, :rx nil, :ry nil, :points nil, :font-size nil, :font-weight nil, :font-family nil, :text nil, :href nil} #awb99.shapes.core.Shape{:kind :rect, :x 0, :y 155.55555555555557, :height 22.22222222222222, :width 300, :stroke "none", :stroke-width 0, :fill "red", :rotate nil, :opacity nil, :bbox nil, :children nil, :cx nil, :cy nil, :r nil, :rx nil, :ry nil, :points nil, :font-size nil, :font-weight nil, :font-family nil, :text nil, :href nil} #awb99.shapes.core.Shape{:kind :rect, :x 0, :y 177.7777777777778, :height 22.22222222222222, :width 300, :stroke "none", :stroke-width 0, :fill "gold", :rotate nil, :opacity nil, :bbox nil, :children nil, :cx nil, :cy nil, :r nil, :rx nil, :ry nil, :points nil, :font-size nil, :font-weight nil, :font-family nil, :text nil, :href nil}), :cx nil, :cy nil, :r nil, :rx nil, :ry nil, :points nil, :font-size nil, :font-weight nil, :font-family nil, :text nil, :href nil}
+;; <-
+;; =>
+;;; {}
+;; <=
 
 ;; @@ [clj]
 
