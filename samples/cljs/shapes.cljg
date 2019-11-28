@@ -275,6 +275,16 @@ s/color-names
 ;;; (not (nil? val))]
 ;; <-
 
+;; @@ [cljs]
+'(1 2 3)
+;; @@
+;; ->
+;;;  type: data: (1 2 3)
+;; <-
+;; =>
+;;; ["^ ","~:type","~:html","~:content",["~:span",["^ ","~:class","clj-unknown"],"(1 2 3)"],"~:value","(1 2 3)"]
+;; <=
+
 ;; @@ [clj]
 
 ;; @@
