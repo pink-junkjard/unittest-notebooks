@@ -6,7 +6,7 @@
 ;; @@
 
 ;; **
-;;; # Shapes (from maria cloud)
+;;; ;# Shapes (from maria cloud)
 ;; **
 
 ;; @@ [cljs]
@@ -17,6 +17,9 @@
    [awb99.shapes.core :as s :refer [color-names square layer colorize]]))
 
 ;; @@
+;; ->
+;;;  type: data: #error {:message "ERROR", :data {:tag :cljs/analysis-error}, :cause #object[Error Error: Namespace "cljs.user" already declared.]}
+;; <-
 
 ;; @@ [cljs]
 
