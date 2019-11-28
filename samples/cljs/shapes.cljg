@@ -285,6 +285,16 @@ s/color-names
 ;;; ["^ ","~:type","~:html","~:content",["~:span",["^ ","~:class","clj-unknown"],"(1 2 3)"],"~:value","(1 2 3)"]
 ;; <=
 
+;; @@ [cljs]
+(sorted-map :a 1)
+;; @@
+;; ->
+;;;  type: data: {:a 1}
+;; <-
+;; =>
+;;; ["^ ","~:type","~:html","~:content",["~:span",["^ ","~:class","clj-unknown"],"{:a 1}"],"~:value","{:a 1}"]
+;; <=
+
 ;; @@ [clj]
 
 ;; @@
