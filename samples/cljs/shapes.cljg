@@ -12,9 +12,9 @@
 ;; @@ [cljs]
 (require '[awb99.shapes.core :as s])
 
-;(ns bongistan.bongo
-;  (:require 
-;   [awb99.shapes.core :refer [color-names square layer colorise]]))
+(ns bongistan.bongo
+  (:require 
+   [awb99.shapes.core :as s :refer [color-names square layer colorize]]))
 
 ;; @@
 
