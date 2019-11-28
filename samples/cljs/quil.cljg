@@ -14,6 +14,17 @@
 ;; **
 
 ;; @@ [cljs]
+;(require '[awb99.shapes.core :as s])
+
+(ns mydemo.quil
+  (:require 
+   [quil.core]))
+;; @@
+;; ->
+;;;  type: data: #error {:message "Could not require quil.core", :data {:tag :cljs/analysis-error}, :cause #object[Error Error: Assert failed: (compile-state-ref? compile-state-ref)]}
+;; <-
+
+;; @@ [cljs]
 (defn init [width height]
   (fn []
     {:width   width
