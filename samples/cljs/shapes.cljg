@@ -10,7 +10,7 @@
 ;; **
 
 ;; @@ [cljs]
-(require '[awb99.shapes.core :as s])
+;(require '[awb99.shapes.core :as s])
 
 (ns bongistan.bongo
   (:require 
@@ -18,17 +18,31 @@
 
 ;; @@
 ;; ->
-;;;  type: data: #error {:message "ERROR", :data {:tag :cljs/analysis-error}, :cause #object[Error Error: Namespace "cljs.user" already declared.]}
+;;;  type: data: nil
 ;; <-
+;; =>
+;;; ["^ ","~:type","~:html","~:content",["~:span",["^ ","~:class","clj-nil"],"nil"],"~:value","nil"]
+;; <=
 
 ;; @@ [cljs]
-
 (s/circle 20)
 ;; @@
+;; ->
+;;;  type: data: #awb99.shapes.core.Shape{:kind :circle, :x nil, :y nil, :height nil, :width nil, :stroke "none", :stroke-width 0, :fill "black", :rotate nil, :opacity nil, :bbox nil, :children nil, :cx 20, :cy 20, :r 20, :rx nil, :ry nil, :points nil, :font-size nil, :font-weight nil, :font-family nil, :text nil, :href nil}
+;; <-
+;; =>
+;;; ["^ ","~:type","~:html","~:content",["~:svg",["^ ","~:x",0,"~:y",0,"~:width",40,"~:height",40],["~:circle",["^ ","~:stroke","none","~:stroke-width",0,"~:fill","black","~:cx",20,"~:cy",20,"~:r",20],null]]]
+;; <=
 
 ;; @@ [cljs]
 {:square (s/square 25) :circle (s/circle 15)}
 ;; @@
+;; ->
+;;;  type: data: {:square #awb99.shapes.core.Shape{:kind :rect, :x 0, :y 0, :height 25, :width 25, :stroke "none", :stroke-width 0, :fill "black", :rotate nil, :opacity nil, :bbox nil, :children nil, :cx nil, :cy nil, :r nil, :rx nil, :ry nil, :points nil, :font-size nil, :font-weight nil, :font-family nil, :text nil, :href nil}, :circle #awb99.shapes.core.Shape{:kind :circle, :x nil, :y nil, :height nil, :width nil, :stroke "none", :stroke-width 0, :fill "black", :rotate nil, :opacity nil, :bbox nil, :children nil, :cx 15, :cy 15, :r 15, :rx nil, :ry nil, :points nil, :font-size nil, :font-weight nil, :font-family nil, :text nil, :href nil}}
+;; <-
+;; =>
+;;; ["^ ","~:type","~:list-like","~:open",["~:span",["^ ","~:class","clj-map"],"{"],"~:close",["^3",["^ ","^4","clj-map"],"}"],"~:separator",["^3",", "],"~:items",["~#list",[["^ ","^0","^1","^2",null,"^5",null,"^6",["^3"," "],"^7",["^8",[["^ ","^0","~:html","~:content",["^3",["^ ","^4","clj-keyword"],":square"],"~:value",":square"],["^ ","^0","^9","^:",["~:svg",["^ ","~:x",0,"~:y",0,"~:width",25,"~:height",25],["~:rect",["^ ","~:x",0,"~:y",0,"^>",25,"^=",25,"~:stroke","none","~:stroke-width",0,"~:fill","black"],null]]]]],"^;","[:square #awb99.shapes.core.Shape{:kind :rect, :x 0, :y 0, :height 25, :width 25, :stroke \"none\", :stroke-width 0, :fill \"black\", :rotate nil, :opacity nil, :bbox nil, :children nil, :cx nil, :cy nil, :r nil, :rx nil, :ry nil, :points nil, :font-size nil, :font-weight nil, :font-family nil, :text nil, :href nil}]"],["^ ","^0","^1","^2",null,"^5",null,"^6",["^3"," "],"^7",["^8",[["^ ","^0","^9","^:",["^3",["^ ","^4","clj-keyword"],":circle"],"^;",":circle"],["^ ","^0","^9","^:",["^<",["^ ","~:x",0,"~:y",0,"^=",30,"^>",30],["~:circle",["^ ","^@","none","^A",0,"^B","black","~:cx",15,"~:cy",15,"~:r",15],null]]]]],"^;","[:circle #awb99.shapes.core.Shape{:kind :circle, :x nil, :y nil, :height nil, :width nil, :stroke \"none\", :stroke-width 0, :fill \"black\", :rotate nil, :opacity nil, :bbox nil, :children nil, :cx 15, :cy 15, :r 15, :rx nil, :ry nil, :points nil, :font-size nil, :font-weight nil, :font-family nil, :text nil, :href nil}]"]]],"^;","{:square #awb99.shapes.core.Shape{:kind :rect, :x 0, :y 0, :height 25, :width 25, :stroke \"none\", :stroke-width 0, :fill \"black\", :rotate nil, :opacity nil, :bbox nil, :children nil, :cx nil, :cy nil, :r nil, :rx nil, :ry nil, :points nil, :font-size nil, :font-weight nil, :font-family nil, :text nil, :href nil}, :circle #awb99.shapes.core.Shape{:kind :circle, :x nil, :y nil, :height nil, :width nil, :stroke \"none\", :stroke-width 0, :fill \"black\", :rotate nil, :opacity nil, :bbox nil, :children nil, :cx 15, :cy 15, :r 15, :rx nil, :ry nil, :points nil, :font-size nil, :font-weight nil, :font-family nil, :text nil, :href nil}}"]
+;; <=
 
 ;; @@ [cljs]
 (doc s/circle)
