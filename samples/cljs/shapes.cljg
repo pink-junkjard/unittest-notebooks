@@ -338,14 +338,13 @@ s/color-names
 ;; <=
 
 ;; @@ [cljs]
-(s/layer
- (s/square 50))
+(remove nil? [ (s/square 50) nil])
 ;; @@
 ;; ->
-;;;  type: data: #awb99.shapes.core.Shape{:kind :svg, :x 0, :y 0, :height 50, :width 50, :stroke nil, :stroke-width nil, :fill nil, :rotate nil, :opacity nil, :bbox #object[awb99.shapes.core.BBox], :children (#awb99.shapes.core.Shape{:kind :rect, :x 0, :y 0, :height 50, :width 50, :stroke "none", :stroke-width 0, :fill "black", :rotate nil, :opacity nil, :bbox nil, :children nil, :cx nil, :cy nil, :r nil, :rx nil, :ry nil, :points nil, :font-size nil, :font-weight nil, :font-family nil, :text nil, :href nil}), :cx nil, :cy nil, :r nil, :rx nil, :ry nil, :points nil, :font-size nil, :font-weight nil, :font-family nil, :text nil, :href nil}
+;;;  type: data: (#awb99.shapes.core.Shape{:kind :rect, :x 0, :y 0, :height 50, :width 50, :stroke "none", :stroke-width 0, :fill "black", :rotate nil, :opacity nil, :bbox nil, :children nil, :cx nil, :cy nil, :r nil, :rx nil, :ry nil, :points nil, :font-size nil, :font-weight nil, :font-family nil, :text nil, :href nil})
 ;; <-
 ;; =>
-;;; {}
+;;; ["^ ","~:type","~:list-like","~:open",["~:span",["^ ","~:class","clj-lazy-seq"],"("],"~:close",["^3",["^ ","^4","clj-lazy-seq"],")"],"~:separator",["^3"," "],"~:items",["~#list",[["^ ","^0","~:html","~:content",["~:svg",["^ ","~:x",0,"~:y",0,"~:width",50,"~:height",50],["~:rect",["^ ","~:x",0,"~:y",0,"^=",50,"^<",50,"~:stroke","none","~:stroke-width",0,"~:fill","black"],null]]]]],"~:value","(#awb99.shapes.core.Shape{:kind :rect, :x 0, :y 0, :height 50, :width 50, :stroke \"none\", :stroke-width 0, :fill \"black\", :rotate nil, :opacity nil, :bbox nil, :children nil, :cx nil, :cy nil, :r nil, :rx nil, :ry nil, :points nil, :font-size nil, :font-weight nil, :font-family nil, :text nil, :href nil})"]
 ;; <=
 
 ;; @@ [clj]
