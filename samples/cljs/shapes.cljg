@@ -337,6 +337,17 @@ s/color-names
 ;;; ["^ ","~:type","~:html","~:content",["~:span",["^ ","~:class","clj-unknown"],"{:a 1}"],"~:value","{:a 1}"]
 ;; <=
 
+;; @@ [cljs]
+(s/layer
+ (s/square 50))
+;; @@
+;; ->
+;;;  type: data: #awb99.shapes.core.Shape{:kind :svg, :x 0, :y 0, :height 50, :width 50, :stroke nil, :stroke-width nil, :fill nil, :rotate nil, :opacity nil, :bbox #object[awb99.shapes.core.BBox], :children (#awb99.shapes.core.Shape{:kind :rect, :x 0, :y 0, :height 50, :width 50, :stroke "none", :stroke-width 0, :fill "black", :rotate nil, :opacity nil, :bbox nil, :children nil, :cx nil, :cy nil, :r nil, :rx nil, :ry nil, :points nil, :font-size nil, :font-weight nil, :font-family nil, :text nil, :href nil}), :cx nil, :cy nil, :r nil, :rx nil, :ry nil, :points nil, :font-size nil, :font-weight nil, :font-family nil, :text nil, :href nil}
+;; <-
+;; =>
+;;; {}
+;; <=
+
 ;; @@ [clj]
 
 ;; @@
