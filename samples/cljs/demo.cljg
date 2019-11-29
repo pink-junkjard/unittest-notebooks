@@ -1,5 +1,10 @@
 ;; gorilla-repl.fileformat = 2
 
+;; @@ [meta]
+{:tags "cljs,test", :name "cljs demos", :tagline "explore what clojurescript can do"}
+
+;; @@
+
 ;; **
 ;;; # PinkGorilla 
 ;;; 
@@ -13,12 +18,10 @@
 (fortune.core/cookie)
 ;; @@
 ;; ->
-;;; [:ok "People learn little from success, but much from failure."] type: function String() {
-;;;     [native code]
-;;; }
+;;;  type: data: "He who expects no gratitude shall never be disappointed."
 ;; <-
 ;; =>
-;;; ["^ ","~:type","~:html","~:content","<span class='cljs-string'>&quot;People learn little from success, but much from failure.&quot;</span>","~:value","\"People learn little from success, but much from failure.\""]
+;;; ["^ ","~:type","~:html","~:content",["~:span",["^ ","~:class","clj-string"],"\"He who expects no gratitude shall never be disappointed.\""],"~:value","\"He who expects no gratitude shall never be disappointed.\""]
 ;; <=
 
 ;; @@ [cljs]
