@@ -11,7 +11,9 @@
 
 ;; @@ [clj]
 (ns demo.image
-  (:require [pinkgorilla.helper :refer [add-dependencies]]))
+  (:require 
+    [pinkgorilla.helper :refer [add-dependencies]]
+    [pinkgorilla.ui.table :refer [table-view]]))
 ;; @@
 ;; =>
 ;;; ["^ ","~:type","html","~:content",["span",["^ ","~:class","clj-nil"],"nil"],"~:value","nil"]
@@ -22,7 +24,7 @@
 ;; **
 
 ;; @@ [clj]
-(add-dependencies '[pinkgorilla.ui.gorilla-renderable "2.0.7"])
+(add-dependencies '[org.pinkgorilla/gorilla-renderable "2.1.2"] )
 (use 'pinkgorilla.ui.gorilla-renderable)
 ;; @@
 ;; =>
@@ -68,12 +70,13 @@
 
 ;; @@ [clj]
 (table-view
-    [
-      ["moon" (Image. "https://cdn.mos.cms.futurecdn.net/yyvvM9kwaVGySFE6aXXoJL-320-80.jpg")]
-      ["sun" (Image. "https://pbs.twimg.com/profile_images/641353910561566720/VSxsyxs7.jpg")]]
-     
+  [["moon" (Image. "https://cdn.mos.cms.futurecdn.net/yyvvM9kwaVGySFE6aXXoJL-320-80.jpg")]
+   ["sun" (Image. "https://pbs.twimg.com/profile_images/641353910561566720/VSxsyxs7.jpg")]]  
   :columns [ "planet" "image"])
 ;; @@
+;; =>
+;;; ["^ ","~:type","list-like","~:open","<center><table>","~:close","</table></center>","~:separator","\n","~:items",[["^ ","^0","list-like","^1","<tr><th>","^2","</th></tr>","^3","</th><th>","^4",[["^ ","^0","html","~:content",["span",["^ ","~:class","clj-string"],"\"planet\""],"~:value","\"planet\""],["^ ","^0","html","^5",["span",["^ ","^6","clj-string"],"\"image\""],"^7","\"image\""]],"^7","[\"planet\" \"image\"]"],["^ ","^0","list-like","^1","<tr><td>","^2","</td></tr>","^3","</td><td>","^4",[["^ ","^0","html","^5",["span",["^ ","^6","clj-string"],"\"moon\""],"^7","\"moon\""],["^ ","^0","html","^5",["img",["^ ","~:src","https://cdn.mos.cms.futurecdn.net/yyvvM9kwaVGySFE6aXXoJL-320-80.jpg","~:height",100,"~:width",100,"~:alt","it's an image"]],"^7","#demo.image.Image{:url \"https://cdn.mos.cms.futurecdn.net/yyvvM9kwaVGySFE6aXXoJL-320-80.jpg\"}"]],"^7","[\"moon\" #demo.image.Image{:url \"https://cdn.mos.cms.futurecdn.net/yyvvM9kwaVGySFE6aXXoJL-320-80.jpg\"}]"],["^ ","^0","list-like","^1","<tr><td>","^2","</td></tr>","^3","</td><td>","^4",[["^ ","^0","html","^5",["span",["^ ","^6","clj-string"],"\"sun\""],"^7","\"sun\""],["^ ","^0","html","^5",["img",["^ ","^8","https://pbs.twimg.com/profile_images/641353910561566720/VSxsyxs7.jpg","^9",100,"^:",100,"^;","it's an image"]],"^7","#demo.image.Image{:url \"https://pbs.twimg.com/profile_images/641353910561566720/VSxsyxs7.jpg\"}"]],"^7","[\"sun\" #demo.image.Image{:url \"https://pbs.twimg.com/profile_images/641353910561566720/VSxsyxs7.jpg\"}]"]],"^7","#pinkgorilla.ui.table.TableView{:contents [[\"moon\" #demo.image.Image{:url \"https://cdn.mos.cms.futurecdn.net/yyvvM9kwaVGySFE6aXXoJL-320-80.jpg\"}] [\"sun\" #demo.image.Image{:url \"https://pbs.twimg.com/profile_images/641353910561566720/VSxsyxs7.jpg\"}]], :opts (:columns [\"planet\" \"image\"])}"]
+;; <=
 
 ;; @@ [clj]
 
