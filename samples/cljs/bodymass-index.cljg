@@ -1,5 +1,10 @@
 ;; gorilla-repl.fileformat = 2
 
+;; @@ [meta]
+{:name "body mass calculator", :tags "cljs, demo, cool, reagent"}
+
+;; @@
+
 ;; **
 ;;; # Body Mass Indicator Demo 
 ;;; 
@@ -10,16 +15,10 @@
 (def bmi-data (reagent.core/atom {:height 180 :weight 80}))
 ;; @@
 ;; ->
-;;; [:ok #'cljs.user/bmi-data] type: function (val,sym,_meta){
-;;; this.val = val;
-;;; this.sym = sym;
-;;; this._meta = _meta;
-;;; this.cljs$lang$protocol_mask$partition0$ = 6717441;
-;;; this.cljs$lang$protocol_mask$partition1$ = 0;
-;;; }
+;;;  type: data: #'cljs.user/bmi-data
 ;; <-
 ;; =>
-;;; ["^ ","~:type","~:html","~:content","<span class='cljs-unknown'>#&#x27;cljs.user/bmi-data</span>","~:value","#'cljs.user/bmi-data"]
+;;; ["^ ","~:type","~:html","~:content",["~:span",["^ ","~:class","clj-unknown"],"#'cljs.user/bmi-data"],"~:value","#'cljs.user/bmi-data"]
 ;; <=
 
 ;; @@ [cljs]
@@ -27,12 +26,10 @@
 (pr-str @bmi-data)
 ;; @@
 ;; ->
-;;; [:ok "{:height 180, :weight 80}"] type: function String() {
-;;;     [native code]
-;;; }
+;;;  type: data: "{:height 180, :weight 80}"
 ;; <-
 ;; =>
-;;; ["^ ","~:type","~:html","~:content","<span class='cljs-string'>&quot;{:height 180, :weight 80}&quot;</span>","~:value","\"{:height 180, :weight 80}\""]
+;;; ["^ ","~:type","~:html","~:content",["~:span",["^ ","~:class","clj-string"],"\"{:height 180, :weight 80}\""],"~:value","\"{:height 180, :weight 80}\""]
 ;; <=
 
 ;; @@ [cljs]
@@ -44,28 +41,20 @@
       (assoc data :weight (* bmi h h)))))
 ;; @@
 ;; ->
-;;; [:ok #'cljs.user/calc-bmi] type: function (val,sym,_meta){
-;;; this.val = val;
-;;; this.sym = sym;
-;;; this._meta = _meta;
-;;; this.cljs$lang$protocol_mask$partition0$ = 6717441;
-;;; this.cljs$lang$protocol_mask$partition1$ = 0;
-;;; }
+;;;  type: data: #'cljs.user/calc-bmi
 ;; <-
 ;; =>
-;;; ["^ ","~:type","~:html","~:content","<span class='cljs-unknown'>#&#x27;cljs.user/calc-bmi</span>","~:value","#'cljs.user/calc-bmi"]
+;;; ["^ ","~:type","~:html","~:content",["~:span",["^ ","~:class","clj-unknown"],"#'cljs.user/calc-bmi"],"~:value","#'cljs.user/calc-bmi"]
 ;; <=
 
 ;; @@ [cljs]
 (pr-str (calc-bmi))
 ;; @@
 ;; ->
-;;; [:ok "{:height 180, :weight 80, :bmi 24.691358024691358}"] type: function String() {
-;;;     [native code]
-;;; }
+;;;  type: data: "{:height 180, :weight 80, :bmi 24.691358024691358}"
 ;; <-
 ;; =>
-;;; ["^ ","~:type","~:html","~:content","<span class='cljs-string'>&quot;{:height 180, :weight 80, :bmi 24.691358024691358}&quot;</span>","~:value","\"{:height 180, :weight 80, :bmi 24.691358024691358}\""]
+;;; ["^ ","~:type","~:html","~:content",["~:span",["^ ","~:class","clj-string"],"\"{:height 180, :weight 80, :bmi 24.691358024691358}\""],"~:value","\"{:height 180, :weight 80, :bmi 24.691358024691358}\""]
 ;; <=
 
 ;; @@ [cljs]
@@ -79,16 +68,10 @@
                           (swap! bmi-data assoc :bmi nil)))}])
 ;; @@
 ;; ->
-;;; [:ok #'cljs.user/slider] type: function (val,sym,_meta){
-;;; this.val = val;
-;;; this.sym = sym;
-;;; this._meta = _meta;
-;;; this.cljs$lang$protocol_mask$partition0$ = 6717441;
-;;; this.cljs$lang$protocol_mask$partition1$ = 0;
-;;; }
+;;;  type: data: #'cljs.user/slider
 ;; <-
 ;; =>
-;;; ["^ ","~:type","~:html","~:content","<span class='cljs-unknown'>#&#x27;cljs.user/slider</span>","~:value","#'cljs.user/slider"]
+;;; ["^ ","~:type","~:html","~:content",["~:span",["^ ","~:class","clj-unknown"],"#'cljs.user/slider"],"~:value","#'cljs.user/slider"]
 ;; <=
 
 ;; @@ [clj]
@@ -111,12 +94,7 @@
 
 ;; @@
 ;; ->
-;;; [:ok #object[pinkgorilla.kernel.cljs-tools.t_pinkgorilla$kernel$cljs_tools24847]] type: function (vec_or_reagent_f,meta24848){
-;;; this.vec_or_reagent_f = vec_or_reagent_f;
-;;; this.meta24848 = meta24848;
-;;; this.cljs$lang$protocol_mask$partition0$ = 393216;
-;;; this.cljs$lang$protocol_mask$partition1$ = 0;
-;;; }
+;;;  type: data: #object[pinkgorilla.kernel.cljs-tools.t_pinkgorilla$kernel$cljs_tools53719]
 ;; <-
 ;; =>
 ;;; ["^ ","~:type","~:reagent-cljs","~:content",["^ "]]
@@ -127,17 +105,10 @@
 :88
 ;; @@
 ;; ->
-;;; [:ok :88] type: function (ns,name,fqn,_hash){
-;;; this.ns = ns;
-;;; this.name = name;
-;;; this.fqn = fqn;
-;;; this._hash = _hash;
-;;; this.cljs$lang$protocol_mask$partition0$ = 2153775105;
-;;; this.cljs$lang$protocol_mask$partition1$ = 4096;
-;;; }
+;;;  type: data: :88
 ;; <-
 ;; =>
-;;; ["^ ","~:type","~:html","~:content","<span class='cljs-keyword'>:88</span>","~:value",":88"]
+;;; ["^ ","~:type","~:html","~:content",["~:span",["^ ","~:class","clj-keyword"],":88"],"~:value",":88"]
 ;; <=
 
 ;; @@ [cljs]
@@ -187,28 +158,17 @@
       [slider :bmi bmi 10 50]]]))
 ;; @@
 ;; ->
-;;; [:ok #'cljs.user/bmi-component] type: function (val,sym,_meta){
-;;; this.val = val;
-;;; this.sym = sym;
-;;; this._meta = _meta;
-;;; this.cljs$lang$protocol_mask$partition0$ = 6717441;
-;;; this.cljs$lang$protocol_mask$partition1$ = 0;
-;;; }
+;;;  type: data: #'cljs.user/bmi-component
 ;; <-
 ;; =>
-;;; ["^ ","~:type","~:html","~:content","<span class='cljs-unknown'>#&#x27;cljs.user/bmi-component</span>","~:value","#'cljs.user/bmi-component"]
+;;; ["^ ","~:type","~:html","~:content",["~:span",["^ ","~:class","clj-unknown"],"#'cljs.user/bmi-component"],"~:value","#'cljs.user/bmi-component"]
 ;; <=
 
 ;; @@ [cljs]
 (pinkgorilla.kernel.cljs-tools/r! bmi-component)
 ;; @@
 ;; ->
-;;; [:ok #object[pinkgorilla.kernel.cljs-tools.t_pinkgorilla$kernel$cljs_tools24847]] type: function (vec_or_reagent_f,meta24848){
-;;; this.vec_or_reagent_f = vec_or_reagent_f;
-;;; this.meta24848 = meta24848;
-;;; this.cljs$lang$protocol_mask$partition0$ = 393216;
-;;; this.cljs$lang$protocol_mask$partition1$ = 0;
-;;; }
+;;;  type: data: #object[pinkgorilla.kernel.cljs-tools.t_pinkgorilla$kernel$cljs_tools53719]
 ;; <-
 ;; =>
 ;;; ["^ ","~:type","~:reagent-cljs","~:content",["^ "]]
