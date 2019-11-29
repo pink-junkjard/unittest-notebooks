@@ -1,26 +1,25 @@
 ;; gorilla-repl.fileformat = 2
 
+;; @@ [meta]
+{:name "cljs-svg complex", :tagline "", :tags "cljs, svg, cool, sierpinsky"}
+
+;; @@
+
 ;; **
-;;; # PinkGorilla 
+;;; # CLJS - SVG
 ;;; 
-;;; Shift + enter evaluates code. Hit alt+g twice in quick succession or click the menu icon (upper-right corner) for more commands.
-;;; 
-;;; It's a good habit to run each worksheet in its own namespace. We created a random namespace for you; you can keep using it.
+;;; Pure CLJS Notebook.
+;;; Pretty Complex Drawings with SVG (including sierpinsky)
 ;; **
 
 ;; @@ [cljs]
 (pinkgorilla.kernel.cljs-tools/r! [:h1 "svg data in cljs"])
 ;; @@
 ;; ->
-;;; [:ok #object[pinkgorilla.kernel.cljs-tools.t_pinkgorilla$kernel$cljs_tools70282]] type: function (vec_or_reagent_f,meta70283){
-;;; this.vec_or_reagent_f = vec_or_reagent_f;
-;;; this.meta70283 = meta70283;
-;;; this.cljs$lang$protocol_mask$partition0$ = 393216;
-;;; this.cljs$lang$protocol_mask$partition1$ = 0;
-;;; }
+;;;  type: data: #object[pinkgorilla.kernel.cljs-tools.t_pinkgorilla$kernel$cljs_tools53719]
 ;; <-
 ;; =>
-;;; ["^ ","~:type","~:reagent-cljs","~:content",["~:h1","svg data in cljs"]]
+;;; ["^ ","~:type","~:reagent-cljs","~:content",["^ "]]
 ;; <=
 
 ;; @@ [cljs]
@@ -81,46 +80,30 @@
 
 ;; @@
 ;; ->
-;;; [:ok #'cljs.user/svg-data] type: function (val,sym,_meta){
-;;; this.val = val;
-;;; this.sym = sym;
-;;; this._meta = _meta;
-;;; this.cljs$lang$protocol_mask$partition0$ = 6717441;
-;;; this.cljs$lang$protocol_mask$partition1$ = 0;
-;;; }
+;;;  type: data: #'cljs.user/svg-data
 ;; <-
 ;; =>
-;;; ["^ ","~:type","~:html","~:content","<span class='cljs-unknown'>#&#x27;cljs.user/svg-data</span>","~:value","#'cljs.user/svg-data"]
+;;; ["^ ","~:type","~:html","~:content",["~:span",["^ ","~:class","clj-unknown"],"#'cljs.user/svg-data"],"~:value","#'cljs.user/svg-data"]
 ;; <=
 
 ;; @@ [cljs]
 (pinkgorilla.kernel.cljs-tools/r! svg-data)
 ;; @@
 ;; ->
-;;; [:ok #object[pinkgorilla.kernel.cljs-tools.t_pinkgorilla$kernel$cljs_tools70282]] type: function (vec_or_reagent_f,meta70283){
-;;; this.vec_or_reagent_f = vec_or_reagent_f;
-;;; this.meta70283 = meta70283;
-;;; this.cljs$lang$protocol_mask$partition0$ = 393216;
-;;; this.cljs$lang$protocol_mask$partition1$ = 0;
-;;; }
+;;;  type: data: #object[pinkgorilla.kernel.cljs-tools.t_pinkgorilla$kernel$cljs_tools53719]
 ;; <-
 ;; =>
-;;; ["^ ","~:type","~:reagent-cljs","~:content",["~:svg",["^ ","~:viewbox","-10 -10 116 111"],["~:path",["^ ","~:d","M0,0  h7.75     a45.5,45.5 0 1 1 0,91     h-7.75     v-20     h7.75     a25.5,25.5 0 1 0 0,-51     h-7.75     z     m36.2510,0     h32     a27.75,27.75 0 0 1 21.331,45.5     a27.75,27.75 0 0 1 -21.331,45.5     h-32     a53.6895,53.6895 0 0 0 18.7464,-20     h13.2526     a7.75,7.75 0 1 0 0,-15.5     h-7.75     a53.6895,53.6895 0 0 0 0,-20     h7.75     a7.75,7.75 0 1 0 0,-15.5     h-13.2526     a53.6895,53.6895 0 0 0 -18.7464,-20     z   ","~:fill","#bbb"]],["~:g",["^ ","~:stroke-opacity","0.3","~:stroke-width","0.15","~:stroke","currentColor","^6","none"],["~:line",["^ ","~:y2","0","~:y1","0","~:x2","200","~:x1","-100"]],["^:",["^ ","^;","20","^<","20","^=","200","^>","-100"]],["^:",["^ ","^;","35.5","^<","35.5","^=","200","^>","-100"]],["^:",["^ ","^;","45.5","^<","45.5","^=","200","^>","-100"]],["^:",["^ ","^;","55.5","^<","55.5","^=","200","^>","-100"]],["^:",["^ ","^;","71","^<","71","^=","200","^>","-100"]],["^:",["^ ","^;","91","^<","91","^=","200","^>","-100"]],["^:",["^ ","^;","200","^<","-100","^=","0","^>","0"]],["^:",["^ ","^;","200","^<","-100","^=","7.75","^>","7.75"]],["^:",["^ ","^;","200","^<","-100","^=","60.5","^>","60.5"]],["^:",["^ ","^;","200","^<","-100","^=","68.25","^>","68.25"]],["^:",["^ ","^;","200","^<","-100","^=","96","^>","96"]]],["~:g",["^ ","^6","blue"],["~:circle",["^ ","~:r",".5","~:cy","45.5","~:cx","7.75"]],["^?",["^ ","~:r",".5","^@","27.75","^A","68.25"]],["^?",["^ ","~:r",".5","^@","63.25","^A","68.25"]]],["~:g",["^ ","^6","red"],["^?",["^ ","~:r",".5","^@","0","^A","36.2510"]],["^?",["^ ","~:r",".5","^@","20","^A","54.9974"]],["^?",["^ ","~:r",".5","^@","35.5","^A","60.5"]],["^?",["^ ","~:r",".5","^@","55.5","^A","60.5"]],["^?",["^ ","~:r",".5","^@","71","^A","54.9974"]],["^?",["^ ","~:r",".5","^@","91","^A","36.2510"]],["^?",["^ ","~:r",".5","^@","45.5","^A","89.5807"]]],["~:g",["^ ","^8","0.15","^9","currentColor","^6","none"],["^?",["^ ","~:r","25.5","^@","45.5","^A","7.75"]],["^?",["^ ","~:r","45.5","^@","45.5","^A","7.75"]],["^?",["^ ","~:r","53.6895","^@","45.5","^A","7.75"]],["^?",["^ ","~:r","7.75","^@","27.75","^A","68.25"]],["^?",["^ ","~:r","27.75","^@","27.75","^A","68.25"]],["^?",["^ ","~:r","7.75","^@","63.25","^A","68.25"]],["^?",["^ ","~:r","27.75","^@","63.25","^A","68.25"]]]]]
+;;; ["^ ","~:type","~:reagent-cljs","~:content",["^ "]]
 ;; <=
 
 ;; @@ [cljs]
 (pinkgorilla.kernel.cljs-tools/r! [:canvas#bongo {:width 500 :height 500} ])
 ;; @@
 ;; ->
-;;; [:ok #object[pinkgorilla.kernel.cljs-tools.t_pinkgorilla$kernel$cljs_tools70282]] type: function (vec_or_reagent_f,meta70283){
-;;; this.vec_or_reagent_f = vec_or_reagent_f;
-;;; this.meta70283 = meta70283;
-;;; this.cljs$lang$protocol_mask$partition0$ = 393216;
-;;; this.cljs$lang$protocol_mask$partition1$ = 0;
-;;; }
+;;;  type: data: #object[pinkgorilla.kernel.cljs-tools.t_pinkgorilla$kernel$cljs_tools53719]
 ;; <-
 ;; =>
-;;; ["^ ","~:type","~:reagent-cljs","~:content",["~:canvas#bongo",["^ ","~:width",500,"~:height",500]]]
+;;; ["^ ","~:type","~:reagent-cljs","~:content",["^ "]]
 ;; <=
 
 ;; @@ [cljs]
@@ -157,10 +140,10 @@
 
 ;; @@
 ;; ->
-;;; [:ok nil] type: 
+;;;  type: data: nil
 ;; <-
 ;; =>
-;;; ["^ ","~:type","~:html","~:content","<span class='cljs-nil'>nil</span>","~:value",""]
+;;; ["^ ","~:type","~:html","~:content",["~:span",["^ ","~:class","clj-nil"],"nil"],"~:value","nil"]
 ;; <=
 
 ;; @@ [clj]
