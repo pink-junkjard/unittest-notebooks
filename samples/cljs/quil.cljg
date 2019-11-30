@@ -18,11 +18,15 @@
 
 (ns mydemo.quil
   (:require 
-   [quil.core]))
+   [quil.core]
+   [quil.middleware]))
 ;; @@
 ;; ->
-;;;  type: data: #error {:message "Could not require quil.core", :data {:tag :cljs/analysis-error}, :cause #object[Error Error: Assert failed: (compile-state-ref? compile-state-ref)]}
+;;;  type: data: nil
 ;; <-
+;; =>
+;;; ["^ ","~:type","~:html","~:content",["~:span",["^ ","~:class","clj-nil"],"nil"],"~:value","nil"]
+;; <=
 
 ;; @@ [cljs]
 (defn init [width height]
@@ -44,10 +48,10 @@
 
 ;; @@
 ;; ->
-;;;  type: data: #'cljs.user/update-state
+;;;  type: data: #'mydemo.quil/update-state
 ;; <-
 ;; =>
-;;; ["^ ","~:type","~:html","~:content",["~:span",["^ ","~:class","clj-unknown"],"#'cljs.user/update-state"],"~:value","#'cljs.user/update-state"]
+;;; ["^ ","~:type","~:html","~:content",["~:span",["^ ","~:class","clj-unknown"],"#'mydemo.quil/update-state"],"~:value","#'mydemo.quil/update-state"]
 ;; <=
 
 ;; @@ [cljs]
@@ -70,10 +74,10 @@
         [:div])})))
 ;; @@
 ;; ->
-;;;  type: data: #'cljs.user/canvas
+;;;  type: data: #'mydemo.quil/canvas
 ;; <-
 ;; =>
-;;; ["^ ","~:type","~:html","~:content",["~:span",["^ ","~:class","clj-unknown"],"#'cljs.user/canvas"],"~:value","#'cljs.user/canvas"]
+;;; ["^ ","~:type","~:html","~:content",["~:span",["^ ","~:class","clj-unknown"],"#'mydemo.quil/canvas"],"~:value","#'mydemo.quil/canvas"]
 ;; <=
 
 ;; @@ [cljs]
@@ -81,7 +85,7 @@
  [canvas])
 ;; @@
 ;; ->
-;;;  type: data: #object[pinkgorilla.kernel.cljs-tools.t_pinkgorilla$kernel$cljs_tools54774]
+;;;  type: data: #object[pinkgorilla.kernel.cljs-tools.t_pinkgorilla$kernel$cljs_tools78075]
 ;; <-
 ;; =>
 ;;; ["^ ","~:type","~:reagent-cljs","~:content",["^ "]]
