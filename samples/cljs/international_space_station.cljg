@@ -1,0 +1,105 @@
+;; gorilla-repl.fileformat = 2
+
+;; @@ [meta]
+{}
+
+;; @@
+
+;; **
+;;; # ISS Location tracker
+;; **
+
+;; @@ [cljs]
+; Define Namespace for your notebook and require namespaces 
+(ns tremendous-cumquartz
+  (:require 
+    [fortune.core]
+    [pinkgorilla.shadow] 
+   [module$node_modules$moment$moment]
+   [reagent.core :as r]
+   [ajax.core :refer [GET POST]]
+   [pinkgorilla.ui.leaflet :refer [mymap]]
+   [pinkgorilla.ui.player :refer [player]] 
+   )) 
+
+;; @@
+;; ->
+;;;  type: data: nil
+;; <-
+;; =>
+;;; ["^ ","~:type","~:html","~:content",["~:span",["^ ","~:class","clj-nil"],"nil"],"~:value","nil"]
+;; <=
+
+;; @@ [cljs]
+(pinkgorilla.kernel.cljs-tools/r! [mymap [51.505 -0.09]])
+;; @@
+;; ->
+;;;  type: data: #object[pinkgorilla.kernel.cljs-tools.t_pinkgorilla$kernel$cljs_tools78075]
+;; <-
+;; =>
+;;; ["^ ","~:type","~:reagent-cljs","~:content",["^ "]]
+;; <=
+
+;; @@ [cljs]
+(pinkgorilla.kernel.cljs-tools/r! [player "https://www.youtube.com/watch?v=HTcsUaoPDsk"])
+;; @@
+;; ->
+;;;  type: data: #object[pinkgorilla.kernel.cljs-tools.t_pinkgorilla$kernel$cljs_tools78075]
+;; <-
+;; =>
+;;; ["^ ","~:type","~:reagent-cljs","~:content",["^ "]]
+;; <=
+
+;; @@ [cljs]
+;; http://open-notify.org/Open-Notify-API/ISS-Location-Now/
+(def x (r/atom {}))
+(defn handler [response]
+  (.log js/console (str "data rcvd: " response))
+  (reset! x response)
+  )
+(GET "http://api.open-notify.org/iss-now.json" 
+     :response-format :json 
+     :keywords? true
+     :handler handler) 
+;; @@
+;; ->
+;;;  type: data: #object[Object [object Object]]
+;; <-
+;; =>
+;;; ["^ ","~:type","~:html","~:content",["~:span",["^ ","~:class","clj-unknown"],"#object[Object [object Object]]"],"~:value","#object[Object [object Object]]"]
+;; <=
+
+;; @@ [cljs]
+;@x
+;(get-in @x [:iss_position :latitude ])
+(def p [ (js/parseFloat (get-in @x [:iss_position :latitude]))
+        (js/parseFloat (get-in @x [:iss_position :longitude]))]
+        )
+p
+;; @@
+;; ->
+;;;  type: data: [-0.4394 172.1191]
+;; <-
+;; =>
+;;; ["^ ","~:type","~:list-like","~:open",["~:span",["^ ","~:class","clj-vector"],"["],"~:close",["^3",["^ ","^4","clj-vector"],"]"],"~:separator",["^3"," "],"~:items",["~#list",[["^ ","^0","~:html","~:content",["^3",["^ ","^4","clj-long"],"-0.4394"],"~:value","-0.4394"],["^ ","^0","^9","^:",["^3",["^ ","^4","clj-long"],"172.1191"],"^;","172.1191"]]],"^;","[-0.4394 172.1191]"]
+;; <=
+
+;; @@ [cljs]
+p
+;; @@
+;; ->
+;;;  type: data: [-0.4394 172.1191]
+;; <-
+;; =>
+;;; ["^ ","~:type","~:list-like","~:open",["~:span",["^ ","~:class","clj-vector"],"["],"~:close",["^3",["^ ","^4","clj-vector"],"]"],"~:separator",["^3"," "],"~:items",["~#list",[["^ ","^0","~:html","~:content",["^3",["^ ","^4","clj-long"],"-0.4394"],"~:value","-0.4394"],["^ ","^0","^9","^:",["^3",["^ ","^4","clj-long"],"172.1191"],"^;","172.1191"]]],"^;","[-0.4394 172.1191]"]
+;; <=
+
+;; @@ [clj]
+
+;; @@
+;; ->
+;;; 
+;; <-
+;; =>
+;;; ["^ ","~:type","html","~:value",["~:span"]]
+;; <=
