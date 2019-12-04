@@ -1,7 +1,7 @@
 ;; gorilla-repl.fileformat = 2
 
 ;; @@ [meta]
-{}
+{:name "International Space Station Tracker", :tagline "International Space Station Tracker", :tags "cljs,cool,ui,iss", :description ""}
 
 ;; @@
 
