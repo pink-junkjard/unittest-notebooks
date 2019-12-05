@@ -41,10 +41,10 @@
 ;; <=
 
 ;; @@ [cljs]
-(pinkgorilla.kernel.cljs-tools/r! [player "https://www.youtube.com/watch?v=HTcsUaoPDsk"])
+(pinkgorilla.kernel.cljs-tools/r! [player "https://www.youtube.com/watch?v=-6BsiVyC1kM"])
 ;; @@
 ;; ->
-;;;  type: data: #object[pinkgorilla.kernel.cljs-tools.t_pinkgorilla$kernel$cljs_tools78075]
+;;;  type: data: #object[pinkgorilla.kernel.cljs-tools.t_pinkgorilla$kernel$cljs_tools27175]
 ;; <-
 ;; =>
 ;;; ["^ ","~:type","~:reagent-cljs","~:content",["^ "]]
@@ -102,6 +102,16 @@ p
 ;; <-
 ;; =>
 ;;; ["^ ","~:type","~:reagent-cljs","~:content",["^ "]]
+;; <=
+
+;; @@ [cljs]
+^:r [player "https://www.youtube.com/watch?v=-6BsiVyC1kM"]
+;; @@
+;; ->
+;;;  type: data: [#object[pinkgorilla$ui$player$player] "https://www.youtube.com/watch?v=-6BsiVyC1kM"]
+;; <-
+;; =>
+;;; ["^ ","~:type","~:reagent-cljs"]
 ;; <=
 
 ;; @@ [clj]
