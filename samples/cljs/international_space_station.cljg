@@ -17,9 +17,10 @@
     [pinkgorilla.shadow] 
    [module$node_modules$moment$moment]
    [reagent.core :as r]
-   [ajax.core :refer [GET POST]]
+   ;[ajax.core :refer [GET POST]]
    [pinkgorilla.ui.leaflet :refer [mymap]]
-   [pinkgorilla.ui.player :refer [player]] 
+   [pinkgorilla.ui.player :refer [player]]
+   [pinkgorilla.ui.sparklines :refer [sparkline]]
    )) 
 
 ;; @@
@@ -34,7 +35,7 @@
 (pinkgorilla.kernel.cljs-tools/r! [mymap [51.505 -0.09]])
 ;; @@
 ;; ->
-;;;  type: data: #object[pinkgorilla.kernel.cljs-tools.t_pinkgorilla$kernel$cljs_tools78075]
+;;;  type: data: #object[pinkgorilla.kernel.cljs-tools.t_pinkgorilla$kernel$cljs_tools27175]
 ;; <-
 ;; =>
 ;;; ["^ ","~:type","~:reagent-cljs","~:content",["^ "]]
@@ -103,6 +104,10 @@ p
 ;; =>
 ;;; ["^ ","~:type","~:reagent-cljs","~:content",["^ "]]
 ;; <=
+
+;; **
+;;; # convenience: meta info to render to reagent:
+;; **
 
 ;; @@ [cljs]
 ^:r [player "https://www.youtube.com/watch?v=-6BsiVyC1kM"]
