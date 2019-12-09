@@ -171,13 +171,13 @@
 ;; <=
 
 ;; @@ [cljs]
-(pinkgorilla.kernel.nrepl.clj-eval "(+ 5 5)", #(println "result:" %))
+(pinkgorilla.kernel.nrepl.clj-eval "(+ 5 5)" #(.log js/console (str "result:" %)))
 ;; @@
 ;; ->
-;;;  type: data: "d3309752-0113-407b-8748-0b4609acd594"
+;;;  type: data: "523ab87d-9139-419e-b684-fbd141fc891e"
 ;; <-
 ;; =>
-;;; ["^ ","~:type","~:html","~:content",["~:span",["^ ","~:class","clj-string"],"\"d3309752-0113-407b-8748-0b4609acd594\""],"~:value","\"d3309752-0113-407b-8748-0b4609acd594\""]
+;;; ["^ ","~:type","~:html","~:content",["~:span",["^ ","~:class","clj-string"],"\"523ab87d-9139-419e-b684-fbd141fc891e\""],"~:value","\"523ab87d-9139-419e-b684-fbd141fc891e\""]
 ;; <=
 
 ;; @@ [clj]
