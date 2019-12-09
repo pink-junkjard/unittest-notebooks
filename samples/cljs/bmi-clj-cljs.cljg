@@ -213,6 +213,13 @@
 ;;; ["^ ","~:type","~:html","~:content",["~:span",["^ ","~:class","clj-unknown"],"#object[cljs.core.async.impl.channels.ManyToManyChannel]"],"~:value","#object[cljs.core.async.impl.channels.ManyToManyChannel]"]
 ;; <=
 
+;; @@ [cljs]
+(get! x)
+;; @@
+;; ->
+;;;  type: data: #error {:message "ERROR", :data {:tag :cljs/analysis-error}, :cause #object[TypeError TypeError: cljs.user.get_BANG_ is undefined]}
+;; <-
+
 ;; @@ [clj]
 
 ;; @@
