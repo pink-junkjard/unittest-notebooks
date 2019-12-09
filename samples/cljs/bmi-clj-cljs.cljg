@@ -204,21 +204,44 @@
 ;; <=
 
 ;; @@ [cljs]
-(pinkgorilla.kernel.nrepl.clj "user/calc-bmi-server" {:height 200 :weight 95.3})
+(def x (pinkgorilla.kernel.nrepl.clj "user/calc-bmi-server" {:height 200 :weight 95.3}))
 ;; @@
 ;; ->
-;;;  type: data: #object[cljs.core.async.impl.channels.ManyToManyChannel]
+;;;  type: data: #'cljs.user/x
 ;; <-
 ;; =>
-;;; ["^ ","~:type","~:html","~:content",["~:span",["^ ","~:class","clj-unknown"],"#object[cljs.core.async.impl.channels.ManyToManyChannel]"],"~:value","#object[cljs.core.async.impl.channels.ManyToManyChannel]"]
+;;; ["^ ","~:type","~:html","~:content",["~:span",["^ ","~:class","clj-unknown"],"#'cljs.user/x"],"~:value","#'cljs.user/x"]
 ;; <=
 
 ;; @@ [cljs]
-(get! x)
+x
 ;; @@
 ;; ->
-;;;  type: data: #error {:message "ERROR", :data {:tag :cljs/analysis-error}, :cause #object[TypeError TypeError: cljs.user.get_BANG_ is undefined]}
+;;;  type: data: #<Atom: nil>
 ;; <-
+;; =>
+;;; ["^ ","~:type","~:html","~:content",["~:span",["^ ","~:class","clj-unknown"],"#<Atom: nil>"],"~:value","#<Atom: nil>"]
+;; <=
+
+;; @@ [cljs]
+(def x (pinkgorilla.kernel.nrepl.clj "+" 7 7))
+;; @@
+;; ->
+;;;  type: data: #'cljs.user/x
+;; <-
+;; =>
+;;; ["^ ","~:type","~:html","~:content",["~:span",["^ ","~:class","clj-unknown"],"#'cljs.user/x"],"~:value","#'cljs.user/x"]
+;; <=
+
+;; @@ [cljs]
+x
+;; @@
+;; ->
+;;;  type: data: #<Atom: nil>
+;; <-
+;; =>
+;;; ["^ ","~:type","~:html","~:content",["~:span",["^ ","~:class","clj-unknown"],"#<Atom: nil>"],"~:value","#<Atom: nil>"]
+;; <=
 
 ;; @@ [clj]
 
