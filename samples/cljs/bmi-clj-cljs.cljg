@@ -92,6 +92,7 @@ y
 ;; <=
 
 ;; @@ [cljs]
+
 (def bmi-data (reagent.core/atom {:height 180 :weight 80}))
 ;; @@
 ;; ->
@@ -99,16 +100,6 @@ y
 ;; <-
 ;; =>
 ;;; ["^ ","~:type","~:html","~:content",["~:span",["^ ","~:class","clj-unknown"],"#'cljs.user/bmi-data"],"~:value","#'cljs.user/bmi-data"]
-;; <=
-
-;; @@ [clj]
-
-;; @@
-;; ->
-;;; 
-;; <-
-;; =>
-;;; ["^ ","~:type","html","~:value",["~:span"]]
 ;; <=
 
 ;; @@ [cljs]
@@ -120,21 +111,6 @@ y
 ;; <-
 ;; =>
 ;;; ["^ ","~:type","~:html","~:content",["~:span",["^ ","~:class","clj-string"],"\"{:height 180, :weight 80}\""],"~:value","\"{:height 180, :weight 80}\""]
-;; <=
-
-;; @@ [cljs]
-(defn calc-bmi []
-  (let [{:keys [height weight bmi] :as data} @bmi-data
-        h (/ height 100)]
-    (if (nil? bmi)
-      (assoc data :bmi (/ weight (* h h)))
-      (assoc data :weight (* bmi h h)))))
-;; @@
-;; ->
-;;;  type: data: #'cljs.user/calc-bmi
-;; <-
-;; =>
-;;; ["^ ","~:type","~:html","~:content",["~:span",["^ ","~:class","clj-unknown"],"#'cljs.user/calc-bmi"],"~:value","#'cljs.user/calc-bmi"]
 ;; <=
 
 ;; @@ [cljs]
@@ -164,16 +140,6 @@ y
 ;;; ["^ ","~:type","~:html","~:content",["~:span",["^ ","~:class","clj-unknown"],"#'cljs.user/slider"],"~:value","#'cljs.user/slider"]
 ;; <=
 
-;; @@ [clj]
-
-;; @@
-;; ->
-;;; 
-;; <-
-;; =>
-;;; ["^ ","~:type","html","~:value",["~:span"]]
-;; <=
-
 ;; @@ [cljs]
 (pinkgorilla.kernel.cljs-tools/r! 
  (fn []
@@ -188,28 +154,6 @@ y
 ;; <-
 ;; =>
 ;;; ["^ ","~:type","~:reagent-cljs","~:content",["^ "]]
-;; <=
-
-;; @@ [cljs]
-(swap! bmi-data assoc :height 150)
-:88
-;; @@
-;; ->
-;;;  type: data: :88
-;; <-
-;; =>
-;;; ["^ ","~:type","~:html","~:content",["~:span",["^ ","~:class","clj-keyword"],":88"],"~:value",":88"]
-;; <=
-
-;; @@ [cljs]
-(swap! bmi-data assoc :height 180)
-6
-;; @@
-;; ->
-;;;  type: data: 6
-;; <-
-;; =>
-;;; ["^ ","~:type","~:html","~:content",["~:span",["^ ","~:class","clj-long"],"6"],"~:value","6"]
 ;; <=
 
 ;; @@ [cljs]
@@ -258,81 +202,4 @@ y
 ;; <-
 ;; =>
 ;;; ["^ ","~:type","~:reagent-cljs","~:content",["^ "]]
-;; <=
-
-;; @@ [cljs]
-
-;; @@
-;; ->
-;;;  type: data: "3d720ec0-1023-490c-9fc9-c77109b4e904"
-;; <-
-;; =>
-;;; ["^ ","~:type","~:html","~:content",["~:span",["^ ","~:class","clj-string"],"\"3d720ec0-1023-490c-9fc9-c77109b4e904\""],"~:value","\"3d720ec0-1023-490c-9fc9-c77109b4e904\""]
-;; <=
-
-;; @@ [clj]
-
-;; @@
-;; =>
-;;; ["^ ","~:type","html","~:content",["span",["^ ","~:class","clj-var"],"#'user/calc-bmi-server"],"~:value","#'user/calc-bmi-server"]
-;; <=
-
-;; @@ [clj]
-
-;; @@
-;; ->
-;;; calc-bmi-server:  {:height 205, :weight 90.1}
-;; <-
-;; =>
-;;; ["^ ","~:type","list-like","~:open",["span",["^ ","~:class","clj-map"],"{"],"~:close",["span",["^ ","^2","clj-map"],"}"],"~:separator",["span",", "],"~:items",[["^ ","^0","list-like","^1",null,"^3",null,"^4",["span"," "],"^5",[["^ ","^0","html","~:content",["span",["^ ","^2","clj-keyword"],":height"],"~:value",":height"],["^ ","^0","html","^6",["span",["^ ","^2","clj-long"],"205"],"^7","205"]],"^7","[:height 205]"],["^ ","^0","list-like","^1",null,"^3",null,"^4",["span"," "],"^5",[["^ ","^0","html","^6",["span",["^ ","^2","clj-keyword"],":weight"],"^7",":weight"],["^ ","^0","html","^6",["span",["^ ","^2","clj-double"],"90.1"],"^7","90.1"]],"^7","[:weight 90.1]"],["^ ","^0","list-like","^1",null,"^3",null,"^4",["span"," "],"^5",[["^ ","^0","html","^6",["span",["^ ","^2","clj-keyword"],":bmi"],"^7",":bmi"],["^ ","^0","html","^6",["span",["^ ","^2","clj-double"],"21.439619274241522"],"^7","21.439619274241522"]],"^7","[:bmi 21.439619274241522]"]],"^7","{:height 205, :weight 90.1, :bmi 21.439619274241522}"]
-;; <=
-
-;; @@ [cljs]
-
-;; @@
-;; ->
-;;;  type: data: #'cljs.user/y
-;; <-
-;; =>
-;;; ["^ ","~:type","~:html","~:content",["~:span",["^ ","~:class","clj-unknown"],"#'cljs.user/y"],"~:value","#'cljs.user/y"]
-;; <=
-
-;; @@ [cljs]
-x
-;; @@
-;; ->
-;;;  type: data: #<Atom: nil>
-;; <-
-;; =>
-;;; ["^ ","~:type","~:html","~:content",["~:span",["^ ","~:class","clj-unknown"],"#<Atom: nil>"],"~:value","#<Atom: nil>"]
-;; <=
-
-;; @@ [cljs]
-
-;; @@
-;; ->
-;;;  type: data: #'cljs.user/x
-;; <-
-;; =>
-;;; ["^ ","~:type","~:html","~:content",["~:span",["^ ","~:class","clj-unknown"],"#'cljs.user/x"],"~:value","#'cljs.user/x"]
-;; <=
-
-;; @@ [cljs]
-
-;; @@
-;; ->
-;;;  type: data: #<Atom: "{:height 200, :weight 95.3, :bmi 23.825}">
-;; <-
-;; =>
-;;; ["^ ","~:type","~:html","~:content",["~:span",["^ ","~:class","clj-unknown"],"#<Atom: \"{:height 200, :weight 95.3, :bmi 23.825}\">"],"~:value","#<Atom: \"{:height 200, :weight 95.3, :bmi 23.825}\">"]
-;; <=
-
-;; @@ [clj]
-
-;; @@
-;; ->
-;;; 
-;; <-
-;; =>
-;;; ["^ ","~:type","html","~:value",["~:span"]]
 ;; <=
