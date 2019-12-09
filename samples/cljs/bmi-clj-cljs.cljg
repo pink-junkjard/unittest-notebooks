@@ -24,13 +24,14 @@
 
 ;; @@ [cljs]
 ; evaluate in clojure, and save result to a new reagent atom.
-(def x (pinkgorilla.kernel.nrepl.clj "+" 7 7))
+(def x (reagent.core/atom nil))
+(pinkgorilla.kernel.nrepl.clj "+" 7 7)
 ;; @@
 ;; ->
-;;;  type: data: #'cljs.user/x
+;;;  type: data: "+"
 ;; <-
 ;; =>
-;;; ["^ ","~:type","~:html","~:content",["~:span",["^ ","~:class","clj-unknown"],"#'cljs.user/x"],"~:value","#'cljs.user/x"]
+;;; ["^ ","~:type","~:html","~:content",["~:span",["^ ","~:class","clj-string"],"\"+\""],"~:value","\"+\""]
 ;; <=
 
 ;; @@ [cljs]
