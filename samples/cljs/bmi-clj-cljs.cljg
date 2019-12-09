@@ -110,10 +110,10 @@ y
 @bmi-data
 ;; @@
 ;; ->
-;;;  type: data: {:height 180, :weight 80}
+;;;  type: data: "{:height 157, :weight 78, :bmi 32}"
 ;; <-
 ;; =>
-;;; ["^ ","~:type","~:list-like","~:open",["~:span",["^ ","~:class","clj-map"],"{"],"~:close",["^3",["^ ","^4","clj-map"],"}"],"~:separator",["^3",", "],"~:items",["~#list",[["^ ","^0","^1","^2",null,"^5",null,"^6",["^3"," "],"^7",["^8",[["^ ","^0","~:html","~:content",["^3",["^ ","^4","clj-keyword"],":height"],"~:value",":height"],["^ ","^0","^9","^:",["^3",["^ ","^4","clj-long"],"180"],"^;","180"]]],"^;","[:height 180]"],["^ ","^0","^1","^2",null,"^5",null,"^6",["^3"," "],"^7",["^8",[["^ ","^0","^9","^:",["^3",["^ ","^4","clj-keyword"],":weight"],"^;",":weight"],["^ ","^0","^9","^:",["^3",["^ ","^4","clj-long"],"80"],"^;","80"]]],"^;","[:weight 80]"]]],"^;","{:height 180, :weight 80}"]
+;;; ["^ ","~:type","~:html","~:content",["~:span",["^ ","~:class","clj-string"],"\"{:height 157, :weight 78, :bmi 32}\""],"~:value","\"{:height 157, :weight 78, :bmi 32}\""]
 ;; <=
 
 ;; @@ [cljs]
@@ -217,20 +217,20 @@ y
 @bmi-data
 ;; @@
 ;; ->
-;;;  type: data: "{:height 157, :weight 78, :bmi 32}"
+;;;  type: data: "{:height 200, :weight 48, :bmi 12}"
 ;; <-
 ;; =>
-;;; ["^ ","~:type","~:html","~:content",["~:span",["^ ","~:class","clj-string"],"\"{:height 157, :weight 78, :bmi 32}\""],"~:value","\"{:height 157, :weight 78, :bmi 32}\""]
+;;; ["^ ","~:type","~:html","~:content",["~:span",["^ ","~:class","clj-string"],"\"{:height 200, :weight 48, :bmi 12}\""],"~:value","\"{:height 200, :weight 48, :bmi 12}\""]
 ;; <=
 
 ;; @@ [cljs]
- (pinkgorilla.kernel.nrepl.clj bmi-data "user/calc-bmi-server" @bmi-data)
+ (pinkgorilla.kernel.nrepl.clj bmi-data "user/calc-bmi-server" {:height 200 :weight 50})
 ;; @@
 ;; ->
-;;;  type: data: #<Atom: "{:height 157, :weight 78, :bmi 32}">
+;;;  type: data: #<Atom: "{:height 200, :weight 48, :bmi 12}">
 ;; <-
 ;; =>
-;;; ["^ ","~:type","~:html","~:content",["~:span",["^ ","~:class","clj-unknown"],"#<Atom: \"{:height 157, :weight 78, :bmi 32}\">"],"~:value","#<Atom: \"{:height 157, :weight 78, :bmi 32}\">"]
+;;; ["^ ","~:type","~:html","~:content",["~:span",["^ ","~:class","clj-unknown"],"#<Atom: \"{:height 200, :weight 48, :bmi 12}\">"],"~:value","#<Atom: \"{:height 200, :weight 48, :bmi 12}\">"]
 ;; <=
 
 ;; @@ [clj]
