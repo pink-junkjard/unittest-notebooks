@@ -92,7 +92,7 @@ y
 ;; <=
 
 ;; @@ [cljs]
-
+; client side state of the application.
 (def bmi-data (reagent.core/atom {:height 180 :weight 80}))
 ;; @@
 ;; ->
@@ -103,27 +103,18 @@ y
 ;; <=
 
 ;; @@ [cljs]
-; note: pr-str is here because of a bug in list-alike rendering in cljs
-(pr-str @bmi-data)
+; show current state
+@bmi-data
 ;; @@
 ;; ->
-;;;  type: data: "{:height 180, :weight 80}"
+;;;  type: data: {:height 180, :weight 80}
 ;; <-
 ;; =>
-;;; ["^ ","~:type","~:html","~:content",["~:span",["^ ","~:class","clj-string"],"\"{:height 180, :weight 80}\""],"~:value","\"{:height 180, :weight 80}\""]
+;;; ["^ ","~:type","~:list-like","~:open",["~:span",["^ ","~:class","clj-map"],"{"],"~:close",["^3",["^ ","^4","clj-map"],"}"],"~:separator",["^3",", "],"~:items",["~#list",[["^ ","^0","^1","^2",null,"^5",null,"^6",["^3"," "],"^7",["^8",[["^ ","^0","~:html","~:content",["^3",["^ ","^4","clj-keyword"],":height"],"~:value",":height"],["^ ","^0","^9","^:",["^3",["^ ","^4","clj-long"],"180"],"^;","180"]]],"^;","[:height 180]"],["^ ","^0","^1","^2",null,"^5",null,"^6",["^3"," "],"^7",["^8",[["^ ","^0","^9","^:",["^3",["^ ","^4","clj-keyword"],":weight"],"^;",":weight"],["^ ","^0","^9","^:",["^3",["^ ","^4","clj-long"],"80"],"^;","80"]]],"^;","[:weight 80]"]]],"^;","{:height 180, :weight 80}"]
 ;; <=
 
 ;; @@ [cljs]
-(pr-str (calc-bmi))
-;; @@
-;; ->
-;;;  type: data: "{:height 180, :weight 80, :bmi 24.691358024691358}"
-;; <-
-;; =>
-;;; ["^ ","~:type","~:html","~:content",["~:span",["^ ","~:class","clj-string"],"\"{:height 180, :weight 80, :bmi 24.691358024691358}\""],"~:value","\"{:height 180, :weight 80, :bmi 24.691358024691358}\""]
-;; <=
-
-;; @@ [cljs]
+; the slider displays one property of the bmi atom, and updates that property inside the atom
 (defn slider [param value min max]
   [:input {:type "range" :value value :min min :max max
            :style {:width "100%"}
@@ -145,30 +136,32 @@ y
  (fn []
  [:div 
   [:p(str  "height: " (:height @bmi-data))]
-  [cljs.user/slider :height (:height @bmi-data) 100 220]
+  [cljs.user/slider :height (:height @bmi-data) 10 220] ; babies are perhaps only 10cm, adults can go up to 220.
   ]))
 
 ;; @@
 ;; ->
-;;;  type: data: #object[pinkgorilla.kernel.cljs-tools.t_pinkgorilla$kernel$cljs_tools63272]
+;;;  type: data: #object[pinkgorilla.kernel.cljs-tools.t_pinkgorilla$kernel$cljs_tools72048]
 ;; <-
 ;; =>
 ;;; ["^ ","~:type","~:reagent-cljs","~:content",["^ "]]
 ;; <=
 
 ;; @@ [cljs]
-(pr-str @bmi-data)
+; manipulate the height in the slider above, and now lets check the state again...
+@bmi-data
 ;; @@
 ;; ->
-;;;  type: data: "{:height 180, :weight 80}"
+;;;  type: data: {:height "123", :weight 80, :bmi nil}
 ;; <-
 ;; =>
-;;; ["^ ","~:type","~:html","~:content",["~:span",["^ ","~:class","clj-string"],"\"{:height 180, :weight 80}\""],"~:value","\"{:height 180, :weight 80}\""]
+;;; ["^ ","~:type","~:list-like","~:open",["~:span",["^ ","~:class","clj-map"],"{"],"~:close",["^3",["^ ","^4","clj-map"],"}"],"~:separator",["^3",", "],"~:items",["~#list",[["^ ","^0","^1","^2",null,"^5",null,"^6",["^3"," "],"^7",["^8",[["^ ","^0","~:html","~:content",["^3",["^ ","^4","clj-keyword"],":height"],"~:value",":height"],["^ ","^0","^9","^:",["^3",["^ ","^4","clj-string"],"\"123\""],"^;","\"123\""]]],"^;","[:height \"123\"]"],["^ ","^0","^1","^2",null,"^5",null,"^6",["^3"," "],"^7",["^8",[["^ ","^0","^9","^:",["^3",["^ ","^4","clj-keyword"],":weight"],"^;",":weight"],["^ ","^0","^9","^:",["^3",["^ ","^4","clj-long"],"80"],"^;","80"]]],"^;","[:weight 80]"],["^ ","^0","^1","^2",null,"^5",null,"^6",["^3"," "],"^7",["^8",[["^ ","^0","^9","^:",["^3",["^ ","^4","clj-keyword"],":bmi"],"^;",":bmi"],["^ ","^0","^9","^:",["^3",["^ ","^4","clj-nil"],"nil"],"^;","nil"]]],"^;","[:bmi nil]"]]],"^;","{:height \"123\", :weight 80, :bmi nil}"]
 ;; <=
 
 ;; @@ [cljs]
+;; the bmi component has 3 sliders, and the bmi indicator changes color.
 (defn bmi-component []
-  (let [{:keys [weight height bmi]} (calc-bmi)
+  (let [{:keys [weight height bmi]} @bmi-data ;  (calc-bmi)
         [color diagnose] (cond
                           (< bmi 18.5) ["orange" "underweight"]
                           (< bmi 25) ["inherit" "normal"]
@@ -198,8 +191,28 @@ y
 (pinkgorilla.kernel.cljs-tools/r! bmi-component)
 ;; @@
 ;; ->
-;;;  type: data: #object[pinkgorilla.kernel.cljs-tools.t_pinkgorilla$kernel$cljs_tools63272]
+;;;  type: data: #object[pinkgorilla.kernel.cljs-tools.t_pinkgorilla$kernel$cljs_tools72048]
 ;; <-
 ;; =>
 ;;; ["^ ","~:type","~:reagent-cljs","~:content",["^ "]]
+;; <=
+
+;; @@ [cljs]
+@bmi-data
+;; @@
+;; ->
+;;;  type: data: {:height "144", :weight "79", :bmi "22"}
+;; <-
+;; =>
+;;; ["^ ","~:type","~:list-like","~:open",["~:span",["^ ","~:class","clj-map"],"{"],"~:close",["^3",["^ ","^4","clj-map"],"}"],"~:separator",["^3",", "],"~:items",["~#list",[["^ ","^0","^1","^2",null,"^5",null,"^6",["^3"," "],"^7",["^8",[["^ ","^0","~:html","~:content",["^3",["^ ","^4","clj-keyword"],":height"],"~:value",":height"],["^ ","^0","^9","^:",["^3",["^ ","^4","clj-string"],"\"144\""],"^;","\"144\""]]],"^;","[:height \"144\"]"],["^ ","^0","^1","^2",null,"^5",null,"^6",["^3"," "],"^7",["^8",[["^ ","^0","^9","^:",["^3",["^ ","^4","clj-keyword"],":weight"],"^;",":weight"],["^ ","^0","^9","^:",["^3",["^ ","^4","clj-string"],"\"79\""],"^;","\"79\""]]],"^;","[:weight \"79\"]"],["^ ","^0","^1","^2",null,"^5",null,"^6",["^3"," "],"^7",["^8",[["^ ","^0","^9","^:",["^3",["^ ","^4","clj-keyword"],":bmi"],"^;",":bmi"],["^ ","^0","^9","^:",["^3",["^ ","^4","clj-string"],"\"22\""],"^;","\"22\""]]],"^;","[:bmi \"22\"]"]]],"^;","{:height \"144\", :weight \"79\", :bmi \"22\"}"]
+;; <=
+
+;; @@ [clj]
+
+;; @@
+;; ->
+;;; 
+;; <-
+;; =>
+;;; ["^ ","~:type","html","~:value",["~:span"]]
 ;; <=
