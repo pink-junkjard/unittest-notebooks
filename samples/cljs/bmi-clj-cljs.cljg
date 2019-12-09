@@ -162,6 +162,7 @@ y
 
 ;; @@ [cljs]
 (defn calc-bmi-server []
+  (.log js/console "calculating: " @bmi-data)
   (pinkgorilla.kernel.nrepl.clj y "user/calc-bmi-server" @bmi-data)
   @bmi-data)
 ;; @@
@@ -175,7 +176,7 @@ y
 ;; @@ [cljs]
 ;; the bmi component has 3 sliders, and the bmi indicator changes color.
 (defn bmi-component []
-  (let [{:keys [weight height bmi]} calc-bmi-server
+  (let [{:keys [weight height bmi]} (calc-bmi-server)
         [color diagnose] (cond
                           (< bmi 18.5) ["orange" "underweight"]
                           (< bmi 25) ["inherit" "normal"]
