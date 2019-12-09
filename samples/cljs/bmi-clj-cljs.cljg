@@ -16,22 +16,22 @@
 (pinkgorilla.kernel.nrepl.clj-eval "(+ 5 5)" #(.log js/console (str "my result:" %)))
 ;; @@
 ;; ->
-;;;  type: data: "d0d73116-f331-437e-9095-3a6677de84ca"
+;;;  type: data: "f14d4db9-5660-43ba-af51-554a1f5c6429"
 ;; <-
 ;; =>
-;;; ["^ ","~:type","~:html","~:content",["~:span",["^ ","~:class","clj-string"],"\"d0d73116-f331-437e-9095-3a6677de84ca\""],"~:value","\"d0d73116-f331-437e-9095-3a6677de84ca\""]
+;;; ["^ ","~:type","~:html","~:content",["~:span",["^ ","~:class","clj-string"],"\"f14d4db9-5660-43ba-af51-554a1f5c6429\""],"~:value","\"f14d4db9-5660-43ba-af51-554a1f5c6429\""]
 ;; <=
 
 ;; @@ [cljs]
 ; evaluate in clojure, and save result to a new reagent atom.
 (def x (reagent.core/atom nil))
-(pinkgorilla.kernel.nrepl.clj "+" 7 7)
+(pinkgorilla.kernel.nrepl.clj x "+" 7 7)
 ;; @@
 ;; ->
-;;;  type: data: "+"
+;;;  type: data: #<Atom: nil>
 ;; <-
 ;; =>
-;;; ["^ ","~:type","~:html","~:content",["~:span",["^ ","~:class","clj-string"],"\"+\""],"~:value","\"+\""]
+;;; ["^ ","~:type","~:html","~:content",["~:span",["^ ","~:class","clj-unknown"],"#<Atom: nil>"],"~:value","#<Atom: nil>"]
 ;; <=
 
 ;; @@ [cljs]
@@ -72,13 +72,14 @@ x
 
 ;; @@ [cljs]
 ; evaluate on server, but call from client clojurescript. y is an atom
-(def y (pinkgorilla.kernel.nrepl.clj "user/calc-bmi-server" {:height 200 :weight 95.3}))
+(def y (reagent.core/atom nil)) 
+(pinkgorilla.kernel.nrepl.clj y "user/calc-bmi-server" {:height 200 :weight 95.3})
 ;; @@
 ;; ->
-;;;  type: data: #'cljs.user/y
+;;;  type: data: #<Atom: nil>
 ;; <-
 ;; =>
-;;; ["^ ","~:type","~:html","~:content",["~:span",["^ ","~:class","clj-unknown"],"#'cljs.user/y"],"~:value","#'cljs.user/y"]
+;;; ["^ ","~:type","~:html","~:content",["~:span",["^ ","~:class","clj-unknown"],"#<Atom: nil>"],"~:value","#<Atom: nil>"]
 ;; <=
 
 ;; @@ [cljs]
