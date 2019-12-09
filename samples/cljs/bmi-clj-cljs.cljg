@@ -12,6 +12,86 @@
 ;; **
 
 ;; @@ [cljs]
+; eval with callback. The result shows up in the browser log.
+(pinkgorilla.kernel.nrepl.clj-eval "(+ 5 5)" #(.log js/console (str "my result:" %)))
+;; @@
+;; ->
+;;;  type: data: "d0d73116-f331-437e-9095-3a6677de84ca"
+;; <-
+;; =>
+;;; ["^ ","~:type","~:html","~:content",["~:span",["^ ","~:class","clj-string"],"\"d0d73116-f331-437e-9095-3a6677de84ca\""],"~:value","\"d0d73116-f331-437e-9095-3a6677de84ca\""]
+;; <=
+
+;; @@ [cljs]
+; evaluate in clojure, and save result to a new reagent atom.
+(def x (pinkgorilla.kernel.nrepl.clj "+" 7 7))
+;; @@
+;; ->
+;;;  type: data: #'cljs.user/x
+;; <-
+;; =>
+;;; ["^ ","~:type","~:html","~:content",["~:span",["^ ","~:class","clj-unknown"],"#'cljs.user/x"],"~:value","#'cljs.user/x"]
+;; <=
+
+;; @@ [cljs]
+; show the atom
+x
+;; @@
+;; ->
+;;;  type: data: #<Atom: "14">
+;; <-
+;; =>
+;;; ["^ ","~:type","~:html","~:content",["~:span",["^ ","~:class","clj-unknown"],"#<Atom: \"14\">"],"~:value","#<Atom: \"14\">"]
+;; <=
+
+;; @@ [clj]
+; define bmi caluclation - server side (clojure)
+(defn calc-bmi-server [bmi-data]
+  (println "calc-bmi-server: " bmi-data)
+  (let [{:keys [height weight bmi] :as data} bmi-data
+        h (/ height 100)]
+    (if (nil? bmi)
+      (assoc data :bmi (/ weight (* h h)))
+      (assoc data :weight (* bmi h h)))))
+;; @@
+;; =>
+;;; ["^ ","~:type","html","~:content",["span",["^ ","~:class","clj-var"],"#'user/calc-bmi-server"],"~:value","#'user/calc-bmi-server"]
+;; <=
+
+;; @@ [clj]
+; test the server calculation from clojure (sever-server)
+(calc-bmi-server {:height 205 :weight 90.1})
+;; @@
+;; ->
+;;; calc-bmi-server:  {:height 205, :weight 90.1}
+;; <-
+;; =>
+;;; ["^ ","~:type","list-like","~:open",["span",["^ ","~:class","clj-map"],"{"],"~:close",["span",["^ ","^2","clj-map"],"}"],"~:separator",["span",", "],"~:items",[["^ ","^0","list-like","^1",null,"^3",null,"^4",["span"," "],"^5",[["^ ","^0","html","~:content",["span",["^ ","^2","clj-keyword"],":height"],"~:value",":height"],["^ ","^0","html","^6",["span",["^ ","^2","clj-long"],"205"],"^7","205"]],"^7","[:height 205]"],["^ ","^0","list-like","^1",null,"^3",null,"^4",["span"," "],"^5",[["^ ","^0","html","^6",["span",["^ ","^2","clj-keyword"],":weight"],"^7",":weight"],["^ ","^0","html","^6",["span",["^ ","^2","clj-double"],"90.1"],"^7","90.1"]],"^7","[:weight 90.1]"],["^ ","^0","list-like","^1",null,"^3",null,"^4",["span"," "],"^5",[["^ ","^0","html","^6",["span",["^ ","^2","clj-keyword"],":bmi"],"^7",":bmi"],["^ ","^0","html","^6",["span",["^ ","^2","clj-double"],"21.439619274241522"],"^7","21.439619274241522"]],"^7","[:bmi 21.439619274241522]"]],"^7","{:height 205, :weight 90.1, :bmi 21.439619274241522}"]
+;; <=
+
+;; @@ [cljs]
+; evaluate on server, but call from client clojurescript. y is an atom
+(def y (pinkgorilla.kernel.nrepl.clj "user/calc-bmi-server" {:height 200 :weight 95.3}))
+;; @@
+;; ->
+;;;  type: data: #'cljs.user/y
+;; <-
+;; =>
+;;; ["^ ","~:type","~:html","~:content",["~:span",["^ ","~:class","clj-unknown"],"#'cljs.user/y"],"~:value","#'cljs.user/y"]
+;; <=
+
+;; @@ [cljs]
+; show the current state of the atom.
+y
+;; @@
+;; ->
+;;;  type: data: #<Atom: "{:height 200, :weight 95.3, :bmi 23.825}">
+;; <-
+;; =>
+;;; ["^ ","~:type","~:html","~:content",["~:span",["^ ","~:class","clj-unknown"],"#<Atom: \"{:height 200, :weight 95.3, :bmi 23.825}\">"],"~:value","#<Atom: \"{:height 200, :weight 95.3, :bmi 23.825}\">"]
+;; <=
+
+;; @@ [cljs]
 (def bmi-data (reagent.core/atom {:height 180 :weight 80}))
 ;; @@
 ;; ->
@@ -19,6 +99,16 @@
 ;; <-
 ;; =>
 ;;; ["^ ","~:type","~:html","~:content",["~:span",["^ ","~:class","clj-unknown"],"#'cljs.user/bmi-data"],"~:value","#'cljs.user/bmi-data"]
+;; <=
+
+;; @@ [clj]
+
+;; @@
+;; ->
+;;; 
+;; <-
+;; =>
+;;; ["^ ","~:type","html","~:value",["~:span"]]
 ;; <=
 
 ;; @@ [cljs]
@@ -171,7 +261,7 @@
 ;; <=
 
 ;; @@ [cljs]
-(pinkgorilla.kernel.nrepl.clj-eval "(+ 5 5)" #(.log js/console (str "result:" %)))
+
 ;; @@
 ;; ->
 ;;;  type: data: "3d720ec0-1023-490c-9fc9-c77109b4e904"
@@ -181,20 +271,14 @@
 ;; <=
 
 ;; @@ [clj]
-(defn calc-bmi-server [bmi-data]
-  (println "calc-bmi-server: " bmi-data)
-  (let [{:keys [height weight bmi] :as data} bmi-data
-        h (/ height 100)]
-    (if (nil? bmi)
-      (assoc data :bmi (/ weight (* h h)))
-      (assoc data :weight (* bmi h h)))))
+
 ;; @@
 ;; =>
 ;;; ["^ ","~:type","html","~:content",["span",["^ ","~:class","clj-var"],"#'user/calc-bmi-server"],"~:value","#'user/calc-bmi-server"]
 ;; <=
 
 ;; @@ [clj]
-(calc-bmi-server {:height 205 :weight 90.1})
+
 ;; @@
 ;; ->
 ;;; calc-bmi-server:  {:height 205, :weight 90.1}
@@ -204,13 +288,13 @@
 ;; <=
 
 ;; @@ [cljs]
-(def x (pinkgorilla.kernel.nrepl.clj "user/calc-bmi-server" {:height 200 :weight 95.3}))
+
 ;; @@
 ;; ->
-;;;  type: data: #'cljs.user/x
+;;;  type: data: #'cljs.user/y
 ;; <-
 ;; =>
-;;; ["^ ","~:type","~:html","~:content",["~:span",["^ ","~:class","clj-unknown"],"#'cljs.user/x"],"~:value","#'cljs.user/x"]
+;;; ["^ ","~:type","~:html","~:content",["~:span",["^ ","~:class","clj-unknown"],"#'cljs.user/y"],"~:value","#'cljs.user/y"]
 ;; <=
 
 ;; @@ [cljs]
@@ -224,7 +308,7 @@ x
 ;; <=
 
 ;; @@ [cljs]
-(def x (pinkgorilla.kernel.nrepl.clj "+" 7 7))
+
 ;; @@
 ;; ->
 ;;;  type: data: #'cljs.user/x
@@ -234,13 +318,13 @@ x
 ;; <=
 
 ;; @@ [cljs]
-x
+
 ;; @@
 ;; ->
-;;;  type: data: #<Atom: nil>
+;;;  type: data: #<Atom: "{:height 200, :weight 95.3, :bmi 23.825}">
 ;; <-
 ;; =>
-;;; ["^ ","~:type","~:html","~:content",["~:span",["^ ","~:class","clj-unknown"],"#<Atom: nil>"],"~:value","#<Atom: nil>"]
+;;; ["^ ","~:type","~:html","~:content",["~:span",["^ ","~:class","clj-unknown"],"#<Atom: \"{:height 200, :weight 95.3, :bmi 23.825}\">"],"~:value","#<Atom: \"{:height 200, :weight 95.3, :bmi 23.825}\">"]
 ;; <=
 
 ;; @@ [clj]
