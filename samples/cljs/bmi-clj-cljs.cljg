@@ -174,10 +174,33 @@
 (pinkgorilla.kernel.nrepl.clj-eval "(+ 5 5)" #(.log js/console (str "result:" %)))
 ;; @@
 ;; ->
-;;;  type: data: "523ab87d-9139-419e-b684-fbd141fc891e"
+;;;  type: data: "3d720ec0-1023-490c-9fc9-c77109b4e904"
 ;; <-
 ;; =>
-;;; ["^ ","~:type","~:html","~:content",["~:span",["^ ","~:class","clj-string"],"\"523ab87d-9139-419e-b684-fbd141fc891e\""],"~:value","\"523ab87d-9139-419e-b684-fbd141fc891e\""]
+;;; ["^ ","~:type","~:html","~:content",["~:span",["^ ","~:class","clj-string"],"\"3d720ec0-1023-490c-9fc9-c77109b4e904\""],"~:value","\"3d720ec0-1023-490c-9fc9-c77109b4e904\""]
+;; <=
+
+;; @@ [clj]
+(defn calc-bmi-server [bmi-data]
+  (println "calc-bmi-server: " bmi-data)
+  (let [{:keys [height weight bmi] :as data} bmi-data
+        h (/ height 100)]
+    (if (nil? bmi)
+      (assoc data :bmi (/ weight (* h h)))
+      (assoc data :weight (* bmi h h)))))
+;; @@
+;; =>
+;;; ["^ ","~:type","html","~:content",["span",["^ ","~:class","clj-var"],"#'user/calc-bmi-server"],"~:value","#'user/calc-bmi-server"]
+;; <=
+
+;; @@ [clj]
+(calc-bmi-server {:height 205 :weight 90.1})
+;; @@
+;; ->
+;;; calc-bmi-server:  {:height 205, :weight 90.1}
+;; <-
+;; =>
+;;; ["^ ","~:type","list-like","~:open",["span",["^ ","~:class","clj-map"],"{"],"~:close",["span",["^ ","^2","clj-map"],"}"],"~:separator",["span",", "],"~:items",[["^ ","^0","list-like","^1",null,"^3",null,"^4",["span"," "],"^5",[["^ ","^0","html","~:content",["span",["^ ","^2","clj-keyword"],":height"],"~:value",":height"],["^ ","^0","html","^6",["span",["^ ","^2","clj-long"],"205"],"^7","205"]],"^7","[:height 205]"],["^ ","^0","list-like","^1",null,"^3",null,"^4",["span"," "],"^5",[["^ ","^0","html","^6",["span",["^ ","^2","clj-keyword"],":weight"],"^7",":weight"],["^ ","^0","html","^6",["span",["^ ","^2","clj-double"],"90.1"],"^7","90.1"]],"^7","[:weight 90.1]"],["^ ","^0","list-like","^1",null,"^3",null,"^4",["span"," "],"^5",[["^ ","^0","html","^6",["span",["^ ","^2","clj-keyword"],":bmi"],"^7",":bmi"],["^ ","^0","html","^6",["span",["^ ","^2","clj-double"],"21.439619274241522"],"^7","21.439619274241522"]],"^7","[:bmi 21.439619274241522]"]],"^7","{:height 205, :weight 90.1, :bmi 21.439619274241522}"]
 ;; <=
 
 ;; @@ [clj]
