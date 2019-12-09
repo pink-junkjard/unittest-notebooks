@@ -170,6 +170,16 @@
 ;;; ["^ ","~:type","~:reagent-cljs","~:content",["^ "]]
 ;; <=
 
+;; @@ [cljs]
+(pinkgorilla.kernel.nrepl.clj-eval "(+ 5 5)", #(println "result:" %))
+;; @@
+;; ->
+;;;  type: data: "d3309752-0113-407b-8748-0b4609acd594"
+;; <-
+;; =>
+;;; ["^ ","~:type","~:html","~:content",["~:span",["^ ","~:class","clj-string"],"\"d3309752-0113-407b-8748-0b4609acd594\""],"~:value","\"d3309752-0113-407b-8748-0b4609acd594\""]
+;; <=
+
 ;; @@ [clj]
 
 ;; @@
