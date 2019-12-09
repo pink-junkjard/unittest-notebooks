@@ -9,9 +9,13 @@
 ;;; # Body Mass Indicator Demo 
 ;;; 
 ;;; Uses cljs kernel with reagent.
+;;; There are two versions of this bmi calculator. 
+;;; This sheet: client only
+;;; The other sheet : calculation happens on the server.
 ;; **
 
 ;; @@ [cljs]
+; define the state
 (def bmi-data (reagent.core/atom {:height 180 :weight 80}))
 ;; @@
 ;; ->
@@ -22,17 +26,20 @@
 ;; <=
 
 ;; @@ [cljs]
-; note: pr-str is here because of a bug in list-alike rendering in cljs
-(pr-str @bmi-data)
+; show the state
+@bmi-data
 ;; @@
 ;; ->
-;;;  type: data: "{:height 180, :weight 80}"
+;;;  type: data: {:height 180, :weight 80, :bmi nil}
 ;; <-
 ;; =>
-;;; ["^ ","~:type","~:html","~:content",["~:span",["^ ","~:class","clj-string"],"\"{:height 180, :weight 80}\""],"~:value","\"{:height 180, :weight 80}\""]
+;;; ["^ ","~:type","~:list-like","~:open",["~:span",["^ ","~:class","clj-map"],"{"],"~:close",["^3",["^ ","^4","clj-map"],"}"],"~:separator",["^3",", "],"~:items",["~#list",[["^ ","^0","^1","^2",null,"^5",null,"^6",["^3"," "],"^7",["^8",[["^ ","^0","~:html","~:content",["^3",["^ ","^4","clj-keyword"],":height"],"~:value",":height"],["^ ","^0","^9","^:",["^3",["^ ","^4","clj-long"],"180"],"^;","180"]]],"^;","[:height 180]"],["^ ","^0","^1","^2",null,"^5",null,"^6",["^3"," "],"^7",["^8",[["^ ","^0","^9","^:",["^3",["^ ","^4","clj-keyword"],":weight"],"^;",":weight"],["^ ","^0","^9","^:",["^3",["^ ","^4","clj-long"],"80"],"^;","80"]]],"^;","[:weight 80]"],["^ ","^0","^1","^2",null,"^5",null,"^6",["^3"," "],"^7",["^8",[["^ ","^0","^9","^:",["^3",["^ ","^4","clj-keyword"],":bmi"],"^;",":bmi"],["^ ","^0","^9","^:",["^3",["^ ","^4","clj-nil"],"nil"],"^;","nil"]]],"^;","[:bmi nil]"]]],"^;","{:height 180, :weight 80, :bmi nil}"]
 ;; <=
 
 ;; @@ [cljs]
+; define the calculation function. Note that 
+; 1. a change in the atom will trigger re-rendering
+; 2. setting :bmi to nil will calculate bmi; otherwise the weight will be adjusted. 
 (defn calc-bmi []
   (let [{:keys [height weight bmi] :as data} @bmi-data
         h (/ height 100)]
@@ -48,16 +55,19 @@
 ;; <=
 
 ;; @@ [cljs]
-(pr-str (calc-bmi))
+; calculate for fun
+(calc-bmi)
 ;; @@
 ;; ->
-;;;  type: data: "{:height 180, :weight 80, :bmi 24.691358024691358}"
+;;;  type: data: {:height 180, :weight 80, :bmi 24.691358024691358}
 ;; <-
 ;; =>
-;;; ["^ ","~:type","~:html","~:content",["~:span",["^ ","~:class","clj-string"],"\"{:height 180, :weight 80, :bmi 24.691358024691358}\""],"~:value","\"{:height 180, :weight 80, :bmi 24.691358024691358}\""]
+;;; ["^ ","~:type","~:list-like","~:open",["~:span",["^ ","~:class","clj-map"],"{"],"~:close",["^3",["^ ","^4","clj-map"],"}"],"~:separator",["^3",", "],"~:items",["~#list",[["^ ","^0","^1","^2",null,"^5",null,"^6",["^3"," "],"^7",["^8",[["^ ","^0","~:html","~:content",["^3",["^ ","^4","clj-keyword"],":height"],"~:value",":height"],["^ ","^0","^9","^:",["^3",["^ ","^4","clj-long"],"180"],"^;","180"]]],"^;","[:height 180]"],["^ ","^0","^1","^2",null,"^5",null,"^6",["^3"," "],"^7",["^8",[["^ ","^0","^9","^:",["^3",["^ ","^4","clj-keyword"],":weight"],"^;",":weight"],["^ ","^0","^9","^:",["^3",["^ ","^4","clj-long"],"80"],"^;","80"]]],"^;","[:weight 80]"],["^ ","^0","^1","^2",null,"^5",null,"^6",["^3"," "],"^7",["^8",[["^ ","^0","^9","^:",["^3",["^ ","^4","clj-keyword"],":bmi"],"^;",":bmi"],["^ ","^0","^9","^:",["^3",["^ ","^4","clj-long"],"24.691358024691358"],"^;","24.691358024691358"]]],"^;","[:bmi 24.691358024691358]"]]],"^;","{:height 180, :weight 80, :bmi 24.691358024691358}"]
 ;; <=
 
 ;; @@ [cljs]
+; the slider is used for all 3 elements.
+; however, the non-bmi sliders will reset :bmi property!
 (defn slider [param value min max]
   [:input {:type "range" :value value :min min :max max
            :style {:width "100%"}
@@ -74,17 +84,8 @@
 ;;; ["^ ","~:type","~:html","~:content",["~:span",["^ ","~:class","clj-unknown"],"#'cljs.user/slider"],"~:value","#'cljs.user/slider"]
 ;; <=
 
-;; @@ [clj]
-
-;; @@
-;; ->
-;;; 
-;; <-
-;; =>
-;;; ["^ ","~:type","html","~:value",["~:span"]]
-;; <=
-
 ;; @@ [cljs]
+; show only one slider
 (pinkgorilla.kernel.cljs-tools/r! 
  (fn []
  [:div 
@@ -94,49 +95,49 @@
 
 ;; @@
 ;; ->
-;;;  type: data: #object[pinkgorilla.kernel.cljs-tools.t_pinkgorilla$kernel$cljs_tools53719]
+;;;  type: data: #object[pinkgorilla.kernel.cljs-tools.t_pinkgorilla$kernel$cljs_tools72048]
 ;; <-
 ;; =>
 ;;; ["^ ","~:type","~:reagent-cljs","~:content",["^ "]]
 ;; <=
 
 ;; @@ [cljs]
+; lets change the height manually (the slider above adjusts)
 (swap! bmi-data assoc :height 150)
-:88
 ;; @@
 ;; ->
-;;;  type: data: :88
+;;;  type: data: {:height 150, :weight 80, :bmi nil}
 ;; <-
 ;; =>
-;;; ["^ ","~:type","~:html","~:content",["~:span",["^ ","~:class","clj-keyword"],":88"],"~:value",":88"]
+;;; ["^ ","~:type","~:list-like","~:open",["~:span",["^ ","~:class","clj-map"],"{"],"~:close",["^3",["^ ","^4","clj-map"],"}"],"~:separator",["^3",", "],"~:items",["~#list",[["^ ","^0","^1","^2",null,"^5",null,"^6",["^3"," "],"^7",["^8",[["^ ","^0","~:html","~:content",["^3",["^ ","^4","clj-keyword"],":height"],"~:value",":height"],["^ ","^0","^9","^:",["^3",["^ ","^4","clj-long"],"150"],"^;","150"]]],"^;","[:height 150]"],["^ ","^0","^1","^2",null,"^5",null,"^6",["^3"," "],"^7",["^8",[["^ ","^0","^9","^:",["^3",["^ ","^4","clj-keyword"],":weight"],"^;",":weight"],["^ ","^0","^9","^:",["^3",["^ ","^4","clj-long"],"80"],"^;","80"]]],"^;","[:weight 80]"],["^ ","^0","^1","^2",null,"^5",null,"^6",["^3"," "],"^7",["^8",[["^ ","^0","^9","^:",["^3",["^ ","^4","clj-keyword"],":bmi"],"^;",":bmi"],["^ ","^0","^9","^:",["^3",["^ ","^4","clj-nil"],"nil"],"^;","nil"]]],"^;","[:bmi nil]"]]],"^;","{:height 150, :weight 80, :bmi nil}"]
 ;; <=
 
 ;; @@ [cljs]
+; one more time.
 (swap! bmi-data assoc :height 180)
-6
 ;; @@
 ;; ->
-;;; [:ok 6] type: function Number() {
-;;;     [native code]
-;;; }
+;;;  type: data: {:height 180, :weight 80, :bmi nil}
 ;; <-
 ;; =>
-;;; ["^ ","~:type","~:html","~:content","<span class='cljs-number'>6</span>","~:value","6"]
+;;; ["^ ","~:type","~:list-like","~:open",["~:span",["^ ","~:class","clj-map"],"{"],"~:close",["^3",["^ ","^4","clj-map"],"}"],"~:separator",["^3",", "],"~:items",["~#list",[["^ ","^0","^1","^2",null,"^5",null,"^6",["^3"," "],"^7",["^8",[["^ ","^0","~:html","~:content",["^3",["^ ","^4","clj-keyword"],":height"],"~:value",":height"],["^ ","^0","^9","^:",["^3",["^ ","^4","clj-long"],"180"],"^;","180"]]],"^;","[:height 180]"],["^ ","^0","^1","^2",null,"^5",null,"^6",["^3"," "],"^7",["^8",[["^ ","^0","^9","^:",["^3",["^ ","^4","clj-keyword"],":weight"],"^;",":weight"],["^ ","^0","^9","^:",["^3",["^ ","^4","clj-long"],"80"],"^;","80"]]],"^;","[:weight 80]"],["^ ","^0","^1","^2",null,"^5",null,"^6",["^3"," "],"^7",["^8",[["^ ","^0","^9","^:",["^3",["^ ","^4","clj-keyword"],":bmi"],"^;",":bmi"],["^ ","^0","^9","^:",["^3",["^ ","^4","clj-nil"],"nil"],"^;","nil"]]],"^;","[:bmi nil]"]]],"^;","{:height 180, :weight 80, :bmi nil}"]
 ;; <=
 
 ;; @@ [cljs]
-(pr-str @bmi-data)
+; the atom also changes the value
+@bmi-data
 ;; @@
 ;; ->
-;;; [:ok "{:height 180, :weight 80}"] type: function String() {
-;;;     [native code]
-;;; }
+;;;  type: data: {:height 180, :weight 80, :bmi nil}
 ;; <-
 ;; =>
-;;; ["^ ","~:type","~:html","~:content","<span class='cljs-string'>&quot;{:height 180, :weight 80}&quot;</span>","~:value","\"{:height 180, :weight 80}\""]
+;;; ["^ ","~:type","~:list-like","~:open",["~:span",["^ ","~:class","clj-map"],"{"],"~:close",["^3",["^ ","^4","clj-map"],"}"],"~:separator",["^3",", "],"~:items",["~#list",[["^ ","^0","^1","^2",null,"^5",null,"^6",["^3"," "],"^7",["^8",[["^ ","^0","~:html","~:content",["^3",["^ ","^4","clj-keyword"],":height"],"~:value",":height"],["^ ","^0","^9","^:",["^3",["^ ","^4","clj-long"],"180"],"^;","180"]]],"^;","[:height 180]"],["^ ","^0","^1","^2",null,"^5",null,"^6",["^3"," "],"^7",["^8",[["^ ","^0","^9","^:",["^3",["^ ","^4","clj-keyword"],":weight"],"^;",":weight"],["^ ","^0","^9","^:",["^3",["^ ","^4","clj-long"],"80"],"^;","80"]]],"^;","[:weight 80]"],["^ ","^0","^1","^2",null,"^5",null,"^6",["^3"," "],"^7",["^8",[["^ ","^0","^9","^:",["^3",["^ ","^4","clj-keyword"],":bmi"],"^;",":bmi"],["^ ","^0","^9","^:",["^3",["^ ","^4","clj-nil"],"nil"],"^;","nil"]]],"^;","[:bmi nil]"]]],"^;","{:height 180, :weight 80, :bmi nil}"]
 ;; <=
 
 ;; @@ [cljs]
+; visualiyation of bmi component.
+;note how (calc-bmi is called.). This triggers the feedback loop essentially.
+
 (defn bmi-component []
   (let [{:keys [weight height bmi]} (calc-bmi)
         [color diagnose] (cond
@@ -168,18 +169,8 @@
 (pinkgorilla.kernel.cljs-tools/r! bmi-component)
 ;; @@
 ;; ->
-;;;  type: data: #object[pinkgorilla.kernel.cljs-tools.t_pinkgorilla$kernel$cljs_tools53719]
+;;;  type: data: #object[pinkgorilla.kernel.cljs-tools.t_pinkgorilla$kernel$cljs_tools72048]
 ;; <-
 ;; =>
 ;;; ["^ ","~:type","~:reagent-cljs","~:content",["^ "]]
-;; <=
-
-;; @@ [clj]
-
-;; @@
-;; ->
-;;; 
-;; <-
-;; =>
-;;; ["^ ","~:type","html","~:value",["~:span"]]
 ;; <=
