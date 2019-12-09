@@ -217,10 +217,20 @@ y
 @bmi-data
 ;; @@
 ;; ->
-;;;  type: data: {:height 144, :weight 80, :bmi nil}
+;;;  type: data: "{:height 157, :weight 78, :bmi 32}"
 ;; <-
 ;; =>
-;;; ["^ ","~:type","~:list-like","~:open",["~:span",["^ ","~:class","clj-map"],"{"],"~:close",["^3",["^ ","^4","clj-map"],"}"],"~:separator",["^3",", "],"~:items",["~#list",[["^ ","^0","^1","^2",null,"^5",null,"^6",["^3"," "],"^7",["^8",[["^ ","^0","~:html","~:content",["^3",["^ ","^4","clj-keyword"],":height"],"~:value",":height"],["^ ","^0","^9","^:",["^3",["^ ","^4","clj-long"],"144"],"^;","144"]]],"^;","[:height 144]"],["^ ","^0","^1","^2",null,"^5",null,"^6",["^3"," "],"^7",["^8",[["^ ","^0","^9","^:",["^3",["^ ","^4","clj-keyword"],":weight"],"^;",":weight"],["^ ","^0","^9","^:",["^3",["^ ","^4","clj-long"],"80"],"^;","80"]]],"^;","[:weight 80]"],["^ ","^0","^1","^2",null,"^5",null,"^6",["^3"," "],"^7",["^8",[["^ ","^0","^9","^:",["^3",["^ ","^4","clj-keyword"],":bmi"],"^;",":bmi"],["^ ","^0","^9","^:",["^3",["^ ","^4","clj-nil"],"nil"],"^;","nil"]]],"^;","[:bmi nil]"]]],"^;","{:height 144, :weight 80, :bmi nil}"]
+;;; ["^ ","~:type","~:html","~:content",["~:span",["^ ","~:class","clj-string"],"\"{:height 157, :weight 78, :bmi 32}\""],"~:value","\"{:height 157, :weight 78, :bmi 32}\""]
+;; <=
+
+;; @@ [cljs]
+ (pinkgorilla.kernel.nrepl.clj bmi-data "user/calc-bmi-server" @bmi-data)
+;; @@
+;; ->
+;;;  type: data: #<Atom: "{:height 157, :weight 78, :bmi 32}">
+;; <-
+;; =>
+;;; ["^ ","~:type","~:html","~:content",["~:span",["^ ","~:class","clj-unknown"],"#<Atom: \"{:height 157, :weight 78, :bmi 32}\">"],"~:value","#<Atom: \"{:height 157, :weight 78, :bmi 32}\">"]
 ;; <=
 
 ;; @@ [clj]
