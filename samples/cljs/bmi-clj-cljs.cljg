@@ -1,0 +1,181 @@
+;; gorilla-repl.fileformat = 2
+
+;; @@ [meta]
+{:name "body mass calculator", :tags "cljs, demo, cool, reagent"}
+
+;; @@
+
+;; **
+;;; # Body Mass Indicator Demo 
+;;; 
+;;; Uses cljs kernel with reagent.
+;; **
+
+;; @@ [cljs]
+(def bmi-data (reagent.core/atom {:height 180 :weight 80}))
+;; @@
+;; ->
+;;;  type: data: #'cljs.user/bmi-data
+;; <-
+;; =>
+;;; ["^ ","~:type","~:html","~:content",["~:span",["^ ","~:class","clj-unknown"],"#'cljs.user/bmi-data"],"~:value","#'cljs.user/bmi-data"]
+;; <=
+
+;; @@ [cljs]
+; note: pr-str is here because of a bug in list-alike rendering in cljs
+(pr-str @bmi-data)
+;; @@
+;; ->
+;;;  type: data: "{:height 180, :weight 80}"
+;; <-
+;; =>
+;;; ["^ ","~:type","~:html","~:content",["~:span",["^ ","~:class","clj-string"],"\"{:height 180, :weight 80}\""],"~:value","\"{:height 180, :weight 80}\""]
+;; <=
+
+;; @@ [cljs]
+(defn calc-bmi []
+  (let [{:keys [height weight bmi] :as data} @bmi-data
+        h (/ height 100)]
+    (if (nil? bmi)
+      (assoc data :bmi (/ weight (* h h)))
+      (assoc data :weight (* bmi h h)))))
+;; @@
+;; ->
+;;;  type: data: #'cljs.user/calc-bmi
+;; <-
+;; =>
+;;; ["^ ","~:type","~:html","~:content",["~:span",["^ ","~:class","clj-unknown"],"#'cljs.user/calc-bmi"],"~:value","#'cljs.user/calc-bmi"]
+;; <=
+
+;; @@ [cljs]
+(pr-str (calc-bmi))
+;; @@
+;; ->
+;;;  type: data: "{:height 180, :weight 80, :bmi 24.691358024691358}"
+;; <-
+;; =>
+;;; ["^ ","~:type","~:html","~:content",["~:span",["^ ","~:class","clj-string"],"\"{:height 180, :weight 80, :bmi 24.691358024691358}\""],"~:value","\"{:height 180, :weight 80, :bmi 24.691358024691358}\""]
+;; <=
+
+;; @@ [cljs]
+(defn slider [param value min max]
+  [:input {:type "range" :value value :min min :max max
+           :style {:width "100%"}
+           :on-change (fn [e]
+                        (println "slider has changed!")
+                        (swap! bmi-data assoc param (.. e -target -value))
+                        (when (not= param :bmi)
+                          (swap! bmi-data assoc :bmi nil)))}])
+;; @@
+;; ->
+;;;  type: data: #'cljs.user/slider
+;; <-
+;; =>
+;;; ["^ ","~:type","~:html","~:content",["~:span",["^ ","~:class","clj-unknown"],"#'cljs.user/slider"],"~:value","#'cljs.user/slider"]
+;; <=
+
+;; @@ [clj]
+
+;; @@
+;; ->
+;;; 
+;; <-
+;; =>
+;;; ["^ ","~:type","html","~:value",["~:span"]]
+;; <=
+
+;; @@ [cljs]
+(pinkgorilla.kernel.cljs-tools/r! 
+ (fn []
+ [:div 
+  [:p(str  "height: " (:height @bmi-data))]
+  [cljs.user/slider :height (:height @bmi-data) 100 220]
+  ]))
+
+;; @@
+;; ->
+;;;  type: data: #object[pinkgorilla.kernel.cljs-tools.t_pinkgorilla$kernel$cljs_tools63272]
+;; <-
+;; =>
+;;; ["^ ","~:type","~:reagent-cljs","~:content",["^ "]]
+;; <=
+
+;; @@ [cljs]
+(swap! bmi-data assoc :height 150)
+:88
+;; @@
+;; ->
+;;;  type: data: :88
+;; <-
+;; =>
+;;; ["^ ","~:type","~:html","~:content",["~:span",["^ ","~:class","clj-keyword"],":88"],"~:value",":88"]
+;; <=
+
+;; @@ [cljs]
+(swap! bmi-data assoc :height 180)
+6
+;; @@
+;; ->
+;;;  type: data: 6
+;; <-
+;; =>
+;;; ["^ ","~:type","~:html","~:content",["~:span",["^ ","~:class","clj-long"],"6"],"~:value","6"]
+;; <=
+
+;; @@ [cljs]
+(pr-str @bmi-data)
+;; @@
+;; ->
+;;;  type: data: "{:height 180, :weight 80}"
+;; <-
+;; =>
+;;; ["^ ","~:type","~:html","~:content",["~:span",["^ ","~:class","clj-string"],"\"{:height 180, :weight 80}\""],"~:value","\"{:height 180, :weight 80}\""]
+;; <=
+
+;; @@ [cljs]
+(defn bmi-component []
+  (let [{:keys [weight height bmi]} (calc-bmi)
+        [color diagnose] (cond
+                          (< bmi 18.5) ["orange" "underweight"]
+                          (< bmi 25) ["inherit" "normal"]
+                          (< bmi 30) ["orange" "overweight"]
+                          :else ["red" "obese"])]
+    [:div
+     [:h3 "BMI calculator"]
+     [:div
+      "Height: " (int height) "cm"
+      [slider :height height 100 220]]
+     [:div
+      "Weight: " (int weight) "kg"
+      [slider :weight weight 30 150]]
+     [:div
+      "BMI: " (int bmi) " "
+      [:span {:style {:color color}} diagnose]
+      [slider :bmi bmi 10 50]]]))
+;; @@
+;; ->
+;;;  type: data: #'cljs.user/bmi-component
+;; <-
+;; =>
+;;; ["^ ","~:type","~:html","~:content",["~:span",["^ ","~:class","clj-unknown"],"#'cljs.user/bmi-component"],"~:value","#'cljs.user/bmi-component"]
+;; <=
+
+;; @@ [cljs]
+(pinkgorilla.kernel.cljs-tools/r! bmi-component)
+;; @@
+;; ->
+;;;  type: data: #object[pinkgorilla.kernel.cljs-tools.t_pinkgorilla$kernel$cljs_tools63272]
+;; <-
+;; =>
+;;; ["^ ","~:type","~:reagent-cljs","~:content",["^ "]]
+;; <=
+
+;; @@ [clj]
+
+;; @@
+;; ->
+;;; 
+;; <-
+;; =>
+;;; ["^ ","~:type","html","~:value",["~:span"]]
+;; <=
