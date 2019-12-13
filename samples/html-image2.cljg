@@ -13,7 +13,7 @@
 ; Automatically Download Dependencies (if they are not installed already) 
 (ns undisturbed-pebble
   (:require [pinkgorilla.helper :refer [add-dependencies]]))
-(add-dependencies '[org.pinkgorilla/gorilla-renderable "2.1.0"])
+(add-dependencies '[org.pinkgorilla/gorilla-renderable "2.1.3"])
 (use 'pinkgorilla.ui.gorilla-renderable)
 ;; @@
 ;; =>
