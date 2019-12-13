@@ -16,11 +16,15 @@
 (pinkgorilla.kernel.cljs-tools/r! [:h1 "svg data in cljs"])
 ;; @@
 ;; ->
-;;;  type: data: #object[pinkgorilla.kernel.cljs-tools.t_pinkgorilla$kernel$cljs_tools53719]
+;;;  type: data: #object[pinkgorilla.kernel.cljs-tools.t_pinkgorilla$kernel$cljs_tools88254]
 ;; <-
 ;; =>
 ;;; ["^ ","~:type","~:reagent-cljs","~:content",["^ "]]
 ;; <=
+
+;; **
+;;; # Lets create a complex svg data structure
+;; **
 
 ;; @@ [cljs]
 (def svg-data 
@@ -90,17 +94,21 @@
 (pinkgorilla.kernel.cljs-tools/r! svg-data)
 ;; @@
 ;; ->
-;;;  type: data: #object[pinkgorilla.kernel.cljs-tools.t_pinkgorilla$kernel$cljs_tools53719]
+;;;  type: data: #object[pinkgorilla.kernel.cljs-tools.t_pinkgorilla$kernel$cljs_tools88254]
 ;; <-
 ;; =>
 ;;; ["^ ","~:type","~:reagent-cljs","~:content",["^ "]]
 ;; <=
 
+;; **
+;;; # Create a canvas (to which we will paint to later in the notebook)
+;; **
+
 ;; @@ [cljs]
 (pinkgorilla.kernel.cljs-tools/r! [:canvas#bongo {:width 500 :height 500} ])
 ;; @@
 ;; ->
-;;;  type: data: #object[pinkgorilla.kernel.cljs-tools.t_pinkgorilla$kernel$cljs_tools53719]
+;;;  type: data: #object[pinkgorilla.kernel.cljs-tools.t_pinkgorilla$kernel$cljs_tools88254]
 ;; <-
 ;; =>
 ;;; ["^ ","~:type","~:reagent-cljs","~:content",["^ "]]
@@ -146,6 +154,10 @@
 ;;; ["^ ","~:type","~:html","~:content",["~:span",["^ ","~:class","clj-nil"],"nil"],"~:value","nil"]
 ;; <=
 
+;; **
+;;; # Let's use quil library
+;; **
+
 ;; @@ [clj]
 ; QUIL demo
 
@@ -174,9 +186,6 @@
 (reagent/render-component [hello-world] (. js/document (getElementById "app")))
 
 ;; @@
-;; ->
-;;; 
-;; <-
 
 ;; @@ [clj]
 https://github.com/reagent-project/reagent-cookbook/tree/master/recipes/canvas-fills-div
