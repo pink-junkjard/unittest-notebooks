@@ -1,7 +1,7 @@
 ;; gorilla-repl.fileformat = 2
 
 ;; @@ [meta]
-{:name "zmq ping server", :tagline " ", :tags "clj, zmq, messenging, cool", :description ""}
+{:name "zmq ping server", :tagline " zmq messenging: run zmq server and client with ping testing.", :tags "clj, zmq, messenging, cool", :description ""}
 
 ;; @@
 
