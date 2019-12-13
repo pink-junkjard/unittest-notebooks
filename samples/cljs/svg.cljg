@@ -1,7 +1,7 @@
 ;; gorilla-repl.fileformat = 2
 
 ;; @@ [meta]
-{:name "cljs-svg complex", :tagline "", :tags "cljs, svg, cool, sierpinsky"}
+{:name "cljs-svg complex", :tagline "complex svg plot and quil example", :tags "cljs, svg, quil, cool, sierpinsky"}
 
 ;; @@
 
