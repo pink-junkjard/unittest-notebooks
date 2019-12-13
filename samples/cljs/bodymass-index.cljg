@@ -1,7 +1,7 @@
 ;; gorilla-repl.fileformat = 2
 
 ;; @@ [meta]
-{:name "body mass calculator", :tags "cljs, demo, cool, reagent"}
+{:name "body mass calculator", :tags "cljs, demo, cool, reagent", :tagline "bodymass indicator (using only cljs reagent)"}
 
 ;; @@
 
