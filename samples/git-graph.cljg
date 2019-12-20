@@ -19,7 +19,7 @@
 
 ;; @@ [clj]
 (ns harmonious-creek
-  (:require [pinkgorilla.ui.vega :refer [vega! module]]
+  (:require [pinkgorilla.ui.vegal :refer [vega! module]]
             [gorilla.geschichte-core :as g]
             [gorilla.geschichte-graph :as graph]
             [gorilla.geschichte-test]))
@@ -66,16 +66,11 @@ gorilla.geschichte-test/test-repo
 ;; <=
 
 ;; @@ [clj]
-(defn plot-graph2 [repo]
-  (vega! (g/quil-commit-graph (:commit-graph repo) (:branches repo) (:commits repo))))
+(plot-graph @test-repo)
 ;; @@
 ;; =>
-;;; ["^ ","~:type","html","~:content",["span",["^ ","~:class","clj-var"],"#'harmonious-creek/plot-graph2"],"~:value","#'harmonious-creek/plot-graph2"]
+;;; ["^ ","~:type","jsscript","~:content",["^ ","~:data",["^ ","~:width",600,"~:height",370.8282,"~:padding",["^ ","~:top",10,"~:left",50,"~:bottom",20,"~:right",10],"~:marks",[["^ ","^0","path","~:from",["^ ","^2","links"],"~:properties",["^ ","~:enter",["^ ","~:path",["^ ","~:field","data.path"],"~:strokeWidth",["^ ","~:value",2],"~:stroke",["^ ","~:r",["^ ","^?","data.r"],"~:g",["^ ","^?","data.g"],"~:b",["^ ","^?","data.b"]]]]],["^ ","^0","symbol","^;",["^ ","^2","nodes"],"^<",["^ ","^=",["^ ","~:x",["^ ","^?","data.x"],"~:y",["^ ","^?","data.y"],"~:fill",["^ ","~:r",["^ ","^?","data.r"],"~:g",["^ ","^?","data.g"],"~:b",["^ ","^?","data.b"]],"~:fillOpacity",["^ ","^A","1"]],"~:update",["^ ","~:shape","circle","~:size",["^ ","^A",110],"^B",["value","transparent"]]]],["^ ","^0","text","^;",["^ ","^2","node-labels"],"^<",["^ ","^=",["^ ","~:x",["^ ","^?","data.x"],"~:y",["^ ","^?","data.y"],"~:align",["^ ","^A","center"],"~:dy",["^ ","^A",-20],"~:fontSize",["^ ","^A",15],"^C",["^ ","^A","black"]],"^E",["^ ","~:text",["^ ","^?","data.value"]]]],["^ ","^0","text","^;",["^ ","^2","labels"],"^<",["^ ","^=",["^ ","~:x",["^ ","^?","data.x"],"~:y",["^ ","^?","data.y"],"^H",["^ ","^A","right"],"~:dx",["^ ","^A",10],"^J",["^ ","^A",15],"^C",["^ ","^A","black"]],"^E",["^ ","^K",["^ ","^?","data.value"]]]]],"^2",[["^ ","~:name","nodes","~:values",[["^ ","^A",10,"~:x",541.5,"~:y",176.1433883666992,"~:r",30,"~:g",31,"~:b",24]]],["^ ","^M","links","^N",[]],["^ ","^M","node-labels","^N",[["^ ","^A",10,"~:x",541.5,"~:y",176.1433883666992]]],["^ ","^M","labels","^N",[["^ ","^A","A","~:x",541.5,"~:y",176.1433883666992]]]]],"~:module","\n  define([], function () {\n      return {\n         version: 'vegal 0.0.4',\n         render: function (id_or_domel, data) {\n            var selector_or_domel = id_or_domel;\n            if (typeof id_or_domel === 'string' || id_or_domel instanceof String) {\n               selector_or_domel = '#'+ id_or_domel;\n               console.log ('vega-module is rendering to selector id: ' + selector_or_domel);\n            } else {\n               console.log ('vega-module is rendering to dom-element');\n            }\n            var dataJson = JSON.stringify(data)\n            console.log ('vega-module data: ' + dataJson);\n            require(['lvega', 'lvega-lite', 'lvega-embed'], function(vega, vegaLite, vegaEmbed) {\n              vegaEmbed(selector_or_domel, data, {defaultStyle:true}).catch(function(em) {\n                  console.log('Error in Rendering Vega Spec: ' + em)\n                 });\n              }, function(err) {\n                console.log('Vega-Embed failed to load');\n            });\n         }\n      }\n  });\n"]]
 ;; <=
-
-;; @@ [clj]
-(plot-graph2 @test-repo)
-;; @@
 
 ;; @@ [clj]
 (swap! test-repo #(assoc-in % [:commit-graph 20] [10]))
