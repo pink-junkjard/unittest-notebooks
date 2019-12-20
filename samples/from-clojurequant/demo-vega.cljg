@@ -1,0 +1,158 @@
+;; gorilla-repl.fileformat = 1
+
+;; **
+;;; # VEGA DEMO
+;;; 
+;;; pomegranate allows to require libraries that are not fetched via "lein deps"
+;; **
+
+;; @@
+(use '[cemerick.pomegranate :only (add-dependencies)])
+(add-dependencies :coordinates '[;[algebolic "1.0.0"]
+                                 [darwin "1.0.0"]]
+                  :repositories (merge cemerick.pomegranate.aether/maven-central
+                                 {"clojars" "https://clojars.org/repo"}))
+;; @@
+;; =>
+;;; {"type":"list-like","open":"<span class='clj-map'>{</span>","close":"<span class='clj-map'>}</span>","separator":", ","items":[{"type":"list-like","open":"","close":"","separator":" ","items":[{"type":"list-like","open":"<span class='clj-vector'>[</span>","close":"<span class='clj-vector'>]</span>","separator":" ","items":[{"type":"html","content":"<span class='clj-symbol'>darwin</span>","value":"darwin"},{"type":"html","content":"<span class='clj-string'>&quot;1.0.0&quot;</span>","value":"\"1.0.0\""}],"value":"[darwin \"1.0.0\"]"},{"type":"list-like","open":"<span class='clj-set'>#{</span>","close":"<span class='clj-set'>}</span>","separator":" ","items":[{"type":"list-like","open":"<span class='clj-vector'>[</span>","close":"<span class='clj-vector'>]</span>","separator":" ","items":[{"type":"html","content":"<span class='clj-symbol'>org.clojure/clojure</span>","value":"org.clojure/clojure"},{"type":"html","content":"<span class='clj-string'>&quot;1.6.0&quot;</span>","value":"\"1.6.0\""}],"value":"[org.clojure/clojure \"1.6.0\"]"}],"value":"#{[org.clojure/clojure \"1.6.0\"]}"}],"value":"[[darwin \"1.0.0\"] #{[org.clojure/clojure \"1.6.0\"]}]"},{"type":"list-like","open":"","close":"","separator":" ","items":[{"type":"list-like","open":"<span class='clj-vector'>[</span>","close":"<span class='clj-vector'>]</span>","separator":" ","items":[{"type":"html","content":"<span class='clj-symbol'>org.clojure/clojure</span>","value":"org.clojure/clojure"},{"type":"html","content":"<span class='clj-string'>&quot;1.6.0&quot;</span>","value":"\"1.6.0\""}],"value":"[org.clojure/clojure \"1.6.0\"]"},{"type":"html","content":"<span class='clj-nil'>nil</span>","value":"nil"}],"value":"[[org.clojure/clojure \"1.6.0\"] nil]"}],"value":"{[darwin \"1.0.0\"] #{[org.clojure/clojure \"1.6.0\"]}, [org.clojure/clojure \"1.6.0\"] nil}"}
+;; <=
+
+;; @@
+; require loads libs (that aren't already loaded), 
+; use does the same plus it refers to their namespaces with clojure.core/refer (so you also get the possibility of ; using :exclude etc like with clojure.core/refer). 
+; Both are recommended for use in ns rather than directly.
+
+(use '([algebolic.core :as algebolic]))
+(use '([algebolic.core.expression :refer [interpreter]]))
+;(use '([algebolic.expression.render :refer [render]]))
+(use '([algebolic.expression.tree :refer [tree]]))
+(use '([darwin.evolution.pareto :as pareto]))
+(use 'gorilla-renderable.core)
+
+(use '[gorilla-repl table latex html])
+
+(ns gorilla-vega
+  (:require [gorilla-plot.core :as plot]
+            [gorilla-plot.vega :refer [from-vega]]
+            [gorilla-renderable.core]
+            [gorilla-repl table latex html]
+            [hiccup.core]
+            ))
+;; @@
+;; =>
+;;; {"type":"html","content":"<span class='clj-nil'>nil</span>","value":"nil"}
+;; <=
+
+;; @@
+;html-view in the gorilla-repl.html namespace lets you view a string rendered as HTML.
+(html-view "<h4> hi </h4>")
+
+
+;; @@
+;; =>
+;;; {"type":"html","content":"<h4> hi </h4>","value":"#gorilla_repl.html.HtmlView{:content \"<h4> hi </h4>\"}"}
+;; <=
+
+;; @@
+(clojure.repl/doc print)
+
+
+;; @@
+;; ->
+;;; -------------------------
+;;; clojure.core/print
+;;; ([&amp; more])
+;;;   Prints the object(s) to the output stream that is the current value
+;;;   of *out*.  print and println produce output for human consumption.
+;;; 
+;; <-
+;; =>
+;;; {"type":"html","content":"<span class='clj-nil'>nil</span>","value":"nil"}
+;; <=
+
+;; @@
+(gorilla-repl.vega/vega-view {
+  :$schema "https://vega.github.io/schema/vega-lite/v4.json"
+  :description "Google's stock price over time."
+  :data {:url "data/stocks.csv"}
+  :transform [{:filter "datum.symbol==='GOOG'"}]
+  :mark "line"
+  :encoding {
+    :x {:field "date" :type "temporal"}
+    :y {:field "price" :type "quantitative"}
+  }})
+;; @@
+;; =>
+;;; {"type":"vega","content":{"$schema":"https://vega.github.io/schema/vega-lite/v4.json","description":"Google's stock price over time.","data":{"url":"data/stocks.csv"},"transform":[{"filter":"datum.symbol==='GOOG'"}],"mark":"line","encoding":{"x":{"field":"date","type":"temporal"},"y":{"field":"price","type":"quantitative"}}},"value":"#gorilla_repl.vega.VegaView{:content {:$schema \"https://vega.github.io/schema/vega-lite/v4.json\", :description \"Google's stock price over time.\", :data {:url \"data/stocks.csv\"}, :transform [{:filter \"datum.symbol==='GOOG'\"}], :mark \"line\", :encoding {:x {:field \"date\", :type \"temporal\"}, :y {:field \"price\", :type \"quantitative\"}}}}"}
+;; <=
+
+;; @@
+(def b {
+  :$schema "https://vega.github.io/schema/vega-lite/v4.json"
+  :description "A simple bar chart with embedded data."
+  :data {
+    :values [
+      {:a "A" :b 28} {:a "B" :b 55} {:a "C" :b 43}
+      {:a "D" :b 91} {:a "E" :b 81} {:a "F" :b 53}
+      {:a "G" :b 19} {:a "H" :b 87} {:a "I" :b 52}
+    ]
+  }
+  :mark "bar",
+  :encoding {
+    :x {:field "a" :type "ordinal"}
+    :y {:field "b" :type "quantitative"}
+  }
+})
+
+
+;; @@
+;; =>
+;;; {"type":"html","content":"<span class='clj-var'>#&#x27;gorilla-vega/b</span>","value":"#'gorilla-vega/b"}
+;; <=
+
+;; @@
+(gorilla-repl.vega/vega-view b)
+;; @@
+;; =>
+;;; {"type":"vega","content":{"$schema":"https://vega.github.io/schema/vega-lite/v4.json","description":"A simple bar chart with embedded data.","data":{"values":[{"a":"A","b":28},{"a":"B","b":55},{"a":"C","b":43},{"a":"D","b":91},{"a":"E","b":81},{"a":"F","b":53},{"a":"G","b":19},{"a":"H","b":87},{"a":"I","b":52}]},"mark":"bar","encoding":{"x":{"field":"a","type":"ordinal"},"y":{"field":"b","type":"quantitative"}}},"value":"#gorilla_repl.vega.VegaView{:content {:$schema \"https://vega.github.io/schema/vega-lite/v4.json\", :description \"A simple bar chart with embedded data.\", :data {:values [{:a \"A\", :b 28} {:a \"B\", :b 55} {:a \"C\", :b 43} {:a \"D\", :b 91} {:a \"E\", :b 81} {:a \"F\", :b 53} {:a \"G\", :b 19} {:a \"H\", :b 87} {:a \"I\", :b 52}]}, :mark \"bar\", :encoding {:x {:field \"a\", :type \"ordinal\"}, :y {:field \"b\", :type \"quantitative\"}}}}"}
+;; <=
+
+;; @@
+(render {:type :html
+         :content "<img src=\"https://static.independent.co.uk/s3fs-public/thumbnails/image/2019/06/12/17/the-sun.jpg\"/>"
+        :value "123"})
+;; @@
+;; =>
+;;; {"type":"list-like","open":"<span class='clj-map'>{</span>","close":"<span class='clj-map'>}</span>","separator":", ","items":[{"type":"list-like","open":"","close":"","separator":" ","items":[{"type":"html","content":"<span class='clj-keyword'>:type</span>","value":":type"},{"type":"html","content":"<span class='clj-keyword'>:list-like</span>","value":":list-like"}],"value":"[:type :list-like]"},{"type":"list-like","open":"","close":"","separator":" ","items":[{"type":"html","content":"<span class='clj-keyword'>:open</span>","value":":open"},{"type":"html","content":"<span class='clj-string'>&quot;&lt;span class=&#x27;clj-map&#x27;&gt;{&lt;/span&gt;&quot;</span>","value":"\"<span class='clj-map'>{</span>\""}],"value":"[:open \"<span class='clj-map'>{</span>\"]"},{"type":"list-like","open":"","close":"","separator":" ","items":[{"type":"html","content":"<span class='clj-keyword'>:close</span>","value":":close"},{"type":"html","content":"<span class='clj-string'>&quot;&lt;span class=&#x27;clj-map&#x27;&gt;}&lt;/span&gt;&quot;</span>","value":"\"<span class='clj-map'>}</span>\""}],"value":"[:close \"<span class='clj-map'>}</span>\"]"},{"type":"list-like","open":"","close":"","separator":" ","items":[{"type":"html","content":"<span class='clj-keyword'>:separator</span>","value":":separator"},{"type":"html","content":"<span class='clj-string'>&quot;, &quot;</span>","value":"\", \""}],"value":"[:separator \", \"]"},{"type":"list-like","open":"","close":"","separator":" ","items":[{"type":"html","content":"<span class='clj-keyword'>:items</span>","value":":items"},{"type":"list-like","open":"<span class='clj-lazy-seq'>(</span>","close":"<span class='clj-lazy-seq'>)</span>","separator":" ","items":[{"type":"list-like","open":"<span class='clj-map'>{</span>","close":"<span class='clj-map'>}</span>","separator":", ","items":[{"type":"list-like","open":"","close":"","separator":" ","items":[{"type":"html","content":"<span class='clj-keyword'>:type</span>","value":":type"},{"type":"html","content":"<span class='clj-keyword'>:list-like</span>","value":":list-like"}],"value":"[:type :list-like]"},{"type":"list-like","open":"","close":"","separator":" ","items":[{"type":"html","content":"<span class='clj-keyword'>:open</span>","value":":open"},{"type":"html","content":"<span class='clj-string'>&quot;&quot;</span>","value":"\"\""}],"value":"[:open \"\"]"},{"type":"list-like","open":"","close":"","separator":" ","items":[{"type":"html","content":"<span class='clj-keyword'>:close</span>","value":":close"},{"type":"html","content":"<span class='clj-string'>&quot;&quot;</span>","value":"\"\""}],"value":"[:close \"\"]"},{"type":"list-like","open":"","close":"","separator":" ","items":[{"type":"html","content":"<span class='clj-keyword'>:separator</span>","value":":separator"},{"type":"html","content":"<span class='clj-string'>&quot; &quot;</span>","value":"\" \""}],"value":"[:separator \" \"]"},{"type":"list-like","open":"","close":"","separator":" ","items":[{"type":"html","content":"<span class='clj-keyword'>:items</span>","value":":items"},{"type":"list-like","open":"<span class='clj-lazy-seq'>(</span>","close":"<span class='clj-lazy-seq'>)</span>","separator":" ","items":[{"type":"list-like","open":"<span class='clj-map'>{</span>","close":"<span class='clj-map'>}</span>","separator":", ","items":[{"type":"list-like","open":"","close":"","separator":" ","items":[{"type":"html","content":"<span class='clj-keyword'>:type</span>","value":":type"},{"type":"html","content":"<span class='clj-keyword'>:html</span>","value":":html"}],"value":"[:type :html]"},{"type":"list-like","open":"","close":"","separator":" ","items":[{"type":"html","content":"<span class='clj-keyword'>:content</span>","value":":content"},{"type":"html","content":"<span class='clj-string'>&quot;&lt;span class=&#x27;clj-keyword&#x27;&gt;:type&lt;/span&gt;&quot;</span>","value":"\"<span class='clj-keyword'>:type</span>\""}],"value":"[:content \"<span class='clj-keyword'>:type</span>\"]"},{"type":"list-like","open":"","close":"","separator":" ","items":[{"type":"html","content":"<span class='clj-keyword'>:value</span>","value":":value"},{"type":"html","content":"<span class='clj-string'>&quot;:type&quot;</span>","value":"\":type\""}],"value":"[:value \":type\"]"}],"value":"{:type :html, :content \"<span class='clj-keyword'>:type</span>\", :value \":type\"}"},{"type":"list-like","open":"<span class='clj-map'>{</span>","close":"<span class='clj-map'>}</span>","separator":", ","items":[{"type":"list-like","open":"","close":"","separator":" ","items":[{"type":"html","content":"<span class='clj-keyword'>:type</span>","value":":type"},{"type":"html","content":"<span class='clj-keyword'>:html</span>","value":":html"}],"value":"[:type :html]"},{"type":"list-like","open":"","close":"","separator":" ","items":[{"type":"html","content":"<span class='clj-keyword'>:content</span>","value":":content"},{"type":"html","content":"<span class='clj-string'>&quot;&lt;span class=&#x27;clj-keyword&#x27;&gt;:html&lt;/span&gt;&quot;</span>","value":"\"<span class='clj-keyword'>:html</span>\""}],"value":"[:content \"<span class='clj-keyword'>:html</span>\"]"},{"type":"list-like","open":"","close":"","separator":" ","items":[{"type":"html","content":"<span class='clj-keyword'>:value</span>","value":":value"},{"type":"html","content":"<span class='clj-string'>&quot;:html&quot;</span>","value":"\":html\""}],"value":"[:value \":html\"]"}],"value":"{:type :html, :content \"<span class='clj-keyword'>:html</span>\", :value \":html\"}"}],"value":"({:type :html, :content \"<span class='clj-keyword'>:type</span>\", :value \":type\"} {:type :html, :content \"<span class='clj-keyword'>:html</span>\", :value \":html\"})"}],"value":"[:items ({:type :html, :content \"<span class='clj-keyword'>:type</span>\", :value \":type\"} {:type :html, :content \"<span class='clj-keyword'>:html</span>\", :value \":html\"})]"},{"type":"list-like","open":"","close":"","separator":" ","items":[{"type":"html","content":"<span class='clj-keyword'>:value</span>","value":":value"},{"type":"html","content":"<span class='clj-string'>&quot;[:type :html]&quot;</span>","value":"\"[:type :html]\""}],"value":"[:value \"[:type :html]\"]"}],"value":"{:type :list-like, :open \"\", :close \"\", :separator \" \", :items ({:type :html, :content \"<span class='clj-keyword'>:type</span>\", :value \":type\"} {:type :html, :content \"<span class='clj-keyword'>:html</span>\", :value \":html\"}), :value \"[:type :html]\"}"},{"type":"list-like","open":"<span class='clj-map'>{</span>","close":"<span class='clj-map'>}</span>","separator":", ","items":[{"type":"list-like","open":"","close":"","separator":" ","items":[{"type":"html","content":"<span class='clj-keyword'>:type</span>","value":":type"},{"type":"html","content":"<span class='clj-keyword'>:list-like</span>","value":":list-like"}],"value":"[:type :list-like]"},{"type":"list-like","open":"","close":"","separator":" ","items":[{"type":"html","content":"<span class='clj-keyword'>:open</span>","value":":open"},{"type":"html","content":"<span class='clj-string'>&quot;&quot;</span>","value":"\"\""}],"value":"[:open \"\"]"},{"type":"list-like","open":"","close":"","separator":" ","items":[{"type":"html","content":"<span class='clj-keyword'>:close</span>","value":":close"},{"type":"html","content":"<span class='clj-string'>&quot;&quot;</span>","value":"\"\""}],"value":"[:close \"\"]"},{"type":"list-like","open":"","close":"","separator":" ","items":[{"type":"html","content":"<span class='clj-keyword'>:separator</span>","value":":separator"},{"type":"html","content":"<span class='clj-string'>&quot; &quot;</span>","value":"\" \""}],"value":"[:separator \" \"]"},{"type":"list-like","open":"","close":"","separator":" ","items":[{"type":"html","content":"<span class='clj-keyword'>:items</span>","value":":items"},{"type":"list-like","open":"<span class='clj-lazy-seq'>(</span>","close":"<span class='clj-lazy-seq'>)</span>","separator":" ","items":[{"type":"list-like","open":"<span class='clj-map'>{</span>","close":"<span class='clj-map'>}</span>","separator":", ","items":[{"type":"list-like","open":"","close":"","separator":" ","items":[{"type":"html","content":"<span class='clj-keyword'>:type</span>","value":":type"},{"type":"html","content":"<span class='clj-keyword'>:html</span>","value":":html"}],"value":"[:type :html]"},{"type":"list-like","open":"","close":"","separator":" ","items":[{"type":"html","content":"<span class='clj-keyword'>:content</span>","value":":content"},{"type":"html","content":"<span class='clj-string'>&quot;&lt;span class=&#x27;clj-keyword&#x27;&gt;:content&lt;/span&gt;&quot;</span>","value":"\"<span class='clj-keyword'>:content</span>\""}],"value":"[:content \"<span class='clj-keyword'>:content</span>\"]"},{"type":"list-like","open":"","close":"","separator":" ","items":[{"type":"html","content":"<span class='clj-keyword'>:value</span>","value":":value"},{"type":"html","content":"<span class='clj-string'>&quot;:content&quot;</span>","value":"\":content\""}],"value":"[:value \":content\"]"}],"value":"{:type :html, :content \"<span class='clj-keyword'>:content</span>\", :value \":content\"}"},{"type":"list-like","open":"<span class='clj-map'>{</span>","close":"<span class='clj-map'>}</span>","separator":", ","items":[{"type":"list-like","open":"","close":"","separator":" ","items":[{"type":"html","content":"<span class='clj-keyword'>:type</span>","value":":type"},{"type":"html","content":"<span class='clj-keyword'>:html</span>","value":":html"}],"value":"[:type :html]"},{"type":"list-like","open":"","close":"","separator":" ","items":[{"type":"html","content":"<span class='clj-keyword'>:content</span>","value":":content"},{"type":"html","content":"<span class='clj-string'>&quot;&lt;span class=&#x27;clj-string&#x27;&gt;&amp;quot;&amp;lt;img src=\\\\&amp;quot;https://static.independent.co.uk/s3fs-public/thumbnails/image/2019/06/12/17/the-sun.jpg\\\\&amp;quot;/&amp;gt;&amp;quot;&lt;/span&gt;&quot;</span>","value":"\"<span class='clj-string'>&quot;&lt;img src=\\\\&quot;https://static.independent.co.uk/s3fs-public/thumbnails/image/2019/06/12/17/the-sun.jpg\\\\&quot;/&gt;&quot;</span>\""}],"value":"[:content \"<span class='clj-string'>&quot;&lt;img src=\\\\&quot;https://static.independent.co.uk/s3fs-public/thumbnails/image/2019/06/12/17/the-sun.jpg\\\\&quot;/&gt;&quot;</span>\"]"},{"type":"list-like","open":"","close":"","separator":" ","items":[{"type":"html","content":"<span class='clj-keyword'>:value</span>","value":":value"},{"type":"html","content":"<span class='clj-string'>&quot;\\&quot;&lt;img src=\\\\\\&quot;https://static.independent.co.uk/s3fs-public/thumbnails/image/2019/06/12/17/the-sun.jpg\\\\\\&quot;/&gt;\\&quot;&quot;</span>","value":"\"\\\"<img src=\\\\\\\"https://static.independent.co.uk/s3fs-public/thumbnails/image/2019/06/12/17/the-sun.jpg\\\\\\\"/>\\\"\""}],"value":"[:value \"\\\"<img src=\\\\\\\"https://static.independent.co.uk/s3fs-public/thumbnails/image/2019/06/12/17/the-sun.jpg\\\\\\\"/>\\\"\"]"}],"value":"{:type :html, :content \"<span class='clj-string'>&quot;&lt;img src=\\\\&quot;https://static.independent.co.uk/s3fs-public/thumbnails/image/2019/06/12/17/the-sun.jpg\\\\&quot;/&gt;&quot;</span>\", :value \"\\\"<img src=\\\\\\\"https://static.independent.co.uk/s3fs-public/thumbnails/image/2019/06/12/17/the-sun.jpg\\\\\\\"/>\\\"\"}"}],"value":"({:type :html, :content \"<span class='clj-keyword'>:content</span>\", :value \":content\"} {:type :html, :content \"<span class='clj-string'>&quot;&lt;img src=\\\\&quot;https://static.independent.co.uk/s3fs-public/thumbnails/image/2019/06/12/17/the-sun.jpg\\\\&quot;/&gt;&quot;</span>\", :value \"\\\"<img src=\\\\\\\"https://static.independent.co.uk/s3fs-public/thumbnails/image/2019/06/12/17/the-sun.jpg\\\\\\\"/>\\\"\"})"}],"value":"[:items ({:type :html, :content \"<span class='clj-keyword'>:content</span>\", :value \":content\"} {:type :html, :content \"<span class='clj-string'>&quot;&lt;img src=\\\\&quot;https://static.independent.co.uk/s3fs-public/thumbnails/image/2019/06/12/17/the-sun.jpg\\\\&quot;/&gt;&quot;</span>\", :value \"\\\"<img src=\\\\\\\"https://static.independent.co.uk/s3fs-public/thumbnails/image/2019/06/12/17/the-sun.jpg\\\\\\\"/>\\\"\"})]"},{"type":"list-like","open":"","close":"","separator":" ","items":[{"type":"html","content":"<span class='clj-keyword'>:value</span>","value":":value"},{"type":"html","content":"<span class='clj-string'>&quot;[:content \\&quot;&lt;img src=\\\\\\&quot;https://static.independent.co.uk/s3fs-public/thumbnails/image/2019/06/12/17/the-sun.jpg\\\\\\&quot;/&gt;\\&quot;]&quot;</span>","value":"\"[:content \\\"<img src=\\\\\\\"https://static.independent.co.uk/s3fs-public/thumbnails/image/2019/06/12/17/the-sun.jpg\\\\\\\"/>\\\"]\""}],"value":"[:value \"[:content \\\"<img src=\\\\\\\"https://static.independent.co.uk/s3fs-public/thumbnails/image/2019/06/12/17/the-sun.jpg\\\\\\\"/>\\\"]\"]"}],"value":"{:type :list-like, :open \"\", :close \"\", :separator \" \", :items ({:type :html, :content \"<span class='clj-keyword'>:content</span>\", :value \":content\"} {:type :html, :content \"<span class='clj-string'>&quot;&lt;img src=\\\\&quot;https://static.independent.co.uk/s3fs-public/thumbnails/image/2019/06/12/17/the-sun.jpg\\\\&quot;/&gt;&quot;</span>\", :value \"\\\"<img src=\\\\\\\"https://static.independent.co.uk/s3fs-public/thumbnails/image/2019/06/12/17/the-sun.jpg\\\\\\\"/>\\\"\"}), :value \"[:content \\\"<img src=\\\\\\\"https://static.independent.co.uk/s3fs-public/thumbnails/image/2019/06/12/17/the-sun.jpg\\\\\\\"/>\\\"]\"}"},{"type":"list-like","open":"<span class='clj-map'>{</span>","close":"<span class='clj-map'>}</span>","separator":", ","items":[{"type":"list-like","open":"","close":"","separator":" ","items":[{"type":"html","content":"<span class='clj-keyword'>:type</span>","value":":type"},{"type":"html","content":"<span class='clj-keyword'>:list-like</span>","value":":list-like"}],"value":"[:type :list-like]"},{"type":"list-like","open":"","close":"","separator":" ","items":[{"type":"html","content":"<span class='clj-keyword'>:open</span>","value":":open"},{"type":"html","content":"<span class='clj-string'>&quot;&quot;</span>","value":"\"\""}],"value":"[:open \"\"]"},{"type":"list-like","open":"","close":"","separator":" ","items":[{"type":"html","content":"<span class='clj-keyword'>:close</span>","value":":close"},{"type":"html","content":"<span class='clj-string'>&quot;&quot;</span>","value":"\"\""}],"value":"[:close \"\"]"},{"type":"list-like","open":"","close":"","separator":" ","items":[{"type":"html","content":"<span class='clj-keyword'>:separator</span>","value":":separator"},{"type":"html","content":"<span class='clj-string'>&quot; &quot;</span>","value":"\" \""}],"value":"[:separator \" \"]"},{"type":"list-like","open":"","close":"","separator":" ","items":[{"type":"html","content":"<span class='clj-keyword'>:items</span>","value":":items"},{"type":"list-like","open":"<span class='clj-lazy-seq'>(</span>","close":"<span class='clj-lazy-seq'>)</span>","separator":" ","items":[{"type":"list-like","open":"<span class='clj-map'>{</span>","close":"<span class='clj-map'>}</span>","separator":", ","items":[{"type":"list-like","open":"","close":"","separator":" ","items":[{"type":"html","content":"<span class='clj-keyword'>:type</span>","value":":type"},{"type":"html","content":"<span class='clj-keyword'>:html</span>","value":":html"}],"value":"[:type :html]"},{"type":"list-like","open":"","close":"","separator":" ","items":[{"type":"html","content":"<span class='clj-keyword'>:content</span>","value":":content"},{"type":"html","content":"<span class='clj-string'>&quot;&lt;span class=&#x27;clj-keyword&#x27;&gt;:value&lt;/span&gt;&quot;</span>","value":"\"<span class='clj-keyword'>:value</span>\""}],"value":"[:content \"<span class='clj-keyword'>:value</span>\"]"},{"type":"list-like","open":"","close":"","separator":" ","items":[{"type":"html","content":"<span class='clj-keyword'>:value</span>","value":":value"},{"type":"html","content":"<span class='clj-string'>&quot;:value&quot;</span>","value":"\":value\""}],"value":"[:value \":value\"]"}],"value":"{:type :html, :content \"<span class='clj-keyword'>:value</span>\", :value \":value\"}"},{"type":"list-like","open":"<span class='clj-map'>{</span>","close":"<span class='clj-map'>}</span>","separator":", ","items":[{"type":"list-like","open":"","close":"","separator":" ","items":[{"type":"html","content":"<span class='clj-keyword'>:type</span>","value":":type"},{"type":"html","content":"<span class='clj-keyword'>:html</span>","value":":html"}],"value":"[:type :html]"},{"type":"list-like","open":"","close":"","separator":" ","items":[{"type":"html","content":"<span class='clj-keyword'>:content</span>","value":":content"},{"type":"html","content":"<span class='clj-string'>&quot;&lt;span class=&#x27;clj-string&#x27;&gt;&amp;quot;123&amp;quot;&lt;/span&gt;&quot;</span>","value":"\"<span class='clj-string'>&quot;123&quot;</span>\""}],"value":"[:content \"<span class='clj-string'>&quot;123&quot;</span>\"]"},{"type":"list-like","open":"","close":"","separator":" ","items":[{"type":"html","content":"<span class='clj-keyword'>:value</span>","value":":value"},{"type":"html","content":"<span class='clj-string'>&quot;\\&quot;123\\&quot;&quot;</span>","value":"\"\\\"123\\\"\""}],"value":"[:value \"\\\"123\\\"\"]"}],"value":"{:type :html, :content \"<span class='clj-string'>&quot;123&quot;</span>\", :value \"\\\"123\\\"\"}"}],"value":"({:type :html, :content \"<span class='clj-keyword'>:value</span>\", :value \":value\"} {:type :html, :content \"<span class='clj-string'>&quot;123&quot;</span>\", :value \"\\\"123\\\"\"})"}],"value":"[:items ({:type :html, :content \"<span class='clj-keyword'>:value</span>\", :value \":value\"} {:type :html, :content \"<span class='clj-string'>&quot;123&quot;</span>\", :value \"\\\"123\\\"\"})]"},{"type":"list-like","open":"","close":"","separator":" ","items":[{"type":"html","content":"<span class='clj-keyword'>:value</span>","value":":value"},{"type":"html","content":"<span class='clj-string'>&quot;[:value \\&quot;123\\&quot;]&quot;</span>","value":"\"[:value \\\"123\\\"]\""}],"value":"[:value \"[:value \\\"123\\\"]\"]"}],"value":"{:type :list-like, :open \"\", :close \"\", :separator \" \", :items ({:type :html, :content \"<span class='clj-keyword'>:value</span>\", :value \":value\"} {:type :html, :content \"<span class='clj-string'>&quot;123&quot;</span>\", :value \"\\\"123\\\"\"}), :value \"[:value \\\"123\\\"]\"}"}],"value":"({:type :list-like, :open \"\", :close \"\", :separator \" \", :items ({:type :html, :content \"<span class='clj-keyword'>:type</span>\", :value \":type\"} {:type :html, :content \"<span class='clj-keyword'>:html</span>\", :value \":html\"}), :value \"[:type :html]\"} {:type :list-like, :open \"\", :close \"\", :separator \" \", :items ({:type :html, :content \"<span class='clj-keyword'>:content</span>\", :value \":content\"} {:type :html, :content \"<span class='clj-string'>&quot;&lt;img src=\\\\&quot;https://static.independent.co.uk/s3fs-public/thumbnails/image/2019/06/12/17/the-sun.jpg\\\\&quot;/&gt;&quot;</span>\", :value \"\\\"<img src=\\\\\\\"https://static.independent.co.uk/s3fs-public/thumbnails/image/2019/06/12/17/the-sun.jpg\\\\\\\"/>\\\"\"}), :value \"[:content \\\"<img src=\\\\\\\"https://static.independent.co.uk/s3fs-public/thumbnails/image/2019/06/12/17/the-sun.jpg\\\\\\\"/>\\\"]\"} {:type :list-like, :open \"\", :close \"\", :separator \" \", :items ({:type :html, :content \"<span class='clj-keyword'>:value</span>\", :value \":value\"} {:type :html, :content \"<span class='clj-string'>&quot;123&quot;</span>\", :value \"\\\"123\\\"\"}), :value \"[:value \\\"123\\\"]\"})"}],"value":"[:items ({:type :list-like, :open \"\", :close \"\", :separator \" \", :items ({:type :html, :content \"<span class='clj-keyword'>:type</span>\", :value \":type\"} {:type :html, :content \"<span class='clj-keyword'>:html</span>\", :value \":html\"}), :value \"[:type :html]\"} {:type :list-like, :open \"\", :close \"\", :separator \" \", :items ({:type :html, :content \"<span class='clj-keyword'>:content</span>\", :value \":content\"} {:type :html, :content \"<span class='clj-string'>&quot;&lt;img src=\\\\&quot;https://static.independent.co.uk/s3fs-public/thumbnails/image/2019/06/12/17/the-sun.jpg\\\\&quot;/&gt;&quot;</span>\", :value \"\\\"<img src=\\\\\\\"https://static.independent.co.uk/s3fs-public/thumbnails/image/2019/06/12/17/the-sun.jpg\\\\\\\"/>\\\"\"}), :value \"[:content \\\"<img src=\\\\\\\"https://static.independent.co.uk/s3fs-public/thumbnails/image/2019/06/12/17/the-sun.jpg\\\\\\\"/>\\\"]\"} {:type :list-like, :open \"\", :close \"\", :separator \" \", :items ({:type :html, :content \"<span class='clj-keyword'>:value</span>\", :value \":value\"} {:type :html, :content \"<span class='clj-string'>&quot;123&quot;</span>\", :value \"\\\"123\\\"\"}), :value \"[:value \\\"123\\\"]\"})]"},{"type":"list-like","open":"","close":"","separator":" ","items":[{"type":"html","content":"<span class='clj-keyword'>:value</span>","value":":value"},{"type":"html","content":"<span class='clj-string'>&quot;{:type :html, :content \\&quot;&lt;img src=\\\\\\&quot;https://static.independent.co.uk/s3fs-public/thumbnails/image/2019/06/12/17/the-sun.jpg\\\\\\&quot;/&gt;\\&quot;, :value \\&quot;123\\&quot;}&quot;</span>","value":"\"{:type :html, :content \\\"<img src=\\\\\\\"https://static.independent.co.uk/s3fs-public/thumbnails/image/2019/06/12/17/the-sun.jpg\\\\\\\"/>\\\", :value \\\"123\\\"}\""}],"value":"[:value \"{:type :html, :content \\\"<img src=\\\\\\\"https://static.independent.co.uk/s3fs-public/thumbnails/image/2019/06/12/17/the-sun.jpg\\\\\\\"/>\\\", :value \\\"123\\\"}\"]"}],"value":"{:type :list-like, :open \"<span class='clj-map'>{</span>\", :close \"<span class='clj-map'>}</span>\", :separator \", \", :items ({:type :list-like, :open \"\", :close \"\", :separator \" \", :items ({:type :html, :content \"<span class='clj-keyword'>:type</span>\", :value \":type\"} {:type :html, :content \"<span class='clj-keyword'>:html</span>\", :value \":html\"}), :value \"[:type :html]\"} {:type :list-like, :open \"\", :close \"\", :separator \" \", :items ({:type :html, :content \"<span class='clj-keyword'>:content</span>\", :value \":content\"} {:type :html, :content \"<span class='clj-string'>&quot;&lt;img src=\\\\&quot;https://static.independent.co.uk/s3fs-public/thumbnails/image/2019/06/12/17/the-sun.jpg\\\\&quot;/&gt;&quot;</span>\", :value \"\\\"<img src=\\\\\\\"https://static.independent.co.uk/s3fs-public/thumbnails/image/2019/06/12/17/the-sun.jpg\\\\\\\"/>\\\"\"}), :value \"[:content \\\"<img src=\\\\\\\"https://static.independent.co.uk/s3fs-public/thumbnails/image/2019/06/12/17/the-sun.jpg\\\\\\\"/>\\\"]\"} {:type :list-like, :open \"\", :close \"\", :separator \" \", :items ({:type :html, :content \"<span class='clj-keyword'>:value</span>\", :value \":value\"} {:type :html, :content \"<span class='clj-string'>&quot;123&quot;</span>\", :value \"\\\"123\\\"\"}), :value \"[:value \\\"123\\\"]\"}), :value \"{:type :html, :content \\\"<img src=\\\\\\\"https://static.independent.co.uk/s3fs-public/thumbnails/image/2019/06/12/17/the-sun.jpg\\\\\\\"/>\\\", :value \\\"123\\\"}\"}"}
+;; <=
+
+;; @@
+
+;; @@
+;; =>
+;;; {"type":"html","content":"<span class='clj-nil'>nil</span>","value":"nil"}
+;; <=
+
+;; @@
+(defrecord HI [name])
+(extend-type HI
+  Renderable
+  (render [self]
+          {:type :html
+           :content (html [:p (str "hello, " (:name self))])
+           :value (pr-str self)}))
+;; @@
+;; =>
+;;; {"type":"html","content":"<span class='clj-class'>gorilla_vega.HI</span>","value":"gorilla_vega.HI"}
+;; <=
+
+;; @@
+(HI. "florian")
+;; @@
+;; =>
+;;; {"type":"html","content":["p","hello, florian"],"value":"#gorilla_vega.HI{:name \"florian\"}"}
+;; <=
+
+;; @@
+
+;; @@
