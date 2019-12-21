@@ -17,15 +17,15 @@
     [pinkgorilla.shadow] 
    [module$node_modules$moment$moment]
    [reagent.core :as r]
-   ;[ajax.core :refer [GET POST]]
+   [ajax.core :refer [GET POST]]
    [pinkgorilla.ui.leaflet :refer [mymap]]
    [pinkgorilla.ui.player :refer [player]]
-   [pinkgorilla.ui.sparklines :refer [sparkline sparkline-bar sparkline-spot]]
+   ;[pinkgorilla.ui.sparklines :refer [sparkline sparkline-bar sparkline-spot]]
    )) 
 
 ;; @@
 ;; ->
-;;;  type: data: nil
+;;; shadow cljs eval started.. type: data: nil
 ;; <-
 ;; =>
 ;;; ["^ ","~:type","~:html","~:content",["~:span",["^ ","~:class","clj-nil"],"nil"],"~:value","nil"]
