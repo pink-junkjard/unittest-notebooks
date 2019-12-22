@@ -29,6 +29,18 @@
 ;; <=
 
 ;; @@ [cljs]
+^:r [:div 
+     [:h1 "hello"] 
+     [:p "world"]]
+;; @@
+;; ->
+;;; shadow cljs eval started.. type: data: [:div [:h1 "hello"] [:p "world"]]
+;; <-
+;; =>
+;;; ["^ ","~:type","~:reagent-cljs"]
+;; <=
+
+;; @@ [cljs]
 (pinkgorilla.kernel.cljs-tools/r! [mymap [51.505 -0.09]])
 ;; @@
 ;; ->
@@ -36,6 +48,16 @@
 ;; <-
 ;; =>
 ;;; ["^ ","~:type","~:reagent-cljs","~:content",["^ "]]
+;; <=
+
+;; @@ [cljs]
+^:r [mymap [51.505 -0.09]]
+;; @@
+;; ->
+;;; shadow cljs eval started.. type: data: [#object[pinkgorilla$ui$leaflet$mymap] [51.505 -0.09]]
+;; <-
+;; =>
+;;; ["^ ","~:type","~:reagent-cljs"]
 ;; <=
 
 ;; @@ [cljs]
