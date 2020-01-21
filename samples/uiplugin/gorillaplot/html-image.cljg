@@ -16,6 +16,9 @@
 (use 'pinkgorilla.ui.gorilla-renderable)
 ;; (use 'hiccup.core)
 ;; @@
+;; =>
+;;; ["^ ","~:type","html","~:content",["span",["^ ","~:class","clj-nil"],"nil"],"~:value","nil"]
+;; <=
 
 ;; @@ [clj]
 (defrecord Image [url])
@@ -23,6 +26,9 @@
   [url]
   (html [:img {:src url :height 100 :width 100 :alt "it's an image"}]))
 ;; @@
+;; =>
+;;; ["^ ","~:type","html","~:content",["span",["^ ","~:class","clj-var"],"#'user/image"],"~:value","#'user/image"]
+;; <=
 
 ;; @@ [clj]
 (extend-type Image
@@ -32,16 +38,23 @@
            :content (image (:url self))
            :value (pr-str self)}))
 ;; @@
+;; =>
+;;; ["^ ","~:type","html","~:content",["span",["^ ","~:class","clj-nil"],"nil"],"~:value","nil"]
+;; <=
 
 ;; @@ [clj]
 (Image. "https://cdn.mos.cms.futurecdn.net/yyvvM9kwaVGySFE6aXXoJL-320-80.jpg")
-(Image. "https://pbs.twimg.com/profile_images/641353910561566720/VSxsyxs7.jpg")
 ;; @@
+;; =>
+;;; ["^ ","~:type","html","~:content","<img alt=\"it&apos;s an image\" height=\"100\" src=\"https://cdn.mos.cms.futurecdn.net/yyvvM9kwaVGySFE6aXXoJL-320-80.jpg\" width=\"100\" />","~:value","#user.Image{:url \"https://cdn.mos.cms.futurecdn.net/yyvvM9kwaVGySFE6aXXoJL-320-80.jpg\"}"]
+;; <=
 
 ;; @@ [clj]
 (println (image "https://pbs.twimg.com/profile_images/641353910561566720/VSxsyxs7.jpg"))
 ;; @@
-
-;; @@ [clj]
-
-;; @@
+;; ->
+;;; <img alt="it&apos;s an image" height="100" src="https://pbs.twimg.com/profile_images/641353910561566720/VSxsyxs7.jpg" width="100" />
+;; <-
+;; =>
+;;; ["^ ","~:type","html","~:content",["span",["^ ","~:class","clj-nil"],"nil"],"~:value","nil"]
+;; <=
