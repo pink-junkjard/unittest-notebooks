@@ -34,7 +34,6 @@
 (println (image "https://pbs.twimg.com/profile_images/641353910561566720/VSxsyxs7.jpg"))
 ;; @@
 ;; ->
-;;; [:img {:src https://pbs.twimg.com/profile_images/641353910561566720/VSxsyxs7.jpg, :height 100, :width 100, :alt it's an image}][:img {:src https://pbs.twimg.com/profile_images/641353910561566720/VSxsyxs7.jpg, :height 100, :width 100, :alt it's an image}]
 ;;; [:img {:src https://pbs.twimg.com/profile_images/641353910561566720/VSxsyxs7.jpg, :height 100, :width 100, :alt it's an image}]
 ;; <-
 ;; =>
