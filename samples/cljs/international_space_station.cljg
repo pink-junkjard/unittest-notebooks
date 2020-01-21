@@ -22,29 +22,17 @@
 
 ;; @@
 ;; ->
-;;; shadow cljs eval started.. type: data: nil
+;;;  type: data: nil
 ;; <-
 ;; =>
 ;;; ["^ ","~:type","~:html","~:content",["~:span",["^ ","~:class","clj-nil"],"nil"],"~:value","nil"]
 ;; <=
 
 ;; @@ [cljs]
-^:r [:div 
-     [:h1 "hello"] 
-     [:p "world"]]
-;; @@
-;; ->
-;;; shadow cljs eval started.. type: data: [:div [:h1 "hello"] [:p "world"]]
-;; <-
-;; =>
-;;; ["^ ","~:type","~:reagent-cljs"]
-;; <=
-
-;; @@ [cljs]
 (pinkgorilla.kernel.cljs-tools/r! [mymap [51.505 -0.09]])
 ;; @@
 ;; ->
-;;; shadow cljs eval started.. type: data: #object[pinkgorilla.kernel.cljs-tools.t_pinkgorilla$kernel$cljs_tools88631]
+;;;  type: data: #object[pinkgorilla.kernel.cljs-tools.t_pinkgorilla$kernel$cljs_tools83749]
 ;; <-
 ;; =>
 ;;; ["^ ","~:type","~:reagent-cljs","~:content",["^ "]]
@@ -54,64 +42,10 @@
 ^:r [mymap [51.505 -0.09]]
 ;; @@
 ;; ->
-;;; shadow cljs eval started.. type: data: [#object[pinkgorilla$ui$leaflet$mymap] [51.505 -0.09]]
+;;;  type: data: [#object[pinkgorilla$ui$leaflet$mymap] [51.505 -0.09]]
 ;; <-
 ;; =>
-;;; ["^ ","~:type","~:reagent-cljs"]
-;; <=
-
-;; @@ [cljs]
-;; http://open-notify.org/Open-Notify-API/ISS-Location-Now/
-(def x (r/atom {}))
-(defn handler [response]
-  (.log js/console (str "data rcvd: " response))
-  (reset! x response)
-  )
-(GET "http://api.open-notify.org/iss-now.json" 
-     :response-format :json 
-     :keywords? true
-     :handler handler) 
-;; @@
-;; ->
-;;; shadow cljs eval started.. type: data: #object[Object [object Object]]
-;; <-
-;; =>
-;;; ["^ ","~:type","~:html","~:content",["~:span",["^ ","~:class","clj-unknown"],"#object[Object [object Object]]"],"~:value","#object[Object [object Object]]"]
-;; <=
-
-;; @@ [cljs]
-;@x
-;(get-in @x [:iss_position :latitude ])
-(def p [ (js/parseFloat (get-in @x [:iss_position :latitude]))
-        (js/parseFloat (get-in @x [:iss_position :longitude]))]
-        )
-p
-;; @@
-;; ->
-;;; shadow cljs eval started.. type: data: [-46.4415 -122.7983]
-;; <-
-;; =>
-;;; ["^ ","~:type","~:list-like","~:open",["~:span",["^ ","~:class","clj-vector"],"["],"~:close",["^3",["^ ","^4","clj-vector"],"]"],"~:separator",["^3"," "],"~:items",["~#list",[["^ ","^0","~:html","~:content",["^3",["^ ","^4","clj-long"],"-46.4415"],"~:value","-46.4415"],["^ ","^0","^9","^:",["^3",["^ ","^4","clj-long"],"-122.7983"],"^;","-122.7983"]]],"^;","[-46.4415 -122.7983]"]
-;; <=
-
-;; @@ [cljs]
-p
-;; @@
-;; ->
-;;; shadow cljs eval started.. type: data: [-46.4415 -122.7983]
-;; <-
-;; =>
-;;; ["^ ","~:type","~:list-like","~:open",["~:span",["^ ","~:class","clj-vector"],"["],"~:close",["^3",["^ ","^4","clj-vector"],"]"],"~:separator",["^3"," "],"~:items",["~#list",[["^ ","^0","~:html","~:content",["^3",["^ ","^4","clj-long"],"-46.4415"],"~:value","-46.4415"],["^ ","^0","^9","^:",["^3",["^ ","^4","clj-long"],"-122.7983"],"^;","-122.7983"]]],"^;","[-46.4415 -122.7983]"]
-;; <=
-
-;; @@ [cljs]
-(pinkgorilla.kernel.cljs-tools/r! [mymap p])
-;; @@
-;; ->
-;;; shadow cljs eval started.. type: data: #object[pinkgorilla.kernel.cljs-tools.t_pinkgorilla$kernel$cljs_tools88631]
-;; <-
-;; =>
-;;; ["^ ","~:type","~:reagent-cljs","~:content",["^ "]]
+;;; ["^ ","~:type","~:reagent-cljs","~:map-keywords",false]
 ;; <=
 
 ;; @@ [clj]
