@@ -24,7 +24,9 @@
 ;; @@ [clj]
 (ns demo.matrix
   (:require [pinkgorilla.helper :refer [add-dependencies]]))
-(add-dependencies '[org.pinkgorilla/gorilla-renderable "2.1.0"])
+(add-dependencies '[[org.pinkgorilla/gorilla-renderable "3.0.0"]
+                    [net.mikera/core.matrix "0.62.0"]])
+
 (use 'clojure.core.matrix)
 (use 'pinkgorilla.ui.gorilla-renderable)
 ;; @@
@@ -121,7 +123,3 @@ i
 ;; =>
 ;;; ["^ ","~:type","list-like","~:open","<center><table>","~:close","</table></center>","~:separator","\n","~:items",[["^ ","^0","list-like","^1","<tr><td>","^2","</td></tr>","^3","</td><td>","^4",[["^ ","^0","html","~:content",["span",["^ ","~:class","clj-long"],"1"],"~:value","1"],["^ ","^0","html","^5",["span",["^ ","^6","clj-long"],"2"],"^7","2"],["^ ","^0","html","^5",["span",["^ ","^6","clj-long"],"5"],"^7","5"]],"^7","[1 2 5]"],["^ ","^0","list-like","^1","<tr><td>","^2","</td></tr>","^3","</td><td>","^4",[["^ ","^0","html","^5",["span",["^ ","^6","clj-long"],"3"],"^7","3"],["^ ","^0","html","^5",["span",["^ ","^6","clj-long"],"4"],"^7","4"],["^ ","^0","html","^5",["span",["^ ","^6","clj-long"],"5"],"^7","5"]],"^7","[3 4 5]"],["^ ","^0","list-like","^1","<tr><td>","^2","</td></tr>","^3","</td><td>","^4",[["^ ","^0","html","^5",["span",["^ ","^6","clj-long"],"1"],"^7","1"],["^ ","^0","html","^5",["span",["^ ","^6","clj-long"],"2"],"^7","2"],["^ ","^0","html","^5",["span",["^ ","^6","clj-long"],"1"],"^7","1"]],"^7","[1 2 1]"]],"^7","#demo.matrix.MatrixView{:contents [[1 2 5] [3 4 5] [1 2 1]]}"]
 ;; <=
-
-;; @@ [clj]
-
-;; @@
