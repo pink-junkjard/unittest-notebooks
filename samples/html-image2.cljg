@@ -21,13 +21,6 @@
 ;; <=
 
 ;; @@ [clj]
-; TEST TEST
-;; @@
-;; ->
-;;; 
-;; <-
-
-;; @@ [clj]
 (defrecord Image [url])
 (defn image [url]
   [:img {:src url :height 100 :width 100 :alt "it's an image"}])
@@ -61,20 +54,8 @@
 ;; <=
 
 ;; @@ [clj]
-(Image. "https://pbs.twimg.com/profile_images/641353910561566720/VSxsyxs7.jpg")
-
-;; @@
-;; =>
-;;; ["^ ","~:type","html","~:content",["img",["^ ","~:src","https://pbs.twimg.com/profile_images/641353910561566720/VSxsyxs7.jpg","~:height",100,"~:width",100,"~:alt","it's an image"]],"~:value","#undisturbed_pebble.Image{:url \"https://pbs.twimg.com/profile_images/641353910561566720/VSxsyxs7.jpg\"}"]
-;; <=
-
-;; @@ [clj]
 (Image. "https://cdn.mos.cms.futurecdn.net/yyvvM9kwaVGySFE6aXXoJL-320-80.jpg")
 ;; @@
 ;; =>
 ;;; ["^ ","~:type","html","~:content",["img",["^ ","~:src","https://cdn.mos.cms.futurecdn.net/yyvvM9kwaVGySFE6aXXoJL-320-80.jpg","~:height",100,"~:width",100,"~:alt","it's an image"]],"~:value","#undisturbed_pebble.Image{:url \"https://cdn.mos.cms.futurecdn.net/yyvvM9kwaVGySFE6aXXoJL-320-80.jpg\"}"]
 ;; <=
-
-;; @@ [clj]
-
-;; @@
