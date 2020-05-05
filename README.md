@@ -1,3 +1,4 @@
-# sample-notebooks
+# unittest-notebooks
 
-Sample Notebooks for Pink-Gorilla Notebook
+Notebooks used in Unittests for Pink-Gorilla Notebook
+used by notebook-encoding.
