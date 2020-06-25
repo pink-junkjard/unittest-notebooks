@@ -1,4 +1,7 @@
 # unittest-notebooks
 
-Notebooks used in Unittests for Pink-Gorilla Notebook
-used by notebook-encoding.
+- Please ignote this repo.
+
+- It is used in Unittests for Pink-Gorilla Notebook encoding
+
+- used by pink-gorilla/notebook-encoding.
